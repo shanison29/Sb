@@ -1949,14 +1949,17 @@ spawn(function()
 
 while task.wait() do
 
-	if ASTOPP and Pause and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if ASTOPP and Pause and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 			--game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Anchored = false
 			game.Players.LocalPlayer.Character.Humanoid.Health = 0
-	elseif Sfarmdone and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-              game.Players.LocalPlayer.Character.Humanoid.Health = 0
+end
+if Sfarmdone and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then 
+             game.Players.LocalPlayer.Character.Humanoid.Health = 0
+end
+if Sfarmdone and not game.Players.LocalPlayer.Character:FindFirstChild("entered") then
               task.wait(20)
               Teleport()
-	end
+end
 task.wait()
 end
 
@@ -2226,5 +2229,5 @@ Tab5:AddButton({
   	end    
 })
 
-task.wait(5)
+task.wait(3)
 OrionLib:Init()
