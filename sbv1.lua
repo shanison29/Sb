@@ -2226,5 +2226,5 @@ Tab5:AddButton({
   	end    
 })
 
-
+task.wait(5)
 OrionLib:Init()
