@@ -1352,18 +1352,11 @@ Callback = function(Vrock)
 Hrock = Vrock
 
 
-if Hrock == "ON" then
+while Hrock == "ON" and task.wait() do
 		for _,v in pairs(game:GetService("Players"):GetChildren()) do
 			if v.Character:FindFirstChild("rock") then
 				v.Character:FindFirstChild("rock").CanTouch = false
 				v.Character:FindFirstChild("rock").CanQuery = false
-			end
-		end
-else 
-		for _,v in pairs(game:GetService("Players"):GetChildren()) do
-			if v.Character:FindFirstChild("rock") then
-				v.Character:FindFirstChild("rock").CanTouch = true
-				v.Character:FindFirstChild("rock").CanQuery = true
 			end
 		end
 end
@@ -1453,7 +1446,7 @@ end
 
 function TPReturner()
 
-    local Site;
+    local Site
     
     if foundAnything == "" then
         Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
@@ -1507,6 +1500,7 @@ end
 
 
 function Teleport()
+task.wait(20)
 OrionLib:MakeNotification({
 	Name = "Teleporting",
 	Content = "Please Wait....",
@@ -1552,7 +1546,7 @@ end
 
 function Sfarm()
 
-if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") then
+if not Sfarmdone and not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") then
 	local gloveClickk = game.Players.LocalPlayer.leaderstats.Glove.Value
 	fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
 	task.wait(.3)
@@ -1565,13 +1559,13 @@ if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Pla
 	until game.Players.LocalPlayer.Character:WaitForChild("isInArena").Value == true
 	game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-431, 104, -32)
-task.wait(1)
     for _,v in pairs(workspace.Arena:GetDescendants()) do
          if string.find(v.Name, "Slapple") and v:FindFirstChild("Glove") and v.Glove:FindFirstChildOfClass("TouchTransmitter") then
             firetouchinterest(game.Players.LocalPlayer.Character.Head, v.Glove, 0)
 			firetouchinterest(game.Players.LocalPlayer.Character.Head, v.Glove, 1)
             wait(0.05)
             else
+            task.wait(2)
             Sfarmdone = true
         end
      end
@@ -1956,7 +1950,6 @@ if Sfarmdone and game.Players.LocalPlayer.Character:FindFirstChild("entered") an
              game.Players.LocalPlayer.Character.Humanoid.Health = 0
 end
 if Sfarmdone and not game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-              task.wait(20)
               Teleport()
 end
 task.wait()
@@ -2228,5 +2221,5 @@ Tab5:AddButton({
   	end    
 })
 
-task.wait(3)
+task.wait(1)
 OrionLib:Init()
