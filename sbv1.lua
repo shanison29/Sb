@@ -1540,7 +1540,6 @@ if not Sfarmdone and not game.Players.LocalPlayer.Character:FindFirstChild("ente
 			firetouchinterest(game.Players.LocalPlayer.Character.Head, v.Glove, 1)
             wait(0.05)
             else
-            task.wait(2)
             Sfarmdone = true
         end
      end
