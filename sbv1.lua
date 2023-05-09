@@ -179,8 +179,7 @@ local PUSHH = "OFF"
 local Reaper = "OFF"
 local Amail = "OFF"
 local Astun = "OFF"
-local Hrock = "OFF"
-local Asquid = "OFF"
+local Hrock = "OFF"
 local Abubble = "OFF"
 local Lockpos = "OFF"
 
@@ -1297,7 +1296,7 @@ Amail = Vblock
 
 while Amail == "ON" and task.wait() do
 	for _,v in pairs(LocalPlayer.PlayerGui:GetChildren()) do
-		if v.Name == "VineThudImageScreenGUI" or v.Name == "MailPopup" or v.Name == "MittenBlind" then 
+		if v.Name == "VineThudImageScreenGUI" or v.Name == "MailPopup" or v.Name == "MittenBlind" or v.Name == "SquidInk" then 
 			v:Destroy();
 		end
 	end
@@ -1364,31 +1363,7 @@ end
 end
 })
 
-
-
----------------------------------------
-
-
-
-Tab3:AddDropdown({
-Name = "Anti Squid",
-Default = "OFF",
-Options = {"OFF", "ON"},
-Flag = "Asquidt",
-Callback = function(Vsquid)
-Asquid = Vsquid
-
-while Asquid == "ON" and task.wait() do              
-	for i,v in pairs(game.Players.LocalPlayer.PlayerGui.SquidInk:GetChildren()) do        
-		if v.Parent then             
-		v:Destroy()               
-		end
-	end
-task.wait()
-end
-
-end    
-})
+
 
 
 
@@ -2130,8 +2105,7 @@ Callback = function()
 	OrionLib.Flags["Reapert"]:Set("OFF")
 	OrionLib.Flags["Amailt"]:Set("OFF")
 	OrionLib.Flags["Astunt"]:Set("OFF")
-	OrionLib.Flags["Hrockt"]:Set("OFF")
-	OrionLib.Flags["Asquidt"]:Set("OFF")
+	OrionLib.Flags["Hrockt"]:Set("OFF")
 	OrionLib.Flags["Abubblet"]:Set("OFF")
 	OrionLib.Flags["Lockpost"]:Set("OFF")
 
