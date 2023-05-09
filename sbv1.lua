@@ -136,7 +136,7 @@ local Myself = {
 
 --Player Counter
 local playernum = 0
-local numtopause = 5
+local numtofarm = 9
 
 --Save and lock Position
 local Savepos
@@ -179,7 +179,8 @@ local PUSHH = "OFF"
 local Reaper = "OFF"
 local Amail = "OFF"
 local Astun = "OFF"
-local Hrock = "OFF"
+local Hrock = "OFF"
+
 local Abubble = "OFF"
 local Lockpos = "OFF"
 
@@ -490,7 +491,9 @@ elseif PF == "OFF" then
 end
 
 while PFARM and task.wait() do
-if not Pause then
+if playernum >= numtofarm then
+   Pause = false
+   if not Pause then
       if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:WaitForChild("Torso").Transparency == 0 then
             game.Players.LocalPlayer.Character.Humanoid.Health = 0
       elseif not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
@@ -526,10 +529,12 @@ if not Pause then
                   end
 
       end
+   end
+else
+Pause = true
+task.wait(2)
 end
-task.wait()
 end
-
 
 end
 })
@@ -1363,7 +1368,8 @@ end
 end
 })
 
-
+
+
 
 
 
@@ -1904,7 +1910,6 @@ while task.wait() do
 			end
 		end
 	end
-task.wait()
 end
 
 end)
@@ -1944,7 +1949,6 @@ while task.wait() do
 		task.wait(SoundDelay)
 		end
 	end
-task.wait()
 end
 
 end)
@@ -1990,7 +1994,6 @@ while task.wait() do
          end
       end)
 	end
-task.wait()
 end
 
 end)
@@ -2041,7 +2044,6 @@ while task.wait() do
 			end
 		end
 	end
-task.wait()
 end
 
 end)
@@ -2104,7 +2106,8 @@ Callback = function()
 	OrionLib.Flags["Reapert"]:Set("OFF")
 	OrionLib.Flags["Amailt"]:Set("OFF")
 	OrionLib.Flags["Astunt"]:Set("OFF")
-	OrionLib.Flags["Hrockt"]:Set("OFF")
+	OrionLib.Flags["Hrockt"]:Set("OFF")
+
 	OrionLib.Flags["Abubblet"]:Set("OFF")
 	OrionLib.Flags["Lockpost"]:Set("OFF")
 
@@ -2194,5 +2197,4 @@ Tab5:AddButton({
   	end    
 })
 
-task.wait(1)
 OrionLib:Init()
