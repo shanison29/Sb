@@ -220,7 +220,7 @@ shared.gloveHits = {
     ["Elude"] = game.ReplicatedStorage.GeneralHit,
     ["Glitch"] = game.ReplicatedStorage.GeneralHit,
     ["Snowball"] = game.ReplicatedStorage.GeneralHit,
-    ["🗿"] = game.ReplicatedStorage.GeneralHit,
+    ["ðŸ—¿"] = game.ReplicatedStorage.GeneralHit,
     ["Obby"] = game.ReplicatedStorage.GeneralHit,
     ["Voodoo"] = game.ReplicatedStorage.GeneralHit,
     ["Leash"] = game.ReplicatedStorage.GeneralHit,
@@ -516,7 +516,7 @@ if playernum >= numtofarm then
       
       elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:WaitForChild("Torso").Transparency == 1 then
                for i, v in next, game.Players:GetPlayers() do
-                      if v ~= game.Players.LocalPlayer and v.Character and not v.Character:FindFirstChild("isParticipating") and v.Character:FindFirstChild("Torso") and v.Character:FindFirstChild("Head") and v.Character:WaitForChild("isInArena").Value == true and v.Character:WaitForChild("isInDefaultArena").Value == false and v.Character.Head:FindFirstChild("UnoReverseCard") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
+                      if v ~= game.Players.LocalPlayer and v.Character and not v.Character:FindFirstChild("isParticipating") and v.Character:FindFirstChild("Torso") and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("entered") and v.Character.Head:FindFirstChild("UnoReverseCard") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
                                   game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = v.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
                                   task.wait()
                                   game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
