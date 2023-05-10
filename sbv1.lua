@@ -337,7 +337,11 @@ end)
 queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
 
 queueteleport([[
+if game.PlaceId ~= 6403373529 then
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, 6403373529)
+else
 loadstring(game:HttpGet('https://raw.githubusercontent.com/shanison29/Sb/main/sbv1.lua'))()
+end
 ]])
 
 
