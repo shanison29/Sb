@@ -1917,10 +1917,9 @@ end
 end)
 
 
-
+---------------------------
 
 spawn(function()
-
 while task.wait() do
 
 if ASTOPP and Pause and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
@@ -1928,14 +1927,17 @@ if ASTOPP and Pause and game.Players.LocalPlayer.Character:FindFirstChild("Human
 			game.Players.LocalPlayer.Character.Humanoid.Health = 0
 end
 if Sfarmdone and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then 
+             task.wait(3)
              game.Players.LocalPlayer.Character.Humanoid.Health = 0
 end
 if Sfarmdone and not game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+               task.wait(3)
+              game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Anchored = true
               Teleport()
 end
+
 task.wait()
 end
-
 end)
 
 
