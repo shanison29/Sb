@@ -112,9 +112,16 @@ local Window = OrionLib:MakeWindow({Name = "Koolkat", HidePremium = false, Intro
 local virtualUser = game:GetService('VirtualUser')
 local vim = game:service'VirtualInputManager'
 
-local Players = game:GetService('Players')
+
+
+local Player = game:GetService("Players").LocalPlayer -- getting the player/local player using this script
+local Character = Player.Character or Player.CharacterAdded:Wait() -- getting players character
+local RootPart = Character:WaitForChild("HumanoidRootPart") -- getting there HumanoidRootPart
+local Humanoid = Character:WaitForChild("Humanoid")
+local FRootPart = Character:FindFirstChild("HumanoidRootPart") -- getting there HumanoidRootPart
+local FHumanoid = Character:FindFirstChild("Humanoid")
+
 local ReplicatedStorage = game:GetService('ReplicatedStorage')
-local LocalPlayer = Players.LocalPlayer
 
 --Aura
 local MaxDistance = 20
@@ -321,15 +328,15 @@ shared.gloveHits = {
 
 
 local function getGlove()
-return game.Players.LocalPlayer.leaderstats.Glove.Value
+return Player.leaderstats.Glove.Value
 end
 
 
 ----------------Auto rejoin on kick----------
 
 
-game.Players.PlayerRemoving:connect(function(mee)
-    if mee == game.Players.LocalPlayer then
+game:GetService("Players").PlayerRemoving:connect(function(mee)
+    if mee == Player then
       game:GetService('TeleportService'):Teleport(game.PlaceId)
     end
 end)
@@ -348,7 +355,7 @@ end
 local countdisplay = Tab:AddLabel("-- Player Count:  "..tostring(playernum + 1).."  --")
 
 for i,v in pairs(game:GetService("Players"):GetChildren())do 
-    if v ~= game:GetService("Players").LocalPlayer then 
+    if v ~= Player then 
         playernum = playernum + 1
 		countdisplay:Set("-- Player Count:  "..tostring(playernum).."  --")
     end
@@ -396,7 +403,7 @@ elseif AS == "OFF" then
 end
 
 while ASS and task.wait() do
-	if not Pause and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+	if not Pause and Character:FindFirstChild("entered") then
 		virtualUser:CaptureController()
 		virtualUser:ClickButton1(Vector2.new(120,120))
 	end
@@ -434,15 +441,15 @@ end
 
 
 while KAA and task.wait() do
-	if not Pause and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+	if not Pause and Character:FindFirstChild("entered") and FRootPart then
 
       pcall(function()
             for i, v in next, game:GetService("Players"):GetPlayers() do
-                if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("entered") then
+                if v ~= Player and v.Character and v.Character:FindFirstChild("entered") then
                       if v.Character:FindFirstChild("Head") then
                             if v.Character.Head:FindFirstChild("UnoReverseCard") == nil and v.Character:FindFirstChild("rock") == nil then 
-                                 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-                                    local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+                                 if FRootPart then
+                                    local Magnitude = (Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                                       if MaxDistance >= Magnitude then
                                         shared.gloveHits[getGlove()]:FireServer(v.Character:WaitForChild("Head"))
                                       end
@@ -494,47 +501,42 @@ end
 
 while PFARM and task.wait() do
 if playernum >= numtofarm then
-   Pause = false
-   if not Pause then
-      if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:WaitForChild("Torso").Transparency == 0 then
-            game.Players.LocalPlayer.Character.Humanoid.Health = 0
-      elseif not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+      if Character:FindFirstChild("entered") and Character:FindFirstChild("Torso").Transparency == 0 then
+            Humanoid.Health = 0
+      elseif not Character:FindFirstChild("entered") and FRootPart then
             workspace.DEATHBARRIER.CanTouch = false
             workspace.DEATHBARRIER2.CanTouch = false
             workspace.dedBarrier.CanTouch = false
             task.wait(1)
-			local gloveClickk = game.Players.LocalPlayer.leaderstats.Glove.Value
+			local gloveClickk = Player.leaderstats.Glove.Value
 			task.wait(.3)
 			fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
 			task.wait(.3)
-			game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+			ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 			task.wait(.3)
 			fireclickdetector(game.Workspace.Lobby[gloveClickk].ClickDetector)
 			repeat task.wait()
-	firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-	firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	       until game.Players.LocalPlayer.Character:WaitForChild("isInArena").Value == true
-			game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+	firetouchinterest(Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+	firetouchinterest(Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+	       until Character:WaitForChild("isInArena").Value == true
+			Humanoid:UnequipTools()
       
-      elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:WaitForChild("Torso").Transparency == 1 then
+      elseif Character:FindFirstChild("entered") and FRootPart and Character:FindFirstChild("Torso").Transparency == 1 then
                for i, v in next, game.Players:GetPlayers() do
-                      if v ~= game.Players.LocalPlayer and v.Character and not v.Character:FindFirstChild("isParticipating") and v.Character:FindFirstChild("Torso") and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("entered") and v.Character.Head:FindFirstChild("UnoReverseCard") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
-                                  game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = v.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
+                      if v ~= Player and v.Character and not v.Character:FindFirstChild("isParticipating") and v.Character:FindFirstChild("Torso") and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("entered") and v.Character.Head:FindFirstChild("UnoReverseCard") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
+                                  RootPart.CFrame = v.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
                                   task.wait()
-                                  game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
-                                  wait(.25)
+                                  Humanoid.PlatformStand = true
+                                  wait(.20)
                                   shared.gloveHits[getGlove()]:FireServer(v.Character:FindFirstChild("Torso"))
-                                   wait(.25)
-                                  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = SafeMArena
+                                   wait(.20)
+                                  RootPart.CFrame = SafeMArena
                                   task.wait(randomw)
                           end
                   end
 
-      end
-   end
-else
-Pause = true
-task.wait(2)
+       end
+ 
 end
 end
 
@@ -558,36 +560,33 @@ end
 
 while MAINNG and task.wait() do
 	if not Pause then
-		if not ACTIVE and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:WaitForChild("Torso").Transparency == 0 then
-			game.Players.LocalPlayer.Character.Humanoid.Health = 0
-		elseif not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+		if not ACTIVE and Character:FindFirstChild("entered") and FRootPart and Character:FindFirstChild("Torso").Transparency == 0 then
+			Humanoid.Health = 0
+		elseif not ACTIVE and not Character:FindFirstChild("entered") and FRootPart then
             task.wait(1)
-			local gloveClickk = game.Players.LocalPlayer.leaderstats.Glove.Value
+			local gloveClickk = Player.leaderstats.Glove.Value
 			task.wait(.3)
 			fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
 			task.wait(.3)
-			game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+			ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 			task.wait(.3)
 			fireclickdetector(game.Workspace.Lobby[gloveClickk].ClickDetector)
 			repeat task.wait(.5)
-	firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-	firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	until game.Players.LocalPlayer.Character:WaitForChild("isInArena").Value == true
-			game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = SafeMArena
+	firetouchinterest(Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+	firetouchinterest(Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+	        until Character:FindFirstChild("isInArena").Value == true
+			Humanoid:UnequipTools()
+			RootPart.CFrame = SafeMArena
 			ACTIVE = true
-		elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:WaitForChild("Torso").Transparency == 1 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+		elseif ACTIVE and Character:FindFirstChild("entered") and Character:FindFirstChild("Torso").Transparency == 1 and FRootPart then
 		    ACTIVE = true
 			repeat
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = SafeMArena
 			task.wait(1)
-			until game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Died
+			RootPart.CFrame = SafeMArena
+			until Humanoid.Died
 			ACTIVE = false
 		end
-	else
-	ACTIVE = false
 	end
-task.wait()
 end
 
 end
