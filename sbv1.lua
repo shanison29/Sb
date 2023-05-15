@@ -1804,7 +1804,6 @@ end
 ---------------------------------
 
 if SLAPPLEEEE then
-local Slapples = {}
 if not Sfarmdone and not Entered and RootPart and Humanoid then
 	local gloveClickk = localPlayer.leaderstats.Glove.Value
 	fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
@@ -1823,7 +1822,7 @@ if not Sfarmdone and not Entered and RootPart and Humanoid then
             firetouchinterest(Head, v.Glove, 0)
 			firetouchinterest(Head, v.Glove, 1)
             wait(0.05)
-            else if v:FindFirstChild("Glove") and not v.Glove:FindFirstChildOfClass("TouchTransmitter") then
+            elseif v:FindFirstChild("Glove") and v.Glove:FindFirstChildOfClass("TouchTransmitter") == nil then
             Sfarmdone = true
         end
      end
