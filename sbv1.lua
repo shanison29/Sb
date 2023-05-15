@@ -1199,6 +1199,11 @@ Button.Draggable = true
 
 
 Button.MouseButton1Click:Connect(function()
+workspace.DEATHBARRIER.CanTouch = false
+workspace.DEATHBARRIER2.CanTouch = false
+workspace.dedBarrier.CanTouch = false
+OrionLib.Flags["BRAZt"]:Set("ON")
+task.wait(1)
 if plrname ~= nil then
     OrionLib:MakeNotification({
 	Name = "Brazil Kick...",
@@ -1218,6 +1223,11 @@ for i,v in pairs(players:GetPlayers()) do
 				localPlayer.Character.HumanoidRootPart.Anchored = true
 				task.wait(3.5)
 				localPlayer.Character.Humanoid.Health = 0
+				task.wait(1)
+				workspace.DEATHBARRIER.CanTouch = false
+                workspace.DEATHBARRIER2.CanTouch = false
+                workspace.dedBarrier.CanTouch = false
+				OrionLib.Flags["BRAZt"]:Set("OFF")
              end
        end
 end
@@ -1330,7 +1340,7 @@ end)
 ---------------------------
 
 spawn(function()
-while task.wait() do
+while wait() do
 
 if ASTOPP and Pause and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") and localPlayer.Character:FindFirstChild("entered") then
 			--character.HumanoidRootPart.Anchored = false
@@ -1340,19 +1350,30 @@ elseif Sfarmdone and localPlayer.Character:FindFirstChild("entered") and localPl
              localPlayer.Character.Humanoid.Health = 0
 
 elseif Sfarmdone and not localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:FindFirstChild("Humanoid") and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
-               task.wait(2)
-              localPlayer.Character.HumanoidRootPart.Anchored = true
-              Teleportslapple()
+            local gloveClickk = localPlayer.leaderstats.Glove.Value
+			task.wait(.3)
+			fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
+			task.wait(.3)
+			ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+			task.wait(.3)
+			fireclickdetector(game.Workspace.Lobby[gloveClickk].ClickDetector)
+			repeat task.wait()
+	firetouchinterest(Head, workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
+	firetouchinterest(Head, workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
+	until character:WaitForChild("isInArena").Value == true
+			Humanoid:UnequipTools()
+		    RootPart.CFrame = SafeMDefault
+		    task.wait(0.2)
+            Teleportslapple()
 end
 
-task.wait(1)
 end
 end)
 
 -----SOUND ALERT-----
 
 spawn(function()
-while task.wait() do
+while wait() do
 	if ASTOPP or ADMINN then
 		if Pause then
 		UserSettings():GetService'UserGameSettings'.MasterVolume = 5
@@ -1639,7 +1660,7 @@ if playernum >= numtofarm then
                                   shared.gloveHits[getGlove()]:FireServer(v.Character:FindFirstChild("Torso"))
                                    wait(.20)
                                   HumanoidRootPart.CFrame = SafeMArena
-                                  task.wait(randomw)
+                                  wait(randomw)
                           end
                   end
        end
@@ -1721,6 +1742,9 @@ if MAINNNG then
 		if not ACTIVE and Entered and RootPart and Humanoid and Torso.Transparency == 0 then
 			Humanoid.Health = 0
 		elseif not Entered and RootPart and Humanoid then
+		    workspace.DEATHBARRIER.CanTouch = false
+            workspace.DEATHBARRIER2.CanTouch = false
+            workspace.dedBarrier.CanTouch = false
             task.wait(1)
 			local gloveClickk = localPlayer.leaderstats.Glove.Value
 			task.wait(.3)
@@ -1742,6 +1766,9 @@ if MAINNNG then
 			RootPart.CFrame = SafeMDefault
 			task.wait(1)
 			until Humanoid.Died
+			workspace.DEATHBARRIER.CanTouch = true
+            workspace.DEATHBARRIER2.CanTouch = true
+            workspace.dedBarrier.CanTouch = true
 		end
 	else
 	ACTIVE = false
@@ -1755,6 +1782,9 @@ if ALTTTG then
 		if not ACTIVE and Entered and RootPart and Humanoid and Torso.Transparency == 0 then
 			Humanoid.Health = 0
 		elseif not Entered and RootPart and Humanoid then
+		    workspace.DEATHBARRIER.CanTouch = false
+            workspace.DEATHBARRIER2.CanTouch = false
+            workspace.dedBarrier.CanTouch = false
             task.wait(1)
 			local gloveClickk = localPlayer.leaderstats.Glove.Value
 			task.wait(.3)
@@ -1776,6 +1806,9 @@ if ALTTTG then
 			RootPart.CFrame = SafeADefault
 			task.wait(1)
 			until Humanoid.Died
+			workspace.DEATHBARRIER.CanTouch = true
+            workspace.DEATHBARRIER2.CanTouch = true
+            workspace.dedBarrier.CanTouch = true
 		end
 	else
 	ACTIVE = false
