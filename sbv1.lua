@@ -388,7 +388,7 @@ while ASS and task.wait() do
 		virtualUser:CaptureController()
 		virtualUser:ClickButton1(Vector2.new(120,120))
 	end
-task.wait()
+wait()
 end
 
 end
@@ -576,7 +576,7 @@ if SLAPPLEEE == "ON" then
 	Name = "Notice..",
 	Content = "Auto Slapple Farm Enabled..",
 	Image = "rbxassetid://4483345998",
-	Time = 30
+	Time = 10
 	})
 elseif SLAPPLEEE == "OFF" then
 	SLAPPLEEEE = false
@@ -1143,7 +1143,7 @@ Lockpos = Vlock
 if Lockpos == "ON" then
    if Savepos ~= nil then
 	localPlayer.Character.HumanoidRootPart.CFrame = Savepos
-	task.wait(.5)
+	wait(.5)
 	localPlayer.Character.HumanoidRootPart.Anchored = true
 	else
 	OrionLib:MakeNotification({
@@ -1418,7 +1418,7 @@ if Antinametag == "ON" then
 	Name = "Notice..",
 	Content = "Name is now Hidden..",
 	Image = "rbxassetid://4483345998",
-	Time = 3
+	Time = 4
 	})
 elseif Antinametag == "OFF" then
 	if NAMETT then
@@ -1797,7 +1797,7 @@ local TargetPart = nil
 			task.wait(1.2)
 			Humanoid.Health = 0
 	end
-task.wait()
+wait()
 end
 
 ---------------------------------
@@ -1901,7 +1901,13 @@ function TPReturner()
 end
 
 function Teleportslapple()
-wait(20)
+OrionLib:MakeNotification({
+	Name = "Please Wait",
+	Content = "Cooldown before teleport to avoid Server Hop IP ban",
+	Image = "rbxassetid://4483345998",
+	Time = 16
+	})
+wait(18)
 OrionLib:MakeNotification({
 	Name = "Teleporting",
 	Content = "Please Wait....",
