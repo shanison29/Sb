@@ -562,10 +562,11 @@ end
 
 --------------------------------------
 
-Tab:AddToggle({
+Tab:AddDropdown({
 Name = "Auto Slapple Farm / Hopper",
-Default = false,
+Default = "OFF",
 Save = true,
+Options = {"OFF", "ON"},
 Flag = "SLAPPLEEEEt",
 Callback = function(SLAPPLEEE)
 
@@ -1831,9 +1832,6 @@ end
 end
 end)
 
-------------------------------
-
-OrionLib:Init()
 
 --------Teleport----------
 
@@ -1948,3 +1946,7 @@ end
 RefreshPlayers()
 players.PlayerAdded:Connect(RefreshPlayers)
 players.PlayerRemoving:Connect(RefreshPlayers)
+
+------------------------------
+task.wait(2)
+OrionLib:Init()
