@@ -1205,11 +1205,6 @@ Button.Draggable = true
 
 
 Button.MouseButton1Click:Connect(function()
-workspace.DEATHBARRIER.CanTouch = false
-workspace.DEATHBARRIER2.CanTouch = false
-workspace.dedBarrier.CanTouch = false
-OrionLib.Flags["BRAZt"]:Set("ON")
-task.wait(1)
 if plrname ~= nil then
     OrionLib:MakeNotification({
 	Name = "Brazil Kick...",
@@ -1229,11 +1224,6 @@ for i,v in pairs(players:GetPlayers()) do
 				localPlayer.Character.HumanoidRootPart.Anchored = true
 				task.wait(3.5)
 				localPlayer.Character.Humanoid.Health = 0
-				task.wait(1)
-				workspace.DEATHBARRIER.CanTouch = false
-                workspace.DEATHBARRIER2.CanTouch = false
-                workspace.dedBarrier.CanTouch = false
-				OrionLib.Flags["BRAZt"]:Set("OFF")
              end
        end
 end
