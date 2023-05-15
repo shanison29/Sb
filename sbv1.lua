@@ -1905,9 +1905,9 @@ OrionLib:MakeNotification({
 	Name = "Please Wait",
 	Content = "Cooldown before teleport to avoid Server Hop IP ban",
 	Image = "rbxassetid://4483345998",
-	Time = 16
+	Time = 18
 	})
-wait(18)
+wait(20)
 OrionLib:MakeNotification({
 	Name = "Teleporting",
 	Content = "Please Wait....",
