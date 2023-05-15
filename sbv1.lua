@@ -365,7 +365,7 @@ end)
 
 localPlayer.CharacterAdded:Connect(function()
 ALIVE = true
-end()
+end)
 
 
 ------------------///TAB 1///--------------------
