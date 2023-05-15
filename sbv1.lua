@@ -155,6 +155,7 @@ local SafeADefault = CFrame.new(119, 518, -26)
 local Sfarmdone = false
 local Pause = false
 local ACTIVE = false
+local ALIVE = true
 
 local ASS = false
 local KAA = false
@@ -354,13 +355,18 @@ players.PlayerRemoving:Connect(function()
 	countdisplay:Set("-- Player Count:  "..tostring(playernum).."  --")
 end)
 
------------------Player Died------------------
+-----------------Player Respawn and Died------------------
 
 localPlayer.Character.Humanoid.Died:Connect(function()
 ACTIVE = false
 wall = false
-localPlayer.Character.HumanoidRootPart.Anchored = false
+ALIVE = false
 end)
+
+localPlayer.CharacterAdded:Connect(function()
+ALIVE = true
+end()
+
 
 ------------------///TAB 1///--------------------
 
@@ -1306,7 +1312,7 @@ end
 
 
 spawn(function()
-while wait() do
+while task.wait() do
 
 	if ASTOPP and ACTIVE and localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") then
 		for i,v in pairs(players:GetPlayers()) do
@@ -1340,16 +1346,16 @@ end)
 ---------------------------
 
 spawn(function()
-while wait() do
+while task.wait() do
 
-if ASTOPP and Pause and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") and localPlayer.Character:FindFirstChild("entered") then
+if ALIVE and ASTOPP and Pause and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") and localPlayer.Character:FindFirstChild("entered") then
 			--character.HumanoidRootPart.Anchored = false
 			localPlayer.Character.Humanoid.Health = 0
 
-elseif Sfarmdone and localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") then 
+elseif ALIVE and Sfarmdone and localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") then 
              localPlayer.Character.Humanoid.Health = 0
 
-elseif Sfarmdone and not localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:FindFirstChild("Humanoid") and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
+elseif ALIVE and Sfarmdone and not localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:FindFirstChild("Humanoid") and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
             local gloveClickk = localPlayer.leaderstats.Glove.Value
 			task.wait(.3)
 			fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
@@ -1373,7 +1379,7 @@ end)
 -----SOUND ALERT-----
 
 spawn(function()
-while wait() do
+while task.wait() do
 	if ASTOPP or ADMINN then
 		if Pause then
 		UserSettings():GetService'UserGameSettings'.MasterVolume = 5
