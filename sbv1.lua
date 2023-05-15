@@ -1296,7 +1296,7 @@ end
 
 
 spawn(function()
-while task.wait() do
+while wait() do
 
 	if ASTOPP and ACTIVE and localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") then
 		for i,v in pairs(players:GetPlayers()) do
@@ -1310,7 +1310,7 @@ while task.wait() do
 					Time = 49
 					})
 					Pause = true
-					task.wait(50)
+					wait(50)
 					OrionLib:MakeNotification({
 					Name = "Alert!!!",
 					Content = "Resuming in 10 Seconds",
@@ -1335,18 +1335,17 @@ while task.wait() do
 if ASTOPP and Pause and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") and localPlayer.Character:FindFirstChild("entered") then
 			--character.HumanoidRootPart.Anchored = false
 			localPlayer.Character.Humanoid.Health = 0
-end
-if Sfarmdone and localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") then 
-             task.wait(3)
+
+elseif Sfarmdone and localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") then 
              localPlayer.Character.Humanoid.Health = 0
-end
-if Sfarmdone and not localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:FindFirstChild("Humanoid") and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
+
+elseif Sfarmdone and not localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:FindFirstChild("Humanoid") and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
                task.wait(2)
               localPlayer.Character.HumanoidRootPart.Anchored = true
               Teleportslapple()
 end
 
-task.wait()
+task.wait(1)
 end
 end)
 
@@ -1902,14 +1901,14 @@ function TPReturner()
 end
 
 function Teleportslapple()
-task.wait(20)
+wait(20)
 OrionLib:MakeNotification({
 	Name = "Teleporting",
 	Content = "Please Wait....",
 	Image = "rbxassetid://4483345998",
 	Time = 5
 	})
-	task.wait(3)
+	wait(3)
     while task.wait() do
         pcall(function()
             TPReturner()
