@@ -1767,6 +1767,7 @@ end
 
 if ASfarmm then
 if not SFARMDONE and IsInArena.Value == false and RootPart and Humanoid then
+    task.wait(3)
 	local gloveClickk = localPlayer.leaderstats.Glove.Value
 	fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
 	task.wait(.3)
@@ -1788,6 +1789,7 @@ elseif not SFARMDONE and IsInArena.Value == true and RootPart and Humanoid then
             wait(0.05)
             elseif v:FindFirstChild("Glove") and v.Glove:FindFirstChildOfClass("TouchTransmitter") == nil then
             SFARMDONE = true
+            task.wait(1)
             Teleportslapple()
         end
      end
@@ -1955,16 +1957,16 @@ OrionLib:MakeNotification({
 	Name = "Please Wait",
 	Content = "Cooldown before teleport to avoid Server Hop IP ban",
 	Image = "rbxassetid://4483345998",
-	Time = 16
+	Time = 18
 	})
-wait(18)
+task.wait(20)
 OrionLib:MakeNotification({
 	Name = "Teleporting",
 	Content = "Please Wait....",
 	Image = "rbxassetid://4483345998",
-	Time = 3
+	Time = 5
 	})
-	wait(1)
+	task.wait(1)
     while task.wait() do
         pcall(function()
             TPReturner()
