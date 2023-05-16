@@ -162,8 +162,8 @@ local Ass = false
 local Kaa = false
 
 local Bobb = false
-local SLAPPLEE = false
-local SLAPPLEEEE = false
+local Sfarmm = false
+local ASfarmm = false
 local MainA = false
 local AltA = false
 local MainD = false
@@ -484,29 +484,29 @@ Name = "ALT Farm (Ghost)",
 Default = "OFF",
 Options = {"OFF", "MAIN ARENA", "ALT ARENA", "MAIN DEFAULT", "ALT DEFAULT"},
 Flag = "GFARMt",
-Callback = function(GFARM)
+Callback = function(Gfarm)
 
-if GFARM == "MAIN ARENA" then
+if Gfarm == "MAIN ARENA" then
 	MainA = true
 	AltA = false
 	MainD = false
 	AltD = false
-elseif GFARM == "ALT ARENA" then
+elseif Gfarm == "ALT ARENA" then
 	MainA = false
 	AltA = true
 	MainD = false
 	AltD = false
-elseif GFARM == "MAIN DEFAULT" then
+elseif Gfarm == "MAIN DEFAULT" then
 	MainA = false
 	AltA = false
 	MainD = true
 	AltD = false
-elseif GFARM == "ALT DEFAULT" then
+elseif Gfarm == "ALT DEFAULT" then
 	MainA = false
 	AltA = false
 	MainD = false
 	AltD = true
-elseif GFARM == "OFF" then
+elseif Gfarm == "OFF" then
 	MainA = false
 	AltA = false
 	MainD = false
@@ -541,16 +541,16 @@ Tab:AddDropdown({
 Name = "Slapple Farm",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "SLAPPLEEt",
-Callback = function(SLAPPLE)
+Flag = "SFARMt",
+Callback = function(Sfarm)
 
-if SLAPPLE == "ON" then
-	SLAPPLEE = true
-elseif SLAPPLE == "OFF" then
-	SLAPPLEE = false
+if Sfarm == "ON" then
+	Sfarmm = true
+elseif Sfarm == "OFF" then
+	Sfarmm = false
 end
 
-while SLAPPLEE and task.wait() do
+while Sfarmm and task.wait() do
 	if localPlayer.Character:FindFirstChild("entered") then
 		for Index, Instance in next, workspace.Arena.island5.Slapples:GetDescendants() do
 			if Instance.ClassName == "TouchTransmitter" then
@@ -572,19 +572,19 @@ Name = "Auto Slapple Farm / Hopper",
 Default = "OFF",
 Save = true,
 Options = {"OFF", "ON"},
-Flag = "SLAPPLEEEEt",
-Callback = function(SLAPPLEEE)
+Flag = "ASFARMt",
+Callback = function(ASfarm)
 
-if SLAPPLEEE == "ON" then
-	SLAPPLEEEE = true
+if ASfarm == "ON" then
+	ASfarmm = true
 	OrionLib:MakeNotification({
 	Name = "Notice..",
 	Content = "Auto Slapple Farm Enabled..",
 	Image = "rbxassetid://4483345998",
 	Time = 10
 	})
-elseif SLAPPLEEE == "OFF" then
-	SLAPPLEEEE = false
+elseif ASfarm == "OFF" then
+	ASfarmm = false
 end
 
 end
@@ -1454,7 +1454,7 @@ Callback = function()
 	OrionLib.Flags["ASt"]:Set("OFF")
 	OrionLib.Flags["KAt"]:Set("OFF")
 	OrionLib.Flags["BOBt"]:Set("OFF")
-	OrionLib.Flags["SLAPPLEEt"]:Set("OFF")
+	OrionLib.Flags["SFARMt"]:Set("OFF")
 	
 	OrionLib.Flags["VOIDt"]:Set("OFF")
 	OrionLib.Flags["CUBEt"]:Set("OFF")
@@ -1622,7 +1622,7 @@ end
 
 -------------------------------
 
-if MAINNG then
+if MainA then
 	if not PAUSE then
 		if not ACTIVE and Entered and RootPart and Humanoid and Torso.Transparency == 0 then
 			Humanoid.Health = 0
@@ -1656,7 +1656,7 @@ end
 
 -------------------------------
 
-if ALTTG then
+if AltA then
 	if not PAUSE then
 		if not ACTIVE and Entered and RootPart and Humanoid and Torso.Transparency == 0 then
 			Humanoid.Health = 0
@@ -1690,7 +1690,7 @@ end
 
 ---------------------------
 
-if MAINNNG then
+if MainD then
 	if not PAUSE then
 		if not ACTIVE and Entered and RootPart and Humanoid and Torso.Transparency == 0 then
 			Humanoid.Health = 0
@@ -1730,7 +1730,7 @@ end
 
 ------------------------
 
-if ALTTTG then
+if AltD then
 	if not PAUSE then
 		if not ACTIVE and Entered and RootPart and Humanoid and Torso.Transparency == 0 then
 			Humanoid.Health = 0
@@ -1770,7 +1770,7 @@ end
 
 ------------------------------
 
-if BOBB then
+if Bobb then
 local TargetPosition = Vector3.new(-565, 328, 3)
 local TargetPart = nil
 	if not Entered and RootPart and Humanoid then
@@ -1788,7 +1788,7 @@ end
 
 ---------------------------------
 
-if SLAPPLEEEE then
+if ASfarmm then
 if not SFARMDONE and not Entered and RootPart and Humanoid then
 	local gloveClickk = localPlayer.leaderstats.Glove.Value
 	fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
