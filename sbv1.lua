@@ -374,23 +374,26 @@ Flag = "ASflag",
 Callback = function(As)
 
 if As == "ON" then
+	if not Ass then
+	    OrionLib:MakeNotification({
+	    Name = "Notice..",
+	    Content = "Auto Slap Enabled..",
+	    Image = "rbxassetid://4483345998",
+	    Time = 3
+	    })
 	Ass = true
-	OrionLib:MakeNotification({
-	Name = "Notice..",
-	Content = "Auto Slap Enabled..",
-	Image = "rbxassetid://4483345998",
-	Time = 3
-	})
+	end
 elseif As == "OFF" then
-	Ass = false
+    if Ass then
+	    Ass = false
+	end
 end
 
-while Ass and task.wait() do
+while Ass and task.wait(0.1) do
 	if not PAUSE and localPlayer.Character:FindFirstChild("entered") then
 		virtualUser:CaptureController()
 		virtualUser:ClickButton1(Vector2.new(120,120))
 	end
-wait()
 end
 
 end
@@ -406,18 +409,22 @@ Flag = "KAflag",
 Callback = function(Ka)
 
 if Ka == "ON" then
-	Kaa = true
-	OrionLib:MakeNotification({
-	Name = "Notice..",
-	Content = "Slap Aura Enabled..",
-	Image = "rbxassetid://4483345998",
-	Time = 3
-	})
+    if not Kaa then
+	    OrionLib:MakeNotification({
+	    Name = "Notice..",
+	    Content = "Slap Aura Enabled..",
+	    Image = "rbxassetid://4483345998",
+	    Time = 3
+	    })
+	    Kaa = true
+	end
 elseif Ka == "OFF" then
-	Kaa = false
+    if Kaa then
+	    Kaa = false
+	end
 end
 
-while Kaa and task.wait() do
+while Kaa and task.wait(0.1) do
 	if not PAUSE and localPlayer.Character:FindFirstChild("entered") and  localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") then
 
       pcall(function()
@@ -437,7 +444,6 @@ while Kaa and task.wait() do
             end
       end)
 	end
-task.wait()
 end
 
 end
@@ -465,9 +471,13 @@ Flag = "PFARMflag",
 Callback = function(Pfarm)
 
 if Pfarm == "ON" then
-	Pfarmm = true
+    if not Pfarmm then
+	    Pfarmm = true
+	end
 elseif Pfarm == "OFF" then
-	Pfarmm = false
+    if Pfarmm then
+	    Pfarmm = false
+	end
 end
 
 end
@@ -517,15 +527,20 @@ end
 local DBOB = Tab:AddDropdown({
 Name = "BOB Farm (Replica)",
 Default = "OFF",
+Save = true,
 Options = {"OFF", "ON"},
 Flag = "BOBflag",
 Callback = function(Bob)
 
 if Bob == "ON" then
-	localPlayer.Character.Humanoid.Health = 0
-	Bobb = true
+    if not Bobb then
+	    localPlayer.Character.Humanoid.Health = 0
+	    Bobb = true
+	end
 elseif Bob == "OFF" then
-	Bobb = false
+    if Bobb then
+	    Bobb = false
+	end
 end
 
 end
@@ -536,26 +551,19 @@ end
 local DSFARM = Tab:AddDropdown({
 Name = "Slapple Farm",
 Default = "OFF",
+Save = true,
 Options = {"OFF", "ON"},
 Flag = "SFARMflag",
 Callback = function(Sfarm)
 
 if Sfarm == "ON" then
-	Sfarmm = true
-elseif Sfarm == "OFF" then
-	Sfarmm = false
-end
-
-while Sfarmm and task.wait() do
-	if localPlayer.Character:FindFirstChild("entered") then
-		for Index, Instance in next, workspace.Arena.island5.Slapples:GetDescendants() do
-			if Instance.ClassName == "TouchTransmitter" then
-			firetouchinterest(localPlayer.Character.Head, Instance.Parent, 0)
-			firetouchinterest(localPlayer.Character.Head, Instance.Parent, 1)
-			end
-		end
+    if not Sfarmm then
+	    Sfarmm = true
 	end
-task.wait()
+elseif Sfarm == "OFF" then
+    if Sfarm then
+	    Sfarmm = false
+	end
 end
 
 end
@@ -572,15 +580,19 @@ Flag = "ASFARMflag",
 Callback = function(ASfarm)
 
 if ASfarm == "ON" then
-	ASfarmm = true
-	OrionLib:MakeNotification({
-	Name = "Notice..",
-	Content = "Auto Slapple Farm Enabled..",
-	Image = "rbxassetid://4483345998",
-	Time = 10
-	})
+    if not ASfarmm then
+	    OrionLib:MakeNotification({
+	    Name = "Notice..",
+	    Content = "Auto Slapple Farm Enabled..",
+	    Image = "rbxassetid://4483345998",
+	    Time = 10
+	    })
+	    ASfarmm = true
+	end
 elseif ASfarm == "OFF" then
-	ASfarmm = false
+    if ASfarmm then
+	    ASfarmm = false
+	end
 end
 
 end
@@ -953,9 +965,13 @@ Flag = "ANTIZAflag",
 Callback = function(Antiza)
 
 if Antiza == "ON" then
-	Antizaa = true
+    if not Antizaa then
+	    Antizaa = true
+	end
 elseif Antiza == "OFF" then
-	Antizaa = false
+    if Antizaa then
+	    Antizaa = false
+	end
 end
 
 end    
@@ -971,9 +987,13 @@ Flag = "BUSflag",
 Callback = function(Bus)
 
 if Bus == "ON" then
-	Buss = true
+    if not Buss then
+	    Buss = true
+	end
 elseif Bus == "OFF" then
-	Buss = false
+    if Buss then
+	    Buss = false
+	end
 end
 
 end
@@ -989,9 +1009,13 @@ Flag = "WALLflag",
 Callback = function(Wall)
 
 if Wall == "ON" then
-	Walll = true
+    if not Walll then
+	    Walll = true
+	end
 elseif Wall == "OFF" then
-	Walll = false
+    if Walll then
+	    Walll = false
+	end
 end
 
 end
@@ -1007,9 +1031,13 @@ Flag = "REAPERflag",
 Callback = function(Reaper)
 
 if Reaper == "ON" then
-	Reaperr = true
+    if not Reaperr then
+	    Reaperr = true
+	end
 elseif Reaper == "OFF" then
-	Reaperr = false
+    if Reaperr then
+	    Reaperr = false
+	end
 end
 
 end    
@@ -1025,9 +1053,13 @@ Flag = "MAILflag",
 Callback = function(Mail)
 
 if Mail == "ON" then
-	Maill = true
+    if not Maill then
+	    Maill = true
+	end
 elseif Mail == "OFF" then
-	Maill = false
+    if Maill then
+	    Maill = false
+	end
 end
 
 end    
@@ -1043,9 +1075,13 @@ Flag = "STUNflag",
 Callback = function(Stun)
 
 if Stun == "ON" then
-	Stunn = true
+    if not Stunn then
+	    Stunn = true
+	end
 elseif Stun == "OFF" then
-	Stunn = false
+    if Stunn then
+	    Stunn = false
+	end
 end
 
 end    
@@ -1061,9 +1097,13 @@ Flag = "HROCKflag",
 Callback = function(Hrock)
 
 if Hrock == "ON" then
-	Hrockk = true
+    if not Hrockk then
+	    Hrockk = true
+	end
 elseif Hrock == "OFF" then
-	Hrockk = false
+    if Hrockk then
+	    Hrockk = false
+	end
 end
 
 end
@@ -1079,9 +1119,13 @@ Flag = "BUBBLEflag",
 Callback = function(Bubble)
 
 if Bubble == "ON" then
-	Bubblee = true
+    if not Bubblee then
+	    Bubblee = true
+	end
 elseif Bubble == "OFF" then
-	Bubblee = false
+    if Bubblee then
+	    Bubblee = false
+	end
 end
 
 end
@@ -1118,6 +1162,7 @@ if Lock == "ON" then
 	    Image = "rbxassetid://4483345998",
 	    Time = 3
 	    })
+	    DLOCK:Set("OFF")
 	end
 elseif Lock == "OFF" then
 	if Lockk then
@@ -1131,72 +1176,6 @@ end
 
 -------------------------------------------------------
 
-Tab5:AddDropdown({
-Name = "Player List",
-Default = "...",
-Options = {},
-Flag = "Playerlistt",
-Callback = function(Value)
-print(OrionLib.Flags["Playerlistt"].Value)
-plrname = Value
-end    
-})
-
---------------------------------------------
-
-Tab5:AddButton({
-Name = "BRAZIL - za hando",
-Callback = function()
-
-local GUI = Instance.new("ScreenGui")
-local Button = Instance.new("TextButton")
-
-GUI.Name = "GUI"
-GUI.Parent = localPlayer:WaitForChild("PlayerGui")
-
-Button.Name = "Button"
-Button.Parent = GUI
-Button.BackgroundColor3 = Color3.new(0.117647, 0.117647, 0.117647)
-Button.BorderSizePixel = 0
-Button.Position = UDim2.new(0.5, 150, 0.5, 120)
-Button.Size = UDim2.new(0, 60, 0, 60)
-Button.Font = Enum.Font.SourceSans
-Button.Text = "BRAZIL"
-Button.TextColor3 = Color3.new(1, 1, 1)
-Button.TextSize = 25
-Button.Draggable = true
-
-
-Button.MouseButton1Click:Connect(function()
-if plrname ~= nil then
-    OrionLib:MakeNotification({
-	Name = "Brazil Kick...",
-	Content = "Targeting --- "..plrname.." ---",
-	Image = "rbxassetid://4483345998",
-	Time = 5
-	})
-for i,v in pairs(players:GetPlayers()) do
-      if v ~= localPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("entered") then
-            if v.Name == plrname then
-                trgtpos = v.Character.HumanoidRootPart.Position
-                localPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(trgtpos)
-				task.wait(0.7)
-				ReplicatedStorage.Erase:FireServer()
-				localPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(1022,213.8,1498)
-				task.wait(.13)
-				localPlayer.Character.HumanoidRootPart.Anchored = true
-				task.wait(3.5)
-				localPlayer.Character.Humanoid.Health = 0
-             end
-       end
-end
-end
-end)
-
-end
-})
-
--------------------------------------------------
 
 Tab5:AddButton({
 Name = "GIANT WALL (Lobby)",
@@ -1225,11 +1204,11 @@ Button.MouseButton1Click:Connect(function()
 if not PUSHER then
 ReplicatedStorage.PusherWall:FireServer()
 PUSHER = true
-task.wait(6)
+wait(6)
 PUSHER = false
 elseif PUSHER then
 localPlayer.Character.Humanoid.Health = 0
-task.wait(4)
+wait(4)
 PUSHER = false
 end
 end)
@@ -1248,77 +1227,23 @@ Flag = "ASTOPflag",
 Callback = function(Astop)
 
 if Astop == "ON" then
-	Astopp = true
-	OrionLib:MakeNotification({
-	Name = "Anti Nearby Player Activated",
-	Content = "Farming will be paused upon nearby player detected",
-	Image = "rbxassetid://4483345998",
-	Time = 5
-	})
+    if not Astopp then
+	    OrionLib:MakeNotification({
+	    Name = "Anti Nearby Player Activated",
+	    Content = "Farming will be paused upon nearby player detected",
+	    Image = "rbxassetid://4483345998",
+	    Time = 5
+	    })
+	    Astopp = true
+	end
 elseif Astop == "OFF" then
-	Astopp = false
+    if Astopp then
+	    Astopp = false
+	end
 end
 
 end
 })
-
-
-spawn(function()
-while task.wait() do
-
-	if Astopp and ACTIVE and localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") then
-		for i,v in pairs(players:GetPlayers()) do
-			if v ~= localPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not table.find(Myself, v.Name) then
-				if (v.Character.HumanoidRootPart.Position - localPlayer.Character.HumanoidRootPart.Position).Magnitude <= 100 then
-					--localPlayer:Kick("Someone's Nearby")
-					OrionLib:MakeNotification({
-					Name = "Alert!!!",
-					Content = "Nearby Player DETECTED within 100 Distance. Farming Paused for 60 Seconds",
-					Image = "rbxassetid://4483345998",
-					Time = 49
-					})
-					PAUSE = true
-					wait(50)
-					OrionLib:MakeNotification({
-					Name = "Alert!!!",
-					Content = "Resuming in 10 Seconds",
-					Image = "rbxassetid://4483345998",
-					Time = 9
-					})
-					task.wait(10)
-					PAUSE = false
-				end
-			end
-		end
-	end
-end
-end)
-
----------------------------
-
-spawn(function()
-while task.wait() do
-
-if ALIVE and PAUSE and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") and localPlayer.Character:FindFirstChild("entered") then
-			--.localPlayer.Character.HumanoidRootPart.Anchored = false
-			localPlayer.Character.Humanoid.Health = 0
-
-end
-
-end
-end)
-
------SOUND ALERT-----
-
-spawn(function()
-while task.wait() do
-	if PAUSE then
-		UserSettings():GetService'UserGameSettings'.MasterVolume = 5
-		Sound:Play()
-		task.wait(SoundDelay)
-	end
-end
-end)
 
 ----------------------------------------------------------
 
@@ -1331,34 +1256,23 @@ Flag = "ADMINflag",
 Callback = function(Admin)
 
 if Admin == "ON" then
-	Adminn = true
-	OrionLib:MakeNotification({
-	Name = "Anti Admin Enabled",
-	Content = "You are Safe!",
-	Image = "rbxassetid://4483345998",
-	Time = 5
-	})
+	if not Adminn then
+	    OrionLib:MakeNotification({
+	    Name = "Anti Admin Enabled",
+	    Content = "You are Safe!",
+	    Image = "rbxassetid://4483345998",
+	    Time = 5
+	    })
+	    Adminn = true
+	end
 elseif Admin == "OFF" then
-	Adminn = false
+    if Adminn then
+	    Adminn = false
+	end
 end
 
 end
 })
-
-spawn(function()
-
-while task.wait() do
-	if Adminn then
-      players.PlayerAdded:Connect(function(Plra)
-         if Plra:GetRankInGroup(9950771) and 2 <= Plra:GetRankInGroup(9950771) then
-            PAUSE = true
-            localPlayer:Kick("Admin/High Rank Player Detected")
-         end
-      end)
-	end
-end
-
-end)
 
 ---------------------------------------------------------------
 
@@ -1375,7 +1289,7 @@ if Rname == "ON" then
 	    Name = "Notice..",
 	    Content = "Name is now Hidden..",
 	    Image = "rbxassetid://4483345998",
-	    Time = 4
+	    Time = 5
 	    })
 	    Rnamee = true
 	end
@@ -1388,17 +1302,7 @@ end
 end
 })
 
-spawn(function()
 
-while task.wait() do
-	if Rnamee and not PAUSE then
-			if localPlayer.Character:WaitForChild("Head"):FindFirstChild("Nametag") then
-				 localPlayer.Character:FindFirstChild("Head"):FindFirstChild("Nametag"):Destroy()
-			end
-	end
-end
-
-end)
 
 -----------------------///TAB 7///--------------------------------
 
@@ -1482,7 +1386,6 @@ OrionLib:MakeNotification({
 	Time = 10
 	})
 TPService:Teleport(PlaceID, localPlayer)
-DRJ:Set("...")
 end
 
 end
@@ -1558,7 +1461,7 @@ Tab7:AddButton({
 ------------------------Farming----------------------------
 
 spawn(function()
-while task.wait() do
+while task.wait(0.5) do
 
 local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
 local RootPart = character:WaitForChild("HumanoidRootPart")
@@ -1760,7 +1663,6 @@ local TargetPart = nil
 			task.wait(1.2)
 			Humanoid.Health = 0
 	end
-wait()
 end
 
 ---------------------------------
@@ -1796,6 +1698,20 @@ elseif not SFARMDONE and IsInArena.Value == true and RootPart and Humanoid then
 end
 end
 
+----------------------------------
+
+if Sfarmm then
+	if IsInArena.Value == true then
+		for Index, Instance in next, workspace.Arena.island5.Slapples:GetDescendants() do
+			if Instance.ClassName == "TouchTransmitter" then
+			firetouchinterest(Head, Instance.Parent, 0)
+			firetouchinterest(Head, Instance.Parent, 1)
+			end
+		end
+	end
+wait()
+end
+
 end
 end)
 
@@ -1806,7 +1722,7 @@ end)
 -----------------Anti-----------------
 
 spawn(function()
-while task.wait() do
+while task.wait(0.05) do
 
 if Antizaa then
 	for i,v in pairs(game.Workspace:GetChildren()) do
@@ -1837,9 +1753,9 @@ if Walll then
 end
 
 if Reaperr then
-for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+for i,v in pairs(localPlayer.Character:GetChildren()) do
 		if v.Name == "DeathMark" then
-			game:GetService("ReplicatedStorage").ReaperGone:FireServer(game:GetService("Players").LocalPlayer.Character.DeathMark)
+			game:GetService("ReplicatedStorage").ReaperGone:FireServer(localPlayer.Character.DeathMark)
 			game:GetService("Lighting"):WaitForChild("DeathMarkColorCorrection"):Destroy() 
 		end 
 	end
@@ -1863,7 +1779,7 @@ if Stunn then
 end
 
 if Hrockk then
-    for _,v in pairs(game:GetService("Players"):GetChildren()) do
+    for _,v in pairs(players:GetChildren()) do
 		if v.Character:FindFirstChild("rock") then
 				v.Character:FindFirstChild("rock").CanTouch = false
 				v.Character:FindFirstChild("rock").CanQuery = false
@@ -1884,6 +1800,85 @@ end
 end
 end)
 
+-------------------------------
+---------Other-------------
+
+spawn(function()
+while task.wait(0.5) do
+
+local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+local RootPart = character:WaitForChild("HumanoidRootPart")
+local Humanoid = character:WaitForChild("Humanoid")
+local Torso = character:WaitForChild("Torso")
+local Head = character:WaitForChild("Head")
+local IsInArena = character:WaitForChild("isInArena")
+
+----------Hide Name-------
+
+if Rnamee and not PAUSE then
+	if Head:FindFirstChild("Nametag") then
+		Head:FindFirstChild("Nametag"):Destroy()
+	end
+end
+
+-----------Admin--------------
+
+if Adminn then
+    players.PlayerAdded:Connect(function(Plra)
+         if Plra:GetRankInGroup(9950771) and 2 <= Plra:GetRankInGroup(9950771) then
+            PAUSE = true
+            localPlayer:Kick("Admin/High Rank Player Detected")
+         end
+    end)
+end
+
+---------Sound Alert------------
+
+if PAUSE then
+	UserSettings():GetService'UserGameSettings'.MasterVolume = 5
+	Sound:Play()
+	task.wait(SoundDelay)
+end
+
+-------------Auto Reset------------
+
+if ALIVE and PAUSE and RootPart and Humanoid and IsInArena.Value == true then
+		Humanoid.Health = 0
+end
+
+-------------Auto Pause------------
+
+if Astopp and ACTIVE and IsInArena.Value == true and RootPart and humanoid then
+	for i,v in pairs(players:GetPlayers()) do
+			if v ~= localPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not table.find(Myself, v.Name) then
+				if (v.Character.HumanoidRootPart.Position - RootPart.Position).Magnitude <= 100 then
+					--localPlayer:Kick("Someone's Nearby")
+					OrionLib:MakeNotification({
+					Name = "Alert!!!",
+					Content = "Nearby Player DETECTED within 100 Distance. Farming Paused for 60 Seconds",
+					Image = "rbxassetid://4483345998",
+					Time = 49
+					})
+					PAUSE = true
+					wait(50)
+					OrionLib:MakeNotification({
+					Name = "Alert!!!",
+					Content = "Resuming in 10 Seconds",
+					Image = "rbxassetid://4483345998",
+					Time = 9
+					})
+					task.wait(10)
+					PAUSE = false
+				end
+			end
+	end
+end
+
+end
+end)
+
+
+-------------------------------
 --------Teleport----------
 
 local AllIDs = {}
@@ -1994,34 +1989,6 @@ OrionLib:MakeNotification({
         end)
     end
 end
-
---------------------------------------
-----------Player List-----------
-
-local function RefreshPlayers()
-   local PlayerList = {}
-   for _,Player in next, players:GetPlayers() do
-       if Player ~= localPlayer then
-       if not table.find(PlayerList, Player.Name) then
-           table.insert(PlayerList, Player.Name)
-       end
-       end
-   end
-   
-   for i,v in pairs(OrionLib.Flags) do
-       if string.match(i, "Playerlistt") then
-           if table.find(PlayerList, v.Value) then
-               v:Refresh(PlayerList, true)
-           else
-               v:Refresh(PlayerList, true)
-               v:Set("...")
-           end
-       end
-   end
-end
-RefreshPlayers()
-players.PlayerAdded:Connect(RefreshPlayers)
-players.PlayerRemoving:Connect(RefreshPlayers)
 
 
 --------------------------------
