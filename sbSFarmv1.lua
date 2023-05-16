@@ -87,7 +87,7 @@ local Myself = {
 
 --Player Counter
 local playernum = 0
-local numtofarm = 9
+local numtofarm = 10
 
 
 --Ghost mode safe spots
@@ -334,7 +334,7 @@ end)
 
 local DADMIN = Tab2:AddDropdown({
 Name = "Anti Admin",
-Default = "ON",
+Default = "OFF",
 Options = {"OFF", "ON"},
 Save = true,
 Flag = "ADMINflag",
