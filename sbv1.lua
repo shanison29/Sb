@@ -1517,7 +1517,7 @@ if LOWEST == "ON" then
 	Image = "rbxassetid://4483345998",
 	Time = 20
 	})
-	OrionLib.Flags["LOWESTt"]:Set("Please Wait...")
+
 local pageLimit = math.huge -- Set to math.huge to explore all pages
 
 local HttpService = game:GetService('HttpService');
@@ -1866,7 +1866,7 @@ for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 end
 
 if Maill then
-    for _,v in pairs(LocalPlayer.PlayerGui:GetChildren()) do
+    for _,v in pairs(localPlayer.PlayerGui:GetChildren()) do
 	    if v.Name == "VineThudImageScreenGUI" or v.Name == "MailPopup" or v.Name == "MittenBlind" or v.Name == "SquidInk" then 
 			v:Destroy();
 		end
