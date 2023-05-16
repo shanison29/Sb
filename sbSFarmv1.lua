@@ -1,4 +1,3 @@
-
 repeat task.wait() until game:IsLoaded()
 
 spawn(function()
@@ -43,7 +42,7 @@ jesus.Transparency = 1
                
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shanison29/ggg/main/orion3')))()
                 
-local Window = OrionLib:MakeWindow({Name = "Koolkat", HidePremium = false, IntroEnabled = false, SaveConfig = true, ConfigFolder = "ShanSB"})
+local Window = OrionLib:MakeWindow({Name = "Koolkat", HidePremium = false, IntroEnabled = false, SaveConfig = true, ConfigFolder = "ShanSBfarm"})
 
                 local Tab = Window:MakeTab({
                     Name = "Farming",
