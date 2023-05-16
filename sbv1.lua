@@ -58,13 +58,13 @@ local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/sha
 local Window = OrionLib:MakeWindow({Name = "Koolkat", HidePremium = false, IntroEnabled = false, SaveConfig = true, ConfigFolder = "ShanSB"})
 
                 local Tab = Window:MakeTab({
-                    Name = "Farmer",
+                    Name = "Farming",
                     Icon = "http://www.roblox.com/asset/?id=",
                     PremiumOnly = false
                 })
 				
 				local Tab1 = Window:MakeTab({
-                    Name = "Slapper",
+                    Name = "Slap",
                     Icon = "http://www.roblox.com/asset/?id=",
                     PremiumOnly = false
                 })
@@ -82,7 +82,7 @@ local Window = OrionLib:MakeWindow({Name = "Koolkat", HidePremium = false, Intro
                 })
 				
                 local Tab4 = Window:MakeTab({
-                    Name = "Anti",
+                    Name = "Anti Gloves",
                     Icon = "http://www.roblox.com/asset/?id=",
                     PremiumOnly = false
                 })
@@ -152,52 +152,52 @@ local SafeAArena = CFrame.new(-1504, 133, -1510)
 local SafeMDefault = CFrame.new(119, 518, -21)
 local SafeADefault = CFrame.new(119, 518, -26)
 
-local Sfarmdone = false
-local Pause = false
+local SFARMDONE = false
+local PAUSE = false
 local ACTIVE = false
 local ALIVE = true
+local PUSHER = false
 
-local ASS = false
-local KAA = false
+local Ass = false
+local Kaa = false
 
-local BOBB = false
+local Bobb = false
 local SLAPPLEE = false
 local SLAPPLEEEE = false
-local MAINNG = false
-local ALTTG = false
-local MAINNNG = false
-local ALTTTG = false
-local PFARM = false
+local MainA = false
+local AltA = false
+local MainD = false
+local AltD = false
+local Pfarmm = false
 
-local NAMETT = false
-local ASTOPP = false
-local ADMINN = false
+local Rnamee = false
+local Astopp = false
+local Adminn = false
 
-local GMODEL = "OFF" 
-local GMODEA = "OFF" 
-local GMODED = "OFF" 
-local RJ = "OFF" 
-local LOWEST = "OFF" 
+local GMODEL = "OFF"
+local GMODEA = "OFF"
+local GMODED = "OFF"
 
-local Voidd = "OFF"
-local CUBE = "OFF"
-local BAR = "OFF"
-local BRA = "OFF"
-local AntiZa = "OFF"
-local BUSSS = "OFF"
-local PUSHH = "OFF"
-local Reaper = "OFF"
-local Amail = "OFF"
-local Astun = "OFF"
-local Hrock = "OFF"
+local RJ = "OFF"
+local LOWEST = "OFF"
 
-local Abubble = "OFF"
-local Lockpos = "OFF"
+local Voidd = false
+local Cubee = false
+local Barr = false
+local Brazz = false
+local Antizaa = false
+local Buss = false
+local Pushh = false
+local Reaperr = false
+local Maill = false
+local Stunn = false
+local Hrockk = false
+local Bubblee = false
 
-local Save = "OFF"
+local Lockk = false
+local Whitee = false
 
-local wall = false
-local zahando = false
+
 
 -------------Random Wait----------
 local randomw = math.random(2, 4)
@@ -359,7 +359,6 @@ end)
 
 localPlayer.Character.Humanoid.Died:Connect(function()
 ACTIVE = false
-wall = false
 ALIVE = false
 end)
 
@@ -374,23 +373,23 @@ Tab1:AddDropdown({
 Name = "Auto Slap (Need Glove Equipped)",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "ASSt",
-Callback = function(AS)
+Flag = "ASt",
+Callback = function(As)
 
-if AS == "ON" then
-	ASS = true
+if As == "ON" then
+	Ass = true
 	OrionLib:MakeNotification({
 	Name = "Notice..",
 	Content = "Auto Slap Enabled..",
 	Image = "rbxassetid://4483345998",
 	Time = 3
 	})
-elseif AS == "OFF" then
-	ASS = false
+elseif As == "OFF" then
+	Ass = false
 end
 
-while ASS and task.wait() do
-	if not Pause and localPlayer.Character:FindFirstChild("entered") then
+while Ass and task.wait() do
+	if not PAUSE and localPlayer.Character:FindFirstChild("entered") then
 		virtualUser:CaptureController()
 		virtualUser:ClickButton1(Vector2.new(120,120))
 	end
@@ -406,23 +405,23 @@ Tab1:AddDropdown({
 Name = "Slap Aura",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "KAAt",
-Callback = function(KA)
+Flag = "KAt",
+Callback = function(Ka)
 
-if KA == "ON" then
-	KAA = true
+if Ka == "ON" then
+	Kaa = true
 	OrionLib:MakeNotification({
 	Name = "Notice..",
 	Content = "Slap Aura Enabled..",
 	Image = "rbxassetid://4483345998",
 	Time = 3
 	})
-elseif KA == "OFF" then
-	KAA = false
+elseif Ka == "OFF" then
+	Kaa = false
 end
 
-while KAA and task.wait() do
-	if not Pause and localPlayer.Character:FindFirstChild("entered") and  localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") then
+while Kaa and task.wait() do
+	if not PAUSE and localPlayer.Character:FindFirstChild("entered") and  localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") then
 
       pcall(function()
             for i, v in next, players:GetPlayers() do
@@ -466,13 +465,13 @@ Default = "OFF",
 Options = {"OFF", "ON"},
 Save = true,
 Flag = "PFARMt",
-Callback = function(PF)
+Callback = function(Pfarm)
 
-if PF == "ON" then
-	PFARM = true
+if Pfarm == "ON" then
+	Pfarmm = true
 
-elseif PF == "OFF" then
-	PFARM = false
+elseif Pfarm == "OFF" then
+	Pfarmm = false
 end
 
 end
@@ -488,30 +487,30 @@ Flag = "GFARMt",
 Callback = function(GFARM)
 
 if GFARM == "MAIN ARENA" then
-	MAINNG = true
-	ALTTG = false
-	MAINNNG = false
-	ALTTTG = false
+	MainA = true
+	AltA = false
+	MainD = false
+	AltD = false
 elseif GFARM == "ALT ARENA" then
-	MAINNG = false
-	ALTTG = true
-	MAINNNG = false
-	ALTTTG = false
+	MainA = false
+	AltA = true
+	MainD = false
+	AltD = false
 elseif GFARM == "MAIN DEFAULT" then
-	MAINNG = false
-	ALTTG = false
-	MAINNNG = true
-	ALTTTG = false
+	MainA = false
+	AltA = false
+	MainD = true
+	AltD = false
 elseif GFARM == "ALT DEFAULT" then
-	MAINNG = false
-	ALTTG = false
-	MAINNNG = false
-	ALTTTG = true
+	MainA = false
+	AltA = false
+	MainD = false
+	AltD = true
 elseif GFARM == "OFF" then
-	MAINNG = false
-	ALTTG = false
-	MAINNNG = false
-	ALTTTG = false
+	MainA = false
+	AltA = false
+	MainD = false
+	AltD = false
 end
 
 end
@@ -523,14 +522,14 @@ Tab:AddDropdown({
 Name = "BOB Farm (Replica)",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "BOBBt",
-Callback = function(BOB)
+Flag = "BOBt",
+Callback = function(Bob)
 
-if BOB == "ON" then
+if Bob == "ON" then
 	localPlayer.Character.Humanoid.Health = 0
-	BOBB = true
-elseif BOB == "OFF" then
-	BOBB = false
+	Bobb = true
+elseif Bob == "OFF" then
+	Bobb = false
 end
 
 end
@@ -604,9 +603,9 @@ firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Te
 task.wait()
 localPlayer.Character.Humanoid:UnequipTools()
 task.wait()
-localPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(0,50,0)
+localPlayer.Character.HumanoidRootPart.CFrame = SafeMArena
 end
-localPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(0,50,0)
+localPlayer.Character.HumanoidRootPart.CFrame = SafeMArena
 end   
 })
 
@@ -622,9 +621,9 @@ firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Te
 task.wait()
 localPlayer.Character.Humanoid:UnequipTools()
 task.wait()
-localPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot2.CFrame * CFrame.new(0,50,0)
+localPlayer.Character.HumanoidRootPart.CFrame = SafeMDefault
 end
-localPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot2.CFrame * CFrame.new(0,50,0)
+localPlayer.Character.HumanoidRootPart.CFrame = SafeMDefault
 end   
 })
 
@@ -816,11 +815,16 @@ Tab4:AddDropdown({
 Name = "Anti Void",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "Voiddt",
-Callback = function(Vd)
-Voidd = Vd
+Flag = "VOIDt",
+Callback = function(Void)
 
-if Voidd == "ON" then
+if Void == "ON" then
+	Voidd = true
+elseif Void == "OFF" then
+	Voidd = false
+end
+
+if Voidd then
 jesus.CanCollide = true
 jesus.Transparency = .5
 arenaVoid.Transparency = .5
@@ -839,16 +843,16 @@ Tab4:AddDropdown({
 Name = "Anti Death Cube",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "CUBEEt",
-Callback = function(CUBE)
+Flag = "CUBEt",
+Callback = function(Cube)
 
-if CUBE == "ON" then
-	CUBEE = true
-elseif CUBE == "OFF" then
-	CUBEE = false
+if Cube == "ON" then
+	Cubee = true
+elseif Cube == "OFF" then
+	Cubee = false
 end
 
-if CUBEE then
+if Cubee then
 	if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) then
 		workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CanTouch = false
 	end
@@ -867,16 +871,16 @@ Tab4:AddDropdown({
 Name = "Anti Death Barrier",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "BARRt",
-Callback = function(BAR)
+Flag = "BARt",
+Callback = function(Bar)
 
-if BAR == "ON" then
-	BARR = true
-elseif BAR == "OFF" then
-	BARR = false
+if Bar == "ON" then
+	Barr = true
+elseif Bar == "OFF" then
+	Barr = false
 end
 
-if BARR then
+if Barr then
    if workspace:FindFirstChild("dedBarrier") and workspace:FindFirstChild("DEATHBARRIER") and workspace:FindFirstChild("DEATHBARRIER2") then
 			workspace.DEATHBARRIER.CanTouch = false
 			workspace.DEATHBARRIER2.CanTouch = false
@@ -900,15 +904,15 @@ Name = "Anti Brazil Portal",
 Default = "OFF",
 Options = {"OFF", "ON"},
 Flag = "BRAZt",
-Callback = function(BRA)
+Callback = function(Braz)
 
-if BRA == "ON" then
-	BRAZ = true
-elseif BRA == "OFF" then
-	BRAZ = false
+if Braz == "ON" then
+	Brazz = true
+elseif Braz == "OFF" then
+	Brazz = false
 end
 
-if BRAZ then
+if Brazz then
 	for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 		if v.Name == "Part" and v.ClassName == "Part" then
 		local bpart = v
@@ -949,17 +953,13 @@ Tab4:AddDropdown({
 Name = "Anti Za Hando",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "AntiZat",
-Callback = function(Vza)
-AntiZa = Vza
+Flag = "ANTIZAt",
+Callback = function(Antiza)
 
-while AntiZa == "ON" and task.wait() do
-	for i,v in pairs(game.Workspace:GetChildren()) do
-		if v.ClassName == "Part" and v.Name == "Part" then
-			v:Destroy()
-		end
-	end
-task.wait()
+if Antiza == "ON" then
+	Antizaa = true
+elseif Antiza == "OFF" then
+	Antizaa = false
 end
 
 end    
@@ -971,19 +971,13 @@ Tab4:AddDropdown({
 Name = "Anti Bus",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "BUSSSt",
-Callback = function(Vbus)
-BUSSS = Vbus
+Flag = "BUSt",
+Callback = function(Bus)
 
-while BUSSS == "ON" and task.wait() do
-	for _,p in pairs(game:GetService("Workspace"):GetChildren()) do
-		if p.Name == "BusModel" then
-			p.CanCollide = false;
-			p.CanTouch = false;
-			p.Transparency = 0.8;
-		end
-	end
-task.wait()
+if Bus == "ON" then
+	Buss = true
+elseif Bus == "OFF" then
+	Buss = false
 end
 
 end
@@ -995,19 +989,13 @@ Tab4:AddDropdown({
 Name = "Anti Wall",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "PUSHHt",
-Callback = function(Vwall)
-PUSHH = Vwall
+Flag = "WALLt",
+Callback = function(Wall)
 
-while PUSHH == "ON" and task.wait() do
-	for _,p in pairs(game:GetService("Workspace"):GetChildren()) do
-		if p.Name == "wall" then
-			p.CanCollide = false;
-			p.CanTouch = false;
-			p.Transparency = 0.8;
-		end
-	end
-task.wait()
+if Wall == "ON" then
+	Walll = true
+elseif Wall == "OFF" then
+	Walll = false
 end
 
 end
@@ -1019,18 +1007,13 @@ Tab4:AddDropdown({
 Name = "Anti Reaper",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "Reapert",
-Callback = function(Vreap)
-Reaper = Vreap
+Flag = "REAPERt",
+Callback = function(Reaper)
 
-while Reaper == "ON" and task.wait() do
-	for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-		if v.Name == "DeathMark" then
-			game:GetService("ReplicatedStorage").ReaperGone:FireServer(game:GetService("Players").LocalPlayer.Character.DeathMark)
-			game:GetService("Lighting"):WaitForChild("DeathMarkColorCorrection"):Destroy() 
-		end 
-	end
-task.wait()
+if Reaper == "ON" then
+	Reaperr = true
+elseif Reaper == "OFF" then
+	Reaperr = false
 end
 
 end    
@@ -1042,20 +1025,13 @@ Tab4:AddDropdown({
 Name = "Anti Screen Block",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "Amailt",
-Callback = function(Vblock)
-Amail = Vblock
+Flag = "MAILt",
+Callback = function(Mail)
 
-while Amail == "ON" and task.wait() do
-	for _,v in pairs(LocalPlayer.PlayerGui:GetChildren()) do
-		if v.Name == "VineThudImageScreenGUI" or v.Name == "MailPopup" or v.Name == "MittenBlind" or v.Name == "SquidInk" then 
-			v:Destroy();
-		end
-	end
-	if game:GetService("Lighting"):FindFirstChildOfClass("ColorCorrectionEffect") then
-	game:GetService("Lighting"):FindFirstChildOfClass("ColorCorrectionEffect"):Destroy();
-	end
-task.wait()
+if Mail == "ON" then
+	Maill = true
+elseif Mail == "OFF" then
+	Maill = false
 end
 
 end    
@@ -1067,15 +1043,13 @@ Tab4:AddDropdown({
 Name = "Anti Stun",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "Astunt",
-Callback = function(Vstun)
-Astun = Vstun
+Flag = "STUNt",
+Callback = function(Stun)
 
-while Astun == "ON" and task.wait() do
-	if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and  game.Workspace:FindFirstChild("Shockwave") then
-		game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-	end
-task.wait()
+if Stun == "ON" then
+	Stunn = true
+elseif Stun == "OFF" then
+	Stunn = false
 end
 
 end    
@@ -1087,17 +1061,13 @@ Tab4:AddDropdown({
 Name = "Anti ROCK",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "Hrockt",
-Callback = function(Vrock)
-Hrock = Vrock
+Flag = "HROCKt",
+Callback = function(Hrock)
 
-while Hrock == "ON" and task.wait() do
-		for _,v in pairs(game:GetService("Players"):GetChildren()) do
-			if v.Character:FindFirstChild("rock") then
-				v.Character:FindFirstChild("rock").CanTouch = false
-				v.Character:FindFirstChild("rock").CanQuery = false
-			end
-		end
+if Hrock == "ON" then
+	Hrockk = true
+elseif Hrock == "OFF" then
+	Hrockk = false
 end
 
 end
@@ -1109,19 +1079,13 @@ Tab4:AddDropdown({
 Name = "Anti Bubble",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "Abubblet",
-Callback = function(Vbubble)
-Abubble = Vbubble
+Flag = "BUBBLEt",
+Callback = function(Bubble)
 
-while Abubble == "ON" and task.wait() do
-	for i,v in pairs(workspace:GetChildren()) do
-		if v.Name == "BubbleObject" then
-			if v:FindFirstChild("Weld") then
-				v:FindFirstChild("Weld"):Destroy()
-			end
-		end
-	end
-task.wait()
+if Bubble == "ON" then
+	Bubblee = true
+elseif Bubble == "OFF" then
+	Bubblee = false
 end
 
 end
@@ -1142,11 +1106,16 @@ Tab5:AddDropdown({
 Name = "Anchor Body to Save Position",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "Lockpost",
-Callback = function(Vlock)
-Lockpos = Vlock
+Flag = "LOCKt",
+Callback = function(Lock)
 
-if Lockpos == "ON" then
+if Lock == "ON" then
+	Lockk = true
+elseif Lock == "OFF" then
+	Lockk = false
+end
+
+if Lockk then
    if Savepos ~= nil then
 	localPlayer.Character.HumanoidRootPart.CFrame = Savepos
 	wait(.5)
@@ -1159,7 +1128,7 @@ if Lockpos == "ON" then
 	Time = 3
 	})
 	end
-elseif Lockpos == "OFF" then
+else
 	localPlayer.Character.HumanoidRootPart.Anchored = false
 end
 
@@ -1258,17 +1227,16 @@ Button.TextSize = 25
 Button.Draggable = true
 
 Button.MouseButton1Click:Connect(function()
-if wall == false then
-ReplicatedStorage.PusherWall:FireServer()
-wall = true
-task.wait(6)
-wall = false
-end
 
-if wall == true then
+if not PUSHER then
+ReplicatedStorage.PusherWall:FireServer()
+PUSHER = true
+task.wait(6)
+PUSHER = false
+elseif PUSHER then
 localPlayer.Character.Humanoid.Health = 0
 task.wait(4)
-wall = false
+PUSHER = false
 end
 end)
 
@@ -1282,19 +1250,19 @@ Name = "Auto Stop (Nearby Player)",
 Default = "OFF",
 Options = {"OFF", "ON"},
 Save = true,
-Flag = "ASTOPPt",
-Callback = function(ASTOP)
+Flag = "ASTOPt",
+Callback = function(Astop)
 
-if ASTOP == "ON" then
-	ASTOPP = true
+if Astop == "ON" then
+	Astopp = true
 	OrionLib:MakeNotification({
 	Name = "Anti Nearby Player Activated",
 	Content = "Farming will be paused upon nearby player detected",
 	Image = "rbxassetid://4483345998",
 	Time = 5
 	})
-elseif ASTOP == "OFF" then
-	ASTOPP = false
+else
+	Astopp = false
 end
 
 end
@@ -1304,7 +1272,7 @@ end
 spawn(function()
 while task.wait() do
 
-	if ASTOPP and ACTIVE and localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") then
+	if Astopp and ACTIVE and localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") then
 		for i,v in pairs(players:GetPlayers()) do
 			if v ~= localPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not table.find(Myself, v.Name) then
 				if (v.Character.HumanoidRootPart.Position - localPlayer.Character.HumanoidRootPart.Position).Magnitude <= 100 then
@@ -1315,7 +1283,7 @@ while task.wait() do
 					Image = "rbxassetid://4483345998",
 					Time = 49
 					})
-					Pause = true
+					PAUSE = true
 					wait(50)
 					OrionLib:MakeNotification({
 					Name = "Alert!!!",
@@ -1324,7 +1292,7 @@ while task.wait() do
 					Time = 9
 					})
 					task.wait(10)
-					Pause = false
+					PAUSE = false
 				end
 			end
 		end
@@ -1338,29 +1306,10 @@ end)
 spawn(function()
 while task.wait() do
 
-if ALIVE and ASTOPP and Pause and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") and localPlayer.Character:FindFirstChild("entered") then
+if ALIVE and Astopp and PAUSE and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") and localPlayer.Character:FindFirstChild("entered") then
 			--character.HumanoidRootPart.Anchored = false
 			localPlayer.Character.Humanoid.Health = 0
 
-elseif ALIVE and Sfarmdone and localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") then 
-             localPlayer.Character.Humanoid.Health = 0
-
-elseif ALIVE and Sfarmdone and not localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:FindFirstChild("Humanoid") and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
-            local gloveClickk = localPlayer.leaderstats.Glove.Value
-			task.wait(.3)
-			fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
-			task.wait(.3)
-			ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-			task.wait(.3)
-			fireclickdetector(game.Workspace.Lobby[gloveClickk].ClickDetector)
-			repeat task.wait()
-	firetouchinterest(Head, workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
-	firetouchinterest(Head, workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
-	until character:WaitForChild("isInArena").Value == true
-			Humanoid:UnequipTools()
-		    RootPart.CFrame = SafeMDefault
-		    task.wait(0.2)
-            Teleportslapple()
 end
 
 end
@@ -1370,8 +1319,8 @@ end)
 
 spawn(function()
 while task.wait() do
-	if ASTOPP or ADMINN then
-		if Pause then
+	if Astopp or Adminn then
+		if PAUSE then
 		UserSettings():GetService'UserGameSettings'.MasterVolume = 5
 		Sound:Play()
 		task.wait(SoundDelay)
@@ -1388,18 +1337,18 @@ Default = "OFF",
 Options = {"OFF", "ON"},
 Save = true,
 Flag = "ADMINt",
-Callback = function(ADMIN)
+Callback = function(Admin)
 
-if ADMIN == "ON" then
-	ADMINN = true
+if Admin == "ON" then
+	Adminn = true
 	OrionLib:MakeNotification({
 	Name = "Anti Admin Enabled",
 	Content = "You are Safe!",
 	Image = "rbxassetid://4483345998",
 	Time = 5
 	})
-elseif ADMIN == "OFF" then
-	ADMINN = false
+else
+	Adminn = false
 end
 
 end
@@ -1408,10 +1357,10 @@ end
 spawn(function()
 
 while task.wait() do
-	if ADMINN then
+	if Adminn then
       players.PlayerAdded:Connect(function(Plra)
          if Plra:GetRankInGroup(9950771) and 2 <= Plra:GetRankInGroup(9950771) then
-            Pause = true
+            PAUSE = true
             localPlayer:Kick("Admin/High Rank Player Detected")
          end
       end)
@@ -1426,20 +1375,20 @@ Tab6:AddDropdown({
 Name = "Remove Name",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "Rname",
-Callback = function(Antinametag)
+Flag = "RNAMEt",
+Callback = function(Rname)
 
-if Antinametag == "ON" then
-	NAMETT = true
+if Rname == "ON" then
+	Rnamee = true
 	OrionLib:MakeNotification({
 	Name = "Notice..",
 	Content = "Name is now Hidden..",
 	Image = "rbxassetid://4483345998",
 	Time = 4
 	})
-elseif Antinametag == "OFF" then
-	if NAMETT then
-	NAMETT = false
+else
+	if Rnamee then
+	Rnamee = false
 	localPlayer.Character.Humanoid.Health = 0
 	end
 end
@@ -1450,8 +1399,8 @@ end
 spawn(function()
 
 while task.wait() do
-	if NAMETT then
-		if not Pause then
+	if Rnamee then
+		if not PAUSE then
 			if localPlayer.Character:WaitForChild("Head"):FindFirstChild("Nametag") then
 				localPlayer.Character:FindFirstChild("Head"):FindFirstChild("Nametag"):Destroy()
 			end
@@ -1469,11 +1418,16 @@ Default = "OFF",
 Options = {"OFF", "ON"},
 Save = true,
 Flag = "WHITEt",
-Callback = function(Vsave)
+Callback = function(White)
 
-Save = Vsave
+if White == "ON" then
+	Whitee = true
+elseif White == "OFF" then
+	Whitee = false
+end
 
-if Save == "ON" then
+
+if Whitee then
 	game:GetService("RunService"):Set3dRenderingEnabled(false)
 	setfpscap(30)
 else
@@ -1490,35 +1444,35 @@ Tab7:AddButton({
 Name = "RESET ALL",
 Callback = function()
 
-	Pause = false
+	PAUSE = false
 	ACTIVE = false
+	PUSHER = false
+	
 	OrionLib.Flags["PFARMt"]:Set("OFF")
 	OrionLib.Flags["GFARMt"]:Set("OFF")
 	
-	OrionLib.Flags["ASSt"]:Set("OFF")
-	OrionLib.Flags["KAAt"]:Set("OFF")
-	OrionLib.Flags["BOBBt"]:Set("OFF")
+	OrionLib.Flags["ASt"]:Set("OFF")
+	OrionLib.Flags["KAt"]:Set("OFF")
+	OrionLib.Flags["BOBt"]:Set("OFF")
 	OrionLib.Flags["SLAPPLEEt"]:Set("OFF")
 	
-	OrionLib.Flags["Voiddt"]:Set("OFF")
-	OrionLib.Flags["CUBEEt"]:Set("OFF")
-	OrionLib.Flags["BARRt"]:Set("OFF")
+	OrionLib.Flags["VOIDt"]:Set("OFF")
+	OrionLib.Flags["CUBEt"]:Set("OFF")
+	OrionLib.Flags["BARt"]:Set("OFF")
 	OrionLib.Flags["BRAZt"]:Set("OFF")
-	OrionLib.Flags["AntiZat"]:Set("OFF")
-	OrionLib.Flags["BUSSSt"]:Set("OFF")
-	OrionLib.Flags["PUSHHt"]:Set("OFF")
-	OrionLib.Flags["Reapert"]:Set("OFF")
-	OrionLib.Flags["Amailt"]:Set("OFF")
-	OrionLib.Flags["Astunt"]:Set("OFF")
-	OrionLib.Flags["Hrockt"]:Set("OFF")
-	OrionLib.Flags["Abubblet"]:Set("OFF")
+	OrionLib.Flags["ANTIZAt"]:Set("OFF")
+	OrionLib.Flags["BUSt"]:Set("OFF")
+	OrionLib.Flags["PUSHt"]:Set("OFF")
+	OrionLib.Flags["REAPERt"]:Set("OFF")
+	OrionLib.Flags["MAILt"]:Set("OFF")
+	OrionLib.Flags["STUNt"]:Set("OFF")
+	OrionLib.Flags["HROCKt"]:Set("OFF")
+	OrionLib.Flags["BUBBLEt"]:Set("OFF")
 	
-	OrionLib.Flags["Rname"]:Set("OFF")
+	OrionLib.Flags["RNAMEt"]:Set("OFF")
 	OrionLib.Flags["WHITEt"]:Set("OFF")
-	OrionLib.Flags["Lockpost"]:Set("OFF")
+	OrionLib.Flags["LOCKt"]:Set("OFF")
 
-	wall = false
-	localPlayer.Character.HumanoidRootPart.Anchored = false
 	localPlayer.Character.Humanoid.Health = 0
 	
 end    
@@ -1611,7 +1565,10 @@ Tab7:AddButton({
   	end    
 })
 
--------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------
+------------------------Farming----------------------------
 
 spawn(function()
 while task.wait() do
@@ -1625,7 +1582,7 @@ local Entered = character:FindFirstChild("entered")
 
 --------------------------
 
-if PFARM then
+if Pfarmm then
 if playernum >= numtofarm then
       if Entered and Torso.Transparency == 0 then
             Humanoid.Health = 0
@@ -1666,7 +1623,7 @@ end
 -------------------------------
 
 if MAINNG then
-	if not Pause then
+	if not PAUSE then
 		if not ACTIVE and Entered and RootPart and Humanoid and Torso.Transparency == 0 then
 			Humanoid.Health = 0
 		elseif not Entered and RootPart and Humanoid then
@@ -1700,7 +1657,7 @@ end
 -------------------------------
 
 if ALTTG then
-	if not Pause then
+	if not PAUSE then
 		if not ACTIVE and Entered and RootPart and Humanoid and Torso.Transparency == 0 then
 			Humanoid.Health = 0
 		elseif not Entered and RootPart and Humanoid then
@@ -1734,7 +1691,7 @@ end
 ---------------------------
 
 if MAINNNG then
-	if not Pause then
+	if not PAUSE then
 		if not ACTIVE and Entered and RootPart and Humanoid and Torso.Transparency == 0 then
 			Humanoid.Health = 0
 		elseif not Entered and RootPart and Humanoid then
@@ -1774,7 +1731,7 @@ end
 ------------------------
 
 if ALTTTG then
-	if not Pause then
+	if not PAUSE then
 		if not ACTIVE and Entered and RootPart and Humanoid and Torso.Transparency == 0 then
 			Humanoid.Health = 0
 		elseif not Entered and RootPart and Humanoid then
@@ -1832,7 +1789,7 @@ end
 ---------------------------------
 
 if SLAPPLEEEE then
-if not Sfarmdone and not Entered and RootPart and Humanoid then
+if not SFARMDONE and not Entered and RootPart and Humanoid then
 	local gloveClickk = localPlayer.leaderstats.Glove.Value
 	fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
 	task.wait(.3)
@@ -1844,14 +1801,16 @@ if not Sfarmdone and not Entered and RootPart and Humanoid then
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 	until localPlayer.Character:WaitForChild("isInArena").Value == true
 	Humanoid:UnequipTools()
-	RootPart.CFrame = CFrame.new(-431, 104, -32)
+elseif not SFARMDONE and Entered and RootPart and Humanoid then
+    RootPart.CFrame = SafeMArena
     for _,v in pairs(workspace.Arena:GetDescendants()) do
          if string.find(v.Name, "Slapple") and v:FindFirstChild("Glove") and v.Glove:FindFirstChildOfClass("TouchTransmitter") then
             firetouchinterest(Head, v.Glove, 0)
 			firetouchinterest(Head, v.Glove, 1)
             wait(0.05)
             elseif v:FindFirstChild("Glove") and v.Glove:FindFirstChildOfClass("TouchTransmitter") == nil then
-            Sfarmdone = true
+            SFARMDONE = true
+            Teleportslapple()
         end
      end
 end
@@ -1860,6 +1819,90 @@ end
 end
 end)
 
+
+
+
+----------------------------------------
+-----------------Anti-----------------
+
+spawn(function()
+while task.wait() do
+
+if Antizaa then
+	for i,v in pairs(game.Workspace:GetChildren()) do
+		if v.ClassName == "Part" and v.Name == "Part" then
+			v:Destroy()
+		end
+	end
+end
+
+if Buss then
+	for _,p in pairs(game:GetService("Workspace"):GetChildren()) do
+		if p.Name == "BusModel" then
+			p.CanCollide = false;
+			p.CanTouch = false;
+			p.Transparency = 0.8;
+		end
+	end
+end
+
+if Walll then
+	for _,p in pairs(game:GetService("Workspace"):GetChildren()) do
+		if p.Name == "wall" then
+			p.CanCollide = false;
+			p.CanTouch = false;
+			p.Transparency = 0.8;
+		end
+	end
+end
+
+if Reaperr then
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+		if v.Name == "DeathMark" then
+			game:GetService("ReplicatedStorage").ReaperGone:FireServer(game:GetService("Players").LocalPlayer.Character.DeathMark)
+			game:GetService("Lighting"):WaitForChild("DeathMarkColorCorrection"):Destroy() 
+		end 
+	end
+end
+
+if Maill then
+    for _,v in pairs(LocalPlayer.PlayerGui:GetChildren()) do
+	    if v.Name == "VineThudImageScreenGUI" or v.Name == "MailPopup" or v.Name == "MittenBlind" or v.Name == "SquidInk" then 
+			v:Destroy();
+		end
+	end
+	if game:GetService("Lighting"):FindFirstChildOfClass("ColorCorrectionEffect") then
+	game:GetService("Lighting"):FindFirstChildOfClass("ColorCorrectionEffect"):Destroy();
+	end
+end
+
+if Stunn then
+    if localPlayer.Character:FindFirstChild("Humanoid") and  game.Workspace:FindFirstChild("Shockwave") then
+		localPlayer.Character.Humanoid.PlatformStand = false
+	end
+end
+
+if Hrockk then
+    for _,v in pairs(game:GetService("Players"):GetChildren()) do
+		if v.Character:FindFirstChild("rock") then
+				v.Character:FindFirstChild("rock").CanTouch = false
+				v.Character:FindFirstChild("rock").CanQuery = false
+		end
+    end
+end
+
+if Bubblee then
+    for i,v in pairs(workspace:GetChildren()) do
+		if v.Name == "BubbleObject" then
+			if v:FindFirstChild("Weld") then
+				v:FindFirstChild("Weld"):Destroy()
+			end
+		end
+    end
+end
+
+end
+end)
 
 --------Teleport----------
 
@@ -1954,6 +1997,8 @@ OrionLib:MakeNotification({
     end
 end
 
+
+--------------------------------------
 ----------Player List-----------
 
 local function RefreshPlayers()
@@ -1981,6 +2026,8 @@ RefreshPlayers()
 players.PlayerAdded:Connect(RefreshPlayers)
 players.PlayerRemoving:Connect(RefreshPlayers)
 
-------------------------------
+
+--------------------------------
+--------------------------------
 task.wait(2)
 OrionLib:Init()
