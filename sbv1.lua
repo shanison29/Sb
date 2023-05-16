@@ -1780,6 +1780,7 @@ if not SFARMDONE and IsInArena.Value == false and RootPart and Humanoid then
 	Humanoid:UnequipTools()
 elseif not SFARMDONE and IsInArena.Value == true and RootPart and Humanoid then
     RootPart.CFrame = SafeMArena
+    task.wait(1)
     for _,v in pairs(workspace.Arena:GetDescendants()) do
          if string.find(v.Name, "Slapple") and v:FindFirstChild("Glove") and v.Glove:FindFirstChildOfClass("TouchTransmitter") then
             firetouchinterest(Head, v.Glove, 0)
@@ -1954,16 +1955,16 @@ OrionLib:MakeNotification({
 	Name = "Please Wait",
 	Content = "Cooldown before teleport to avoid Server Hop IP ban",
 	Image = "rbxassetid://4483345998",
-	Time = 18
+	Time = 16
 	})
-wait(20)
+wait(18)
 OrionLib:MakeNotification({
 	Name = "Teleporting",
 	Content = "Please Wait....",
 	Image = "rbxassetid://4483345998",
-	Time = 5
+	Time = 3
 	})
-	wait(3)
+	wait(1)
     while task.wait() do
         pcall(function()
             TPReturner()
