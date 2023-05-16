@@ -319,7 +319,7 @@ end
 
 players.PlayerRemoving:connect(function(mee)
     if mee == localPlayer then
-      TPService:Teleport(PlaceID)
+      Teleport()
     end
 end)
 
@@ -1977,6 +1977,23 @@ OrionLib:MakeNotification({
     end
 end
 
+function Teleport()
+OrionLib:MakeNotification({
+	Name = "Teleporting",
+	Content = "Please Wait....",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+	})
+	task.wait(2)
+    while task.wait() do
+        pcall(function()
+            TPReturner()
+            if foundAnything ~= "" then
+                TPReturner()
+            end
+        end)
+    end
+end
 
 --------------------------------------
 ----------Player List-----------
