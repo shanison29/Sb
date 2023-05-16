@@ -116,12 +116,6 @@ local TPService = game:GetService("TeleportService")
 local players = game:GetService("Players")
 local localPlayer = players.LocalPlayer
 
-local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
-local RootPart = character:WaitForChild("HumanoidRootPart")
-local Humanoid = character:WaitForChild("Humanoid")
-local Torso = character:WaitForChild("Torso")
-local Head = character:WaitForChild("Head")
-local Entered = character:FindFirstChild("entered")
 
 --Aura
 local MaxDistance = 20
@@ -152,11 +146,12 @@ local SafeAArena = CFrame.new(-1504, 133, -1510)
 local SafeMDefault = CFrame.new(119, 518, -21)
 local SafeADefault = CFrame.new(119, 518, -26)
 
-local SFARMDONE = false
+
 local PAUSE = false
 local ACTIVE = false
 local ALIVE = true
 local PUSHER = false
+local SFARMDONE = false
 
 local Ass = false
 local Kaa = false
@@ -164,11 +159,13 @@ local Kaa = false
 local Bobb = false
 local Sfarmm = false
 local ASfarmm = false
+local Pfarmm = false
+
 local MainA = false
 local AltA = false
 local MainD = false
 local AltD = false
-local Pfarmm = false
+
 
 local Rnamee = false
 local Astopp = false
@@ -369,11 +366,11 @@ end)
 
 ------------------///TAB 1///--------------------
 
-Tab1:AddDropdown({
+local DAS = Tab1:AddDropdown({
 Name = "Auto Slap (Need Glove Equipped)",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "ASt",
+Flag = "ASflag",
 Callback = function(As)
 
 if As == "ON" then
@@ -401,11 +398,11 @@ end
 
 ------------------------------------------
 
-Tab1:AddDropdown({
+local DKA = Tab1:AddDropdown({
 Name = "Slap Aura",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "KAt",
+Flag = "KAflag",
 Callback = function(Ka)
 
 if Ka == "ON" then
@@ -448,7 +445,7 @@ end
 
 -------------------------------------
 
-Tab1:AddDropdown({
+local DDist = Tab1:AddDropdown({
 Name = "Slap Aura Range",
 Default = 20,
 Options = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 100, 500, 1000},
@@ -459,17 +456,16 @@ end
 
 ---------------------------------------------
 
-Tab:AddDropdown({
+local DPFARM = Tab:AddDropdown({
 Name = "Player Farm (Ghost)",
 Default = "OFF",
 Options = {"OFF", "ON"},
 Save = true,
-Flag = "PFARMt",
+Flag = "PFARMflag",
 Callback = function(Pfarm)
 
 if Pfarm == "ON" then
 	Pfarmm = true
-
 elseif Pfarm == "OFF" then
 	Pfarmm = false
 end
@@ -479,11 +475,11 @@ end
 
 ----------------------------------------------
 
-Tab:AddDropdown({
+local DGFARM = Tab:AddDropdown({
 Name = "ALT Farm (Ghost)",
 Default = "OFF",
 Options = {"OFF", "MAIN ARENA", "ALT ARENA", "MAIN DEFAULT", "ALT DEFAULT"},
-Flag = "GFARMt",
+Flag = "GFARMflag",
 Callback = function(Gfarm)
 
 if Gfarm == "MAIN ARENA" then
@@ -518,11 +514,11 @@ end
 
 -------------------------------------------------
 
-Tab:AddDropdown({
+local DBOB = Tab:AddDropdown({
 Name = "BOB Farm (Replica)",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "BOBt",
+Flag = "BOBflag",
 Callback = function(Bob)
 
 if Bob == "ON" then
@@ -537,11 +533,11 @@ end
 
 --------------------------------------------------
 
-Tab:AddDropdown({
+local DSFARM = Tab:AddDropdown({
 Name = "Slapple Farm",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "SFARMt",
+Flag = "SFARMflag",
 Callback = function(Sfarm)
 
 if Sfarm == "ON" then
@@ -567,12 +563,12 @@ end
 
 --------------------------------------
 
-Tab:AddDropdown({
+local DASFARM = Tab:AddDropdown({
 Name = "Auto Slapple Farm / Hopper",
 Default = "OFF",
 Save = true,
 Options = {"OFF", "ON"},
-Flag = "ASFARMt",
+Flag = "ASFARMflag",
 Callback = function(ASfarm)
 
 if ASfarm == "ON" then
@@ -701,11 +697,11 @@ end
 
 ------------------///TAB 3///--------------------
 
-Tab3:AddDropdown({
+local DGMODEL = Tab3:AddDropdown({
 Name = "Ghost Mode(Lobby)",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "GMODELt",
+Flag = "GMODELflag",
 Callback = function(GMODEL)
 
 if GMODEL == "ON" then
@@ -717,7 +713,7 @@ if GMODEL == "ON" then
 	ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 	task.wait(.2)
 	fireclickdetector(game.Workspace.Lobby[gloveClickk].ClickDetector)
-	OrionLib.Flags["GMODELt"]:Set("OFF")
+	DGMODEL:Set("OFF")
     else
 	OrionLib:MakeNotification({
 	Name = "Notice..",
@@ -725,7 +721,7 @@ if GMODEL == "ON" then
 	Image = "rbxassetid://4483345998",
 	Time = 3
 	})
-	OrionLib.Flags["GMODELt"]:Set("OFF")
+	DGMODEL:Set("OFF")
    end
 end
 
@@ -734,11 +730,11 @@ end
 
 ------------------------------------------
 
-Tab3:AddDropdown({
+local DGMODEA = Tab3:AddDropdown({
 Name = "Ghost Mode(Arena)",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "GMODEAt",
+Flag = "GMODEAflag",
 Callback = function(GMODEA)
 
 if GMODEA == "ON" then
@@ -756,7 +752,7 @@ if GMODEA == "ON" then
 	until localPlayer.Character:WaitForChild("isInArena").Value == true
 	localPlayer.Character.Humanoid:UnequipTools()
 	localPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
-	OrionLib.Flags["GMODEAt"]:Set("OFF")
+	DGMODEA:Set("OFF")
     else
 	OrionLib:MakeNotification({
 	Name = "Notice..",
@@ -764,7 +760,7 @@ if GMODEA == "ON" then
 	Image = "rbxassetid://4483345998",
 	Time = 3
 	})
-	OrionLib.Flags["GMODEAt"]:Set("OFF")
+	DGMODEA:Set("OFF")
    end
 end
 
@@ -773,11 +769,11 @@ end
 
 ------------------------------------------
 
-Tab3:AddDropdown({
+local DGMODED = Tab3:AddDropdown({
 Name = "Ghost Mode(Default Arena)",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "GMODEDt",
+Flag = "GMODEDflag",
 Callback = function(GMODED)
 
 if GMODED == "ON" then
@@ -794,7 +790,7 @@ if GMODED == "ON" then
 	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
 	until localPlayer.Character:WaitForChild("isInArena").Value == true
 	localPlayer.Character.Humanoid:UnequipTools()
-	OrionLib.Flags["GMODEDt"]:Set("OFF")
+	DGMODED:Set("OFF")
     else
 	OrionLib:MakeNotification({
 	Name = "Notice..",
@@ -802,7 +798,7 @@ if GMODED == "ON" then
 	Image = "rbxassetid://4483345998",
 	Time = 3
 	})
-	OrionLib.Flags["GMODEDt"]:Set("OFF")
+	DGMODED:Set("OFF")
     end
 end
 
@@ -811,27 +807,27 @@ end
 
 ------------------///TAB 4///--------------------
 
-Tab4:AddDropdown({
+local DVOID = Tab4:AddDropdown({
 Name = "Anti Void",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "VOIDt",
+Flag = "VOIDflag",
 Callback = function(Void)
 
 if Void == "ON" then
-	Voidd = true
+    if not Voidd then
+        jesus.CanCollide = true
+        jesus.Transparency = .5
+        arenaVoid.Transparency = .5
+	    Voidd = true
+	end
 elseif Void == "OFF" then
-	Voidd = false
-end
-
-if Voidd then
-jesus.CanCollide = true
-jesus.Transparency = .5
-arenaVoid.Transparency = .5
-else
-jesus.CanCollide = false
-jesus.Transparency = 1
-arenaVoid.Transparency = 1
+    if Voidd then
+        jesus.CanCollide = false
+        jesus.Transparency = 1
+        arenaVoid.Transparency = 1
+        Voidd = false
+	end
 end
 
 end    
@@ -839,26 +835,26 @@ end
 
 -----------------------------------------------
 
-Tab4:AddDropdown({
+local DCUBE = Tab4:AddDropdown({
 Name = "Anti Death Cube",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "CUBEt",
+Flag = "CUBEflag",
 Callback = function(Cube)
 
 if Cube == "ON" then
-	Cubee = true
+    if not Cubee then
+	    if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) then
+		    workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CanTouch = false
+		    Cubee = true
+        end
+    end
 elseif Cube == "OFF" then
-	Cubee = false
-end
-
-if Cubee then
-	if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) then
-		workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CanTouch = false
-	end
-else
-	if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) then
+    if Cubee then
+	    if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) then
 	workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CanTouch = true
+	    Cubee = false
+	    end
 	end
 end
 
@@ -867,31 +863,31 @@ end
 
 ------------------------------------------
 
-Tab4:AddDropdown({
+local DBAR = Tab4:AddDropdown({
 Name = "Anti Death Barrier",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "BARt",
+Flag = "BARflag",
 Callback = function(Bar)
 
 if Bar == "ON" then
-	Barr = true
-elseif Bar == "OFF" then
-	Barr = false
-end
-
-if Barr then
-   if workspace:FindFirstChild("dedBarrier") and workspace:FindFirstChild("DEATHBARRIER") and workspace:FindFirstChild("DEATHBARRIER2") then
+    if not Barr then
+	    if workspace:FindFirstChild("dedBarrier") and workspace:FindFirstChild("DEATHBARRIER") and workspace:FindFirstChild("DEATHBARRIER2") then
 			workspace.DEATHBARRIER.CanTouch = false
 			workspace.DEATHBARRIER2.CanTouch = false
 			workspace.dedBarrier.CanTouch = false
-   end
-else
-   if workspace:FindFirstChild("dedBarrier") and workspace:FindFirstChild("DEATHBARRIER") and workspace:FindFirstChild("DEATHBARRIER2") then
+			Barr = true
+        end
+    end
+elseif Bar == "OFF" then
+	if Barr then
+	    if workspace:FindFirstChild("dedBarrier") and workspace:FindFirstChild("DEATHBARRIER") and workspace:FindFirstChild("DEATHBARRIER2") then
 		     workspace.DEATHBARRIER.CanTouch = true
 	         workspace.DEATHBARRIER2.CanTouch = true
 		     workspace.dedBarrier.CanTouch = true
-   end
+		     Barr = false
+        end
+	end
 end
 
 end
@@ -899,49 +895,49 @@ end
 
 ------------------------------------------
 
-Tab4:AddDropdown({
+local DBRAZ = Tab4:AddDropdown({
 Name = "Anti Brazil Portal",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "BRAZt",
+Flag = "BRAZflag",
 Callback = function(Braz)
 
 if Braz == "ON" then
-	Brazz = true
-elseif Braz == "OFF" then
-	Brazz = false
-end
-
-if Brazz then
-	for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-		if v.Name == "Part" and v.ClassName == "Part" then
-		local bpart = v
+    if not Brazz then
+        for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+		    if v.Name == "Part" and v.ClassName == "Part" then
+		        local bpart = v
 				bpart.CanTouch = false
 				bpart.CanCollide = false
-		end
-	end
-	for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-		if v.Name == "portal" and v.ClassName == "Part" then
-		local bportal = v
+		    end
+	    end
+	    for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+		    if v.Name == "portal" and v.ClassName == "Part" then
+		        local bportal = v
 				bportal.CanTouch = false
 				bportal.CanCollide = false
-		end
+		    end
+	    end
+	    Brazz = true
 	end
-else
-	for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-		if v.Name == "Part" and v.ClassName == "Part" then
-		local bpart = v
+elseif Braz == "OFF" then
+    if Brazz then
+        for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+		    if v.Name == "Part" and v.ClassName == "Part" then
+		        local bpart = v
 				bpart.CanTouch = true
 				bpart.CanCollide = true
-		end
-	end
-	for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-		if v.Name == "portal" and v.ClassName == "Part" then
-		local bportal = v
+		    end
+	    end
+	    for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+		    if v.Name == "portal" and v.ClassName == "Part" then
+		        local bportal = v
 				bportal.CanTouch = true
 				bportal.CanCollide = true
-		end
-	end
+		    end
+	    end
+	    Brazz = false
+    end
 end
 
 end
@@ -949,11 +945,11 @@ end
 
 --------------------------------------------------
 
-Tab4:AddDropdown({
+local DANTIZA = Tab4:AddDropdown({
 Name = "Anti Za Hando",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "ANTIZAt",
+Flag = "ANTIZAflag",
 Callback = function(Antiza)
 
 if Antiza == "ON" then
@@ -967,11 +963,11 @@ end
 
 -----------------------------------------------------------------
 
-Tab4:AddDropdown({
+local DBUS = Tab4:AddDropdown({
 Name = "Anti Bus",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "BUSt",
+Flag = "BUSflag",
 Callback = function(Bus)
 
 if Bus == "ON" then
@@ -985,11 +981,11 @@ end
 
 ----------------------------------------------------------------
 
-Tab4:AddDropdown({
+local DWALL = Tab4:AddDropdown({
 Name = "Anti Wall",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "WALLt",
+Flag = "WALLflag",
 Callback = function(Wall)
 
 if Wall == "ON" then
@@ -1003,11 +999,11 @@ end
 
 ------------------------------------------
 
-Tab4:AddDropdown({
+local DREAPER = Tab4:AddDropdown({
 Name = "Anti Reaper",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "REAPERt",
+Flag = "REAPERflag",
 Callback = function(Reaper)
 
 if Reaper == "ON" then
@@ -1021,11 +1017,11 @@ end
 
 -----------------------------------------
 
-Tab4:AddDropdown({
+local DMAIL = Tab4:AddDropdown({
 Name = "Anti Screen Block",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "MAILt",
+Flag = "MAILflag",
 Callback = function(Mail)
 
 if Mail == "ON" then
@@ -1039,11 +1035,11 @@ end
 
 ---------------------------------------------
 
-Tab4:AddDropdown({
+local DSTUN = Tab4:AddDropdown({
 Name = "Anti Stun",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "STUNt",
+Flag = "STUNflag",
 Callback = function(Stun)
 
 if Stun == "ON" then
@@ -1057,11 +1053,11 @@ end
 
 ---------------------------------------
 
-Tab4:AddDropdown({
+local DHROCK = Tab4:AddDropdown({
 Name = "Anti ROCK",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "HROCKt",
+Flag = "HROCKflag",
 Callback = function(Hrock)
 
 if Hrock == "ON" then
@@ -1075,11 +1071,11 @@ end
 
 -------------------------------------
 
-Tab4:AddDropdown({
+local DBUBBLE = Tab4:AddDropdown({
 Name = "Anti Bubble",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "BUBBLEt",
+Flag = "BUBBLEflag",
 Callback = function(Bubble)
 
 if Bubble == "ON" then
@@ -1102,34 +1098,32 @@ end
 
 ------------------------------------------
 
-Tab5:AddDropdown({
+local DLOCK = Tab5:AddDropdown({
 Name = "Anchor Body to Save Position",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "LOCKt",
+Flag = "LOCKflag",
 Callback = function(Lock)
 
 if Lock == "ON" then
-	Lockk = true
-elseif Lock == "OFF" then
-	Lockk = false
-end
-
-if Lockk then
-   if Savepos ~= nil then
-	localPlayer.Character.HumanoidRootPart.CFrame = Savepos
-	wait(.5)
-	localPlayer.Character.HumanoidRootPart.Anchored = true
+    if not Lockk and Savepos ~= nil then
+	    localPlayer.Character.HumanoidRootPart.CFrame = Savepos
+	    wait(.5)
+	    localPlayer.Character.HumanoidRootPart.Anchored = true
+	    Lockk = true
 	else
-	OrionLib:MakeNotification({
-	Name = "Notice..",
-	Content = "Get Position first",
-	Image = "rbxassetid://4483345998",
-	Time = 3
-	})
+	    OrionLib:MakeNotification({
+	    Name = "Notice..",
+	    Content = "Get Position first",
+	    Image = "rbxassetid://4483345998",
+	    Time = 3
+	    })
 	end
-else
-	localPlayer.Character.HumanoidRootPart.Anchored = false
+elseif Lock == "OFF" then
+	if Lockk then
+	    localPlayer.Character.HumanoidRootPart.Anchored = false
+	Lockk = false
+	end
 end
 
 end    
@@ -1245,12 +1239,12 @@ end
 
 -----------------------///TAB 6///--------------------------------
 
-Tab6:AddDropdown({
+local DASTOP = Tab6:AddDropdown({
 Name = "Auto Stop (Nearby Player)",
 Default = "OFF",
 Options = {"OFF", "ON"},
 Save = true,
-Flag = "ASTOPt",
+Flag = "ASTOPflag",
 Callback = function(Astop)
 
 if Astop == "ON" then
@@ -1261,7 +1255,7 @@ if Astop == "ON" then
 	Image = "rbxassetid://4483345998",
 	Time = 5
 	})
-else
+elseif Astop == "OFF" then
 	Astopp = false
 end
 
@@ -1298,7 +1292,6 @@ while task.wait() do
 		end
 	end
 end
-
 end)
 
 ---------------------------
@@ -1306,8 +1299,8 @@ end)
 spawn(function()
 while task.wait() do
 
-if ALIVE and Astopp and PAUSE and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") and localPlayer.Character:FindFirstChild("entered") then
-			--character.HumanoidRootPart.Anchored = false
+if ALIVE and PAUSE and localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") and localPlayer.Character:FindFirstChild("entered") then
+			--.localPlayer.Character.HumanoidRootPart.Anchored = false
 			localPlayer.Character.Humanoid.Health = 0
 
 end
@@ -1319,24 +1312,22 @@ end)
 
 spawn(function()
 while task.wait() do
-	if Astopp or Adminn then
-		if PAUSE then
+	if PAUSE then
 		UserSettings():GetService'UserGameSettings'.MasterVolume = 5
 		Sound:Play()
 		task.wait(SoundDelay)
-		end
 	end
 end
 end)
 
 ----------------------------------------------------------
 
-Tab6:AddDropdown({
+local DADMIN = Tab6:AddDropdown({
 Name = "Anti Admin",
 Default = "OFF",
 Options = {"OFF", "ON"},
 Save = true,
-Flag = "ADMINt",
+Flag = "ADMINflag",
 Callback = function(Admin)
 
 if Admin == "ON" then
@@ -1347,7 +1338,7 @@ if Admin == "ON" then
 	Image = "rbxassetid://4483345998",
 	Time = 5
 	})
-else
+elseif Admin == "OFF" then
 	Adminn = false
 end
 
@@ -1371,25 +1362,26 @@ end)
 
 ---------------------------------------------------------------
 
-Tab6:AddDropdown({
+local DRNAME = Tab6:AddDropdown({
 Name = "Remove Name",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "RNAMEt",
+Flag = "RNAMEflag",
 Callback = function(Rname)
 
 if Rname == "ON" then
-	Rnamee = true
-	OrionLib:MakeNotification({
-	Name = "Notice..",
-	Content = "Name is now Hidden..",
-	Image = "rbxassetid://4483345998",
-	Time = 4
-	})
-else
+    if not Rnamee then
+	    OrionLib:MakeNotification({
+	    Name = "Notice..",
+	    Content = "Name is now Hidden..",
+	    Image = "rbxassetid://4483345998",
+	    Time = 4
+	    })
+	    Rnamee = true
+	end
+elseif Rname == "OFF" then
 	if Rnamee then
-	Rnamee = false
-	localPlayer.Character.Humanoid.Health = 0
+	    Rnamee = false
 	end
 end
 
@@ -1399,12 +1391,10 @@ end
 spawn(function()
 
 while task.wait() do
-	if Rnamee then
-		if not PAUSE then
+	if Rnamee and not PAUSE then
 			if localPlayer.Character:WaitForChild("Head"):FindFirstChild("Nametag") then
-				localPlayer.Character:FindFirstChild("Head"):FindFirstChild("Nametag"):Destroy()
+				 localPlayer.Character:FindFirstChild("Head"):FindFirstChild("Nametag"):Destroy()
 			end
-		end
 	end
 end
 
@@ -1412,27 +1402,26 @@ end)
 
 -----------------------///TAB 7///--------------------------------
 
-Tab7:AddDropdown({
+local DWHITE = Tab7:AddDropdown({
 Name = "WhiteScreen",
 Default = "OFF",
 Options = {"OFF", "ON"},
 Save = true,
-Flag = "WHITEt",
+Flag = "WHITEflag",
 Callback = function(White)
 
 if White == "ON" then
-	Whitee = true
-elseif White == "OFF" then
-	Whitee = false
-end
-
-
-if Whitee then
+	if not Whitee then
 	game:GetService("RunService"):Set3dRenderingEnabled(false)
 	setfpscap(30)
-else
-	game:GetService("RunService"):Set3dRenderingEnabled(true)
-	setfpscap(60)
+	Whitee = true
+	end
+elseif White == "OFF" then
+	if Whitee then
+	    game:GetService("RunService"):Set3dRenderingEnabled(true)
+	    setfpscap(60)
+	    Whitee = false
+	end
 end
 
 end    
@@ -1448,30 +1437,28 @@ Callback = function()
 	ACTIVE = false
 	PUSHER = false
 	
-	OrionLib.Flags["PFARMt"]:Set("OFF")
-	OrionLib.Flags["GFARMt"]:Set("OFF")
-	
-	OrionLib.Flags["ASt"]:Set("OFF")
-	OrionLib.Flags["KAt"]:Set("OFF")
-	OrionLib.Flags["BOBt"]:Set("OFF")
-	OrionLib.Flags["SFARMt"]:Set("OFF")
-	
-	OrionLib.Flags["VOIDt"]:Set("OFF")
-	OrionLib.Flags["CUBEt"]:Set("OFF")
-	OrionLib.Flags["BARt"]:Set("OFF")
-	OrionLib.Flags["BRAZt"]:Set("OFF")
-	OrionLib.Flags["ANTIZAt"]:Set("OFF")
-	OrionLib.Flags["BUSt"]:Set("OFF")
-	OrionLib.Flags["PUSHt"]:Set("OFF")
-	OrionLib.Flags["REAPERt"]:Set("OFF")
-	OrionLib.Flags["MAILt"]:Set("OFF")
-	OrionLib.Flags["STUNt"]:Set("OFF")
-	OrionLib.Flags["HROCKt"]:Set("OFF")
-	OrionLib.Flags["BUBBLEt"]:Set("OFF")
-	
-	OrionLib.Flags["RNAMEt"]:Set("OFF")
-	OrionLib.Flags["WHITEt"]:Set("OFF")
-	OrionLib.Flags["LOCKt"]:Set("OFF")
+	DAS:Set("OFF")
+	DKA:Set("OFF")
+	DPFARM:Set("OFF")
+    DGFARM:Set("OFF")
+    DBOB:Set("OFF")
+    DASFARM:Set("OFF")
+    DSFARM:Set("OFF")
+    DVOID:Set("OFF")
+    DCUBE:Set("OFF")
+    DBAR:Set("OFF")
+    DBRAZ:Set("OFF")
+    DANTIZA:Set("OFF")
+    DBUS:Set("OFF")
+    DWALL:Set("OFF")
+    DREAPER:Set("OFF")
+    DMAIL:Set("OFF")
+    DSTUN:Set("OFF")
+    DHROCK:Set("OFF")
+    DBUBBLE:Set("OFF")
+    DLOCK:Set("OFF")
+    DRNAME:Set("OFF")
+    DWHITE:Set("OFF")
 
 	localPlayer.Character.Humanoid.Health = 0
 	
@@ -1480,11 +1467,11 @@ end
 
 -------------------------------------------
 
-Tab7:AddDropdown({
+local DRJ = Tab7:AddDropdown({
 Name = "Rejoin Server",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "RJt",
+Flag = "RJflag",
 Callback = function(RJ)
 
 if RJ == "ON" then
@@ -1495,7 +1482,7 @@ OrionLib:MakeNotification({
 	Time = 10
 	})
 TPService:Teleport(PlaceID, localPlayer)
-OrionLib.Flags["RJt"]:Set("Please Wait...")
+DRJ:Set("...")
 end
 
 end
@@ -1503,11 +1490,11 @@ end
 
 -----------------------------------------
 
-Tab7:AddDropdown({
+local DLOWEST = Tab7:AddDropdown({
 Name = "Join Lowest Player Server",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "LOWESTt",
+Flag = "LOWESTflag",
 Callback = function(LOWEST)
 
 if LOWEST == "ON" then
@@ -1578,15 +1565,16 @@ local RootPart = character:WaitForChild("HumanoidRootPart")
 local Humanoid = character:WaitForChild("Humanoid")
 local Torso = character:WaitForChild("Torso")
 local Head = character:WaitForChild("Head")
-local Entered = character:FindFirstChild("entered")
+local IsInArena = character:WaitForChild("isInArena")
+
 
 --------------------------
 
 if Pfarmm then
 if playernum >= numtofarm then
-      if Entered and Torso.Transparency == 0 then
+      if IsInArena.Value == true and Torso.Transparency == 0 then
             Humanoid.Health = 0
-      elseif not Entered and RootPart and Humanoid then
+      elseif IsInArena.Value == false and RootPart and Humanoid then
             workspace.DEATHBARRIER.CanTouch = false
             workspace.DEATHBARRIER2.CanTouch = false
             workspace.dedBarrier.CanTouch = false
@@ -1601,9 +1589,10 @@ if playernum >= numtofarm then
 			repeat task.wait()
 	        firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 	        firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	        until Entered
+	        until IsInArena.Value == true
 			Humanoid:UnequipTools()
-      elseif Entered and RootPart and Humanoid and Torso.Transparency == 1 then
+			RootPart.CFrame = SafeMArena
+      elseif IsInArena.Value == true and RootPart and Humanoid and Torso.Transparency == 1 then
                for i, v in next, players:GetPlayers() do
                       if v ~= localPlayer and v.Character and not v.Character:FindFirstChild("isParticipating") and v.Character:FindFirstChild("Torso") and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("entered") and v.Character.Head:FindFirstChild("UnoReverseCard") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
                                   RootPart.CFrame = v.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
@@ -1612,7 +1601,7 @@ if playernum >= numtofarm then
                                   wait(.20)
                                   shared.gloveHits[getGlove()]:FireServer(v.Character:FindFirstChild("Torso"))
                                    wait(.20)
-                                  HumanoidRootPart.CFrame = SafeMArena
+                                  RootPart.CFrame = SafeMArena
                                   wait(randomw)
                           end
                   end
@@ -1624,9 +1613,9 @@ end
 
 if MainA then
 	if not PAUSE then
-		if not ACTIVE and Entered and RootPart and Humanoid and Torso.Transparency == 0 then
+		if not ACTIVE and IsInArena.Value == true and RootPart and Humanoid and Torso.Transparency == 0 then
 			Humanoid.Health = 0
-		elseif not Entered and RootPart and Humanoid then
+		elseif IsInArena.Value == false and RootPart and Humanoid then
             task.wait(1)
 			local gloveClickk = localPlayer.leaderstats.Glove.Value
 			task.wait(.3)
@@ -1638,11 +1627,11 @@ if MainA then
 			repeat task.wait()
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	until character:WaitForChild("isInArena").Value == true
+	until IsInArena.Value == true
 			Humanoid:UnequipTools()
 		    RootPart.CFrame = SafeMArena
 			ACTIVE = true
-		elseif Entered and Torso.Transparency == 1 and RootPart and Humanoid then
+		elseif IsInArena.Value == true and Torso.Transparency == 1 and RootPart and Humanoid then
 		    ACTIVE = true
 			repeat
 			RootPart.CFrame = SafeMArena
@@ -1658,9 +1647,9 @@ end
 
 if AltA then
 	if not PAUSE then
-		if not ACTIVE and Entered and RootPart and Humanoid and Torso.Transparency == 0 then
+		if not ACTIVE and IsInArena.Value == true and RootPart and Humanoid and Torso.Transparency == 0 then
 			Humanoid.Health = 0
-		elseif not Entered and RootPart and Humanoid then
+		elseif IsInArena.Value == false and RootPart and Humanoid then
             task.wait(1)
 			local gloveClickk = localPlayer.leaderstats.Glove.Value
 			task.wait(.3)
@@ -1672,11 +1661,11 @@ if AltA then
 			repeat task.wait()
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	until character:WaitForChild("isInArena").Value == true
+	until IsInArena.Value == true
 			Humanoid:UnequipTools()
 		    RootPart.CFrame = SafeAArena
 			ACTIVE = true
-		elseif Entered and Torso.Transparency == 1 and RootPart and Humanoid then
+		elseif IsInArena.Value == true and Torso.Transparency == 1 and RootPart and Humanoid then
 		    ACTIVE = true
 			repeat
 			RootPart.CFrame = SafeAArena
@@ -1692,12 +1681,9 @@ end
 
 if MainD then
 	if not PAUSE then
-		if not ACTIVE and Entered and RootPart and Humanoid and Torso.Transparency == 0 then
+		if not ACTIVE and IsInArena.Value == true and RootPart and Humanoid and Torso.Transparency == 0 then
 			Humanoid.Health = 0
-		elseif not Entered and RootPart and Humanoid then
-		    workspace.DEATHBARRIER.CanTouch = false
-            workspace.DEATHBARRIER2.CanTouch = false
-            workspace.dedBarrier.CanTouch = false
+		elseif IsInArena.Value == false and RootPart and Humanoid then
             task.wait(1)
 			local gloveClickk = localPlayer.leaderstats.Glove.Value
 			task.wait(.3)
@@ -1709,19 +1695,16 @@ if MainD then
 			repeat task.wait()
 	firetouchinterest(Head, workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
 	firetouchinterest(Head, workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
-	until character:WaitForChild("isInArena").Value == true
+	until IsInArena.Value == true
 			Humanoid:UnequipTools()
 		    RootPart.CFrame = SafeMDefault
 			ACTIVE = true
-		elseif Entered and Torso.Transparency == 1 and RootPart and Humanoid then
+		elseif IsInArena.Value == true and Torso.Transparency == 1 and RootPart and Humanoid then
 		    ACTIVE = true
 			repeat
 			RootPart.CFrame = SafeMDefault
 			task.wait(1)
 			until Humanoid.Died
-			workspace.DEATHBARRIER.CanTouch = true
-            workspace.DEATHBARRIER2.CanTouch = true
-            workspace.dedBarrier.CanTouch = true
 		end
 	else
 	ACTIVE = false
@@ -1732,12 +1715,9 @@ end
 
 if AltD then
 	if not PAUSE then
-		if not ACTIVE and Entered and RootPart and Humanoid and Torso.Transparency == 0 then
+		if not ACTIVE and IsInArena.Value == true and RootPart and Humanoid and Torso.Transparency == 0 then
 			Humanoid.Health = 0
-		elseif not Entered and RootPart and Humanoid then
-		    workspace.DEATHBARRIER.CanTouch = false
-            workspace.DEATHBARRIER2.CanTouch = false
-            workspace.dedBarrier.CanTouch = false
+		elseif IsInArena.Value == false and RootPart and Humanoid then
             task.wait(1)
 			local gloveClickk = localPlayer.leaderstats.Glove.Value
 			task.wait(.3)
@@ -1749,19 +1729,16 @@ if AltD then
 			repeat task.wait()
 	firetouchinterest(Head, workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
 	firetouchinterest(Head, workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
-	until character:WaitForChild("isInArena").Value == true
+	until IsInArena.Value == true
 			Humanoid:UnequipTools()
 		    RootPart.CFrame = SafeADefault
 			ACTIVE = true
-		elseif Entered and Torso.Transparency == 1 and RootPart and Humanoid then
+		elseif IsInArena.Value == true and Torso.Transparency == 1 and RootPart and Humanoid then
 		    ACTIVE = true
 			repeat
 			RootPart.CFrame = SafeADefault
 			task.wait(1)
 			until Humanoid.Died
-			workspace.DEATHBARRIER.CanTouch = true
-            workspace.DEATHBARRIER2.CanTouch = true
-            workspace.dedBarrier.CanTouch = true
 		end
 	else
 	ACTIVE = false
@@ -1773,10 +1750,10 @@ end
 if Bobb then
 local TargetPosition = Vector3.new(-565, 328, 3)
 local TargetPart = nil
-	if not Entered and RootPart and Humanoid then
+	if IsInArena.Value == false and RootPart and Humanoid then
 	repeat task.wait(2)
 			Humanoid:MoveTo(TargetPosition, TargetPart)
-	until character:WaitForChild("isInArena").Value == true
+	until IsInArena.Value == true
 			vim:SendKeyEvent(true, "E", false, game)
 			task.wait()
 			vim:SendKeyEvent(false, "E", false, game)
@@ -1789,7 +1766,7 @@ end
 ---------------------------------
 
 if ASfarmm then
-if not SFARMDONE and not Entered and RootPart and Humanoid then
+if not SFARMDONE and IsInArena.Value == false and RootPart and Humanoid then
 	local gloveClickk = localPlayer.leaderstats.Glove.Value
 	fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
 	task.wait(.3)
@@ -1799,9 +1776,9 @@ if not SFARMDONE and not Entered and RootPart and Humanoid then
 	repeat task.wait(.5)
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	until localPlayer.Character:WaitForChild("isInArena").Value == true
+	until IsInArena.Value == true
 	Humanoid:UnequipTools()
-elseif not SFARMDONE and Entered and RootPart and Humanoid then
+elseif not SFARMDONE and IsInArena.Value == true and RootPart and Humanoid then
     RootPart.CFrame = SafeMArena
     for _,v in pairs(workspace.Arena:GetDescendants()) do
          if string.find(v.Name, "Slapple") and v:FindFirstChild("Glove") and v.Glove:FindFirstChildOfClass("TouchTransmitter") then
