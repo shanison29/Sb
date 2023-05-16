@@ -327,7 +327,7 @@ queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus 
 
 queueteleport([[
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
-loadstring(game:HttpGet('https://raw.githubusercontent.com/shanison29/Sb/main/sbv1.lua'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/shanison29/Sb/main/load'))()
 end
 ]])
 
