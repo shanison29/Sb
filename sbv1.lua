@@ -178,6 +178,7 @@ local GMODED = "OFF"
 local RJ = "OFF"
 local LOWEST = "OFF"
 
+local Chasee = false
 local Voidd = false
 local Cubee = false
 local Barr = false
@@ -309,6 +310,22 @@ shared.gloveHits = {
     
 }
 
+----------Loop--------
+
+local looptable = {}
+
+local function doLoop(name,func)
+	if looptable[name] == nil then
+		looptable[name] = game:GetService("RunService").Stepped:Connect(func)
+	end
+end
+local function endLoop(name)
+	if looptable[name] then
+		looptable[name]:Disconnect()
+		looptable[name] = nil
+	end
+end
+
 ---------Current Glove local Function----------
 
 local function getGlove()
@@ -389,11 +406,15 @@ elseif As == "OFF" then
 	end
 end
 
-while Ass and task.wait(0.1) do
-	if not PAUSE and localPlayer.Character:FindFirstChild("entered") then
-		virtualUser:CaptureController()
-		virtualUser:ClickButton1(Vector2.new(120,120))
-	end
+if Ass then
+    doLoop("ass",function()
+		if not PAUSE and localPlayer.Character:FindFirstChild("entered") then
+		    virtualUser:CaptureController()
+		    virtualUser:ClickButton1(Vector2.new(120,120))
+	    end
+    end)
+else
+    endLoop("ass")
 end
 
 end
@@ -424,10 +445,11 @@ elseif Ka == "OFF" then
 	end
 end
 
-while Kaa and task.wait(0.1) do
-	if not PAUSE and localPlayer.Character:FindFirstChild("entered") and  localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") then
+if Kaa then
+    doLoop("kaa",function()
+		if not PAUSE and localPlayer.Character:FindFirstChild("entered") and  localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") then
 
-      pcall(function()
+       pcall(function()
             for i, v in next, players:GetPlayers() do
                 if v ~= localPlayer and v.Character and v.Character:FindFirstChild("entered") then
                       if v.Character:FindFirstChild("Head") then
@@ -437,13 +459,16 @@ while Kaa and task.wait(0.1) do
                                       if MaxDistance >= Magnitude then
                                         shared.gloveHits[getGlove()]:FireServer(v.Character:WaitForChild("Head"))
                                       end
-                                 end
-                            end
-                        end
-                  end
-            end
-      end)
-	end
+                                  end
+                              end
+                         end
+                   end
+             end
+       end)
+	   end
+    end)
+else
+    endLoop("kaa")
 end
 
 end
@@ -758,7 +783,7 @@ if GMODEA == "ON" then
 	ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 	task.wait(.2)
 	fireclickdetector(game.Workspace.Lobby[gloveClickk].ClickDetector)
-	repeat task.wait(.5)
+	repeat task.wait()
 	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 	until localPlayer.Character:WaitForChild("isInArena").Value == true
@@ -797,7 +822,7 @@ if GMODED == "ON" then
 	ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 	task.wait(.2)
 	fireclickdetector(game.Workspace.Lobby[gloveClickk].ClickDetector)
-	repeat task.wait(.5)
+	repeat task.wait()
 	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
 	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
 	until localPlayer.Character:WaitForChild("isInArena").Value == true
@@ -818,6 +843,48 @@ end
 })
 
 ------------------///TAB 4///--------------------
+
+local DCHASE = Tab4:AddDropdown({
+Name = "Anti Chase",
+Default = "OFF",
+Options = {"OFF", "ON"},
+Flag = "CHASEflag",
+Callback = function(Chase)
+
+if Chase == "ON" then
+    if not Chasee then
+	    Chasee = true
+	end
+elseif Chase == "OFF" then
+    if Chasee then
+        Chasee = false
+	end
+end
+
+while Chasee and task.wait() do
+
+local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+local RootPart = character:WaitForChild("HumanoidRootPart")
+local Humanoid = character:WaitForChild("Humanoid")
+local Torso = character:WaitForChild("Torso")
+local Head = character:WaitForChild("Head")
+
+if localPlayer.Character:WaitForChild("isInArena").Value == true and Humanoid and RootPart then
+    if character:FindFirstChild("CHASED") or character:FindFirstChild("CHASE")  then
+        for _,v in pairs(character:GetChildren()) do
+            if v:IsA("Part") or v:IsA("MeshPart") then
+                v.Anchored = false;
+            elseif v:IsA("BoolValue") and v.Name == "Ragdolled" then
+                v.Value = false;
+            end
+        end
+    end
+end
+
+end
+
+end    
+})
 
 local DVOID = Tab4:AddDropdown({
 Name = "Anti Void",
@@ -1348,6 +1415,7 @@ Callback = function()
     DBOB:Set("OFF")
     DASFARM:Set("OFF")
     DSFARM:Set("OFF")
+    DCHASE:Set("OFF")
     DVOID:Set("OFF")
     DCUBE:Set("OFF")
     DBAR:Set("OFF")
@@ -1460,8 +1528,8 @@ Tab7:AddButton({
 -----------------------------------------------------------------
 ------------------------Farming----------------------------
 
-spawn(function()
-while task.wait(0.5) do
+coroutine.wrap(function()
+while task.wait() do
 
 local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
 local RootPart = character:WaitForChild("HumanoidRootPart")
@@ -1470,14 +1538,13 @@ local Torso = character:WaitForChild("Torso")
 local Head = character:WaitForChild("Head")
 local IsInArena = character:WaitForChild("isInArena")
 
-
 --------------------------
 
 if Pfarmm then
 if playernum >= numtofarm then
-      if IsInArena.Value == true and Torso.Transparency == 0 then
+      if character ~= nil and Humanoid ~= nil and IsInArena.Value == true and Torso.Transparency == 0 then
             Humanoid.Health = 0
-      elseif IsInArena.Value == false and RootPart and Humanoid then
+      elseif character ~= nil and Humanoid ~= nil and IsInArena.Value == false then
             workspace.DEATHBARRIER.CanTouch = false
             workspace.DEATHBARRIER2.CanTouch = false
             workspace.dedBarrier.CanTouch = false
@@ -1495,7 +1562,7 @@ if playernum >= numtofarm then
 	        until IsInArena.Value == true
 			Humanoid:UnequipTools()
 			RootPart.CFrame = SafeMArena
-      elseif IsInArena.Value == true and RootPart and Humanoid and Torso.Transparency == 1 then
+      elseif IsInArena.Value == true and character ~= nil and Humanoid ~= nil and Torso.Transparency == 1 then
                for i, v in next, players:GetPlayers() do
                       if v ~= localPlayer and v.Character and not v.Character:FindFirstChild("isParticipating") and v.Character:FindFirstChild("Torso") and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("entered") and v.Character.Head:FindFirstChild("UnoReverseCard") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
                                   RootPart.CFrame = v.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
@@ -1516,9 +1583,9 @@ end
 
 if MainA then
 	if not PAUSE then
-		if not ACTIVE and IsInArena.Value == true and RootPart and Humanoid and Torso.Transparency == 0 then
+		if not ACTIVE and IsInArena.Value == true and character ~= nil and Humanoid ~= nil and Torso.Transparency == 0 then
 			Humanoid.Health = 0
-		elseif IsInArena.Value == false and RootPart and Humanoid then
+		elseif IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
             task.wait(1)
 			local gloveClickk = localPlayer.leaderstats.Glove.Value
 			task.wait(.3)
@@ -1534,7 +1601,7 @@ if MainA then
 			Humanoid:UnequipTools()
 		    RootPart.CFrame = SafeMArena
 			ACTIVE = true
-		elseif IsInArena.Value == true and Torso.Transparency == 1 and RootPart and Humanoid then
+		elseif IsInArena.Value == true and Torso.Transparency == 1 and character ~= nil and Humanoid ~= nil then
 		    ACTIVE = true
 			repeat
 			RootPart.CFrame = SafeMArena
@@ -1550,9 +1617,9 @@ end
 
 if AltA then
 	if not PAUSE then
-		if not ACTIVE and IsInArena.Value == true and RootPart and Humanoid and Torso.Transparency == 0 then
+		if not ACTIVE and IsInArena.Value == true and character ~= nil and Humanoid ~= nil and Torso.Transparency == 0 then
 			Humanoid.Health = 0
-		elseif IsInArena.Value == false and RootPart and Humanoid then
+		elseif IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
             task.wait(1)
 			local gloveClickk = localPlayer.leaderstats.Glove.Value
 			task.wait(.3)
@@ -1568,7 +1635,7 @@ if AltA then
 			Humanoid:UnequipTools()
 		    RootPart.CFrame = SafeAArena
 			ACTIVE = true
-		elseif IsInArena.Value == true and Torso.Transparency == 1 and RootPart and Humanoid then
+		elseif IsInArena.Value == true and Torso.Transparency == 1 and character ~= nil and Humanoid ~= nil then
 		    ACTIVE = true
 			repeat
 			RootPart.CFrame = SafeAArena
@@ -1584,9 +1651,9 @@ end
 
 if MainD then
 	if not PAUSE then
-		if not ACTIVE and IsInArena.Value == true and RootPart and Humanoid and Torso.Transparency == 0 then
+		if not ACTIVE and IsInArena.Value == true and character ~= nil and Humanoid ~= nil and Torso.Transparency == 0 then
 			Humanoid.Health = 0
-		elseif IsInArena.Value == false and RootPart and Humanoid then
+		elseif IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
             task.wait(1)
 			local gloveClickk = localPlayer.leaderstats.Glove.Value
 			task.wait(.3)
@@ -1602,7 +1669,7 @@ if MainD then
 			Humanoid:UnequipTools()
 		    RootPart.CFrame = SafeMDefault
 			ACTIVE = true
-		elseif IsInArena.Value == true and Torso.Transparency == 1 and RootPart and Humanoid then
+		elseif IsInArena.Value == true and Torso.Transparency == 1 and character ~= nil and Humanoid ~= nil then
 		    ACTIVE = true
 			repeat
 			RootPart.CFrame = SafeMDefault
@@ -1618,9 +1685,9 @@ end
 
 if AltD then
 	if not PAUSE then
-		if not ACTIVE and IsInArena.Value == true and RootPart and Humanoid and Torso.Transparency == 0 then
+		if not ACTIVE and IsInArena.Value == true and character ~= nil and Humanoid ~= nil and Torso.Transparency == 0 then
 			Humanoid.Health = 0
-		elseif IsInArena.Value == false and RootPart and Humanoid then
+		elseif IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
             task.wait(1)
 			local gloveClickk = localPlayer.leaderstats.Glove.Value
 			task.wait(.3)
@@ -1636,7 +1703,7 @@ if AltD then
 			Humanoid:UnequipTools()
 		    RootPart.CFrame = SafeADefault
 			ACTIVE = true
-		elseif IsInArena.Value == true and Torso.Transparency == 1 and RootPart and Humanoid then
+		elseif IsInArena.Value == true and Torso.Transparency == 1 and character ~= nil and Humanoid ~= nil then
 		    ACTIVE = true
 			repeat
 			RootPart.CFrame = SafeADefault
@@ -1653,7 +1720,7 @@ end
 if Bobb then
 local TargetPosition = Vector3.new(-565, 328, 3)
 local TargetPart = nil
-	if IsInArena.Value == false and RootPart and Humanoid then
+	if IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
 	repeat task.wait(2)
 			Humanoid:MoveTo(TargetPosition, TargetPart)
 	until IsInArena.Value == true
@@ -1668,7 +1735,7 @@ end
 ---------------------------------
 
 if ASfarmm then
-if not SFARMDONE and IsInArena.Value == false and RootPart and Humanoid then
+if not SFARMDONE and IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
     task.wait(3)
 	local gloveClickk = localPlayer.leaderstats.Glove.Value
 	fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
@@ -1676,12 +1743,12 @@ if not SFARMDONE and IsInArena.Value == false and RootPart and Humanoid then
 	ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 	task.wait(.3)
 	fireclickdetector(game.Workspace.Lobby[gloveClickk].ClickDetector)
-	repeat task.wait(.5)
+	repeat task.wait()
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 	until IsInArena.Value == true
 	Humanoid:UnequipTools()
-elseif not SFARMDONE and IsInArena.Value == true and RootPart and Humanoid then
+elseif not SFARMDONE and IsInArena.Value == true and character ~= nil and Humanoid ~= nil then
     RootPart.CFrame = SafeMArena
     task.wait(1)
     for _,v in pairs(workspace.Arena:GetDescendants()) do
@@ -1713,7 +1780,7 @@ wait()
 end
 
 end
-end)
+end)()
 
 
 
@@ -1721,8 +1788,8 @@ end)
 ----------------------------------------
 -----------------Anti-----------------
 
-spawn(function()
-while task.wait(0.05) do
+coroutine.wrap(function()
+while task.wait() do
 
 if Antizaa then
 	for i,v in pairs(game.Workspace:GetChildren()) do
@@ -1798,13 +1865,13 @@ if Bubblee then
 end
 
 end
-end)
+end)()
 
 -------------------------------
 ---------Other-------------
 
-spawn(function()
-while task.wait(0.5) do
+coroutine.wrap(function()
+while task.wait() do
 
 local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
 local RootPart = character:WaitForChild("HumanoidRootPart")
@@ -1842,13 +1909,13 @@ end
 
 -------------Auto Reset------------
 
-if ALIVE and PAUSE and RootPart and Humanoid and IsInArena.Value == true then
+if ALIVE and PAUSE and character ~= nil and Humanoid ~= nil and IsInArena.Value == true and Humanoid.Health > 0 then
 		Humanoid.Health = 0
 end
 
 -------------Auto Pause------------
 
-if Astopp and ACTIVE and IsInArena.Value == true and RootPart and humanoid then
+if Astopp and ACTIVE and IsInArena.Value == true and character ~= nil and Humanoid ~= nil then
 	for i,v in pairs(players:GetPlayers()) do
 			if v ~= localPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not table.find(Myself, v.Name) then
 				if (v.Character.HumanoidRootPart.Position - RootPart.Position).Magnitude <= 100 then
@@ -1875,7 +1942,7 @@ if Astopp and ACTIVE and IsInArena.Value == true and RootPart and humanoid then
 end
 
 end
-end)
+end)()
 
 
 -------------------------------
@@ -1989,7 +2056,6 @@ OrionLib:MakeNotification({
         end)
     end
 end
-
 
 --------------------------------
 --------------------------------
