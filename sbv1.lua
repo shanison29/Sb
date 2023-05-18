@@ -116,12 +116,6 @@ local TPService = game:GetService("TeleportService")
 local players = game:GetService("Players")
 local localPlayer = players.LocalPlayer
 
-local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
-local RootPart = character:WaitForChild("HumanoidRootPart")
-local Humanoid = character:WaitForChild("Humanoid")
-local Torso = character:WaitForChild("Torso")
-local Head = character:WaitForChild("Head")
-local IsInArena = character:WaitForChild("isInArena")
 
 --Aura
 local MaxDistance = 20
@@ -184,7 +178,6 @@ local GMODED = "OFF"
 local RJ = "OFF"
 local LOWEST = "OFF"
 
-local Ragdd = false
 local Voidd = false
 local Cubee = false
 local Barr = false
@@ -412,7 +405,7 @@ while Ass and task.wait() do
 		virtualUser:CaptureController()
 		virtualUser:ClickButton1(Vector2.new(120,120))
 	end
-wait()
+task.wait()
 end
 
 end
@@ -839,27 +832,6 @@ end
 })
 
 ------------------///TAB 4///--------------------
-
-local DRAGD = Tab4:AddDropdown({
-Name = "Anti Ragdoll",
-Default = "OFF",
-Options = {"OFF", "ON"},
-Flag = "RAGDflag",
-Callback = function(Ragd)
-
-if Ragd == "ON" then
-    if not Ragdd then
-	    Ragdd = true
-	end
-elseif Ragd == "OFF" then
-    if Ragdd then
-        Ragdd = false
-	end
-end
-
-
-end    
-})
 
 local DVOID = Tab4:AddDropdown({
 Name = "Anti Void",
@@ -1390,7 +1362,6 @@ Callback = function()
     DBOB:Set("OFF")
     DASFARM:Set("OFF")
     DSFARM:Set("OFF")
-    DRAGD:Set("OFF")
     DVOID:Set("OFF")
     DCUBE:Set("OFF")
     DBAR:Set("OFF")
@@ -1611,7 +1582,7 @@ if AltA then
 		    ACTIVE = true
 			repeat
 			RootPart.CFrame = SafeAArena
-			task.wait(1)
+			task.wait(0.3)
 			until Humanoid.Died
 		end
 	else
@@ -1679,7 +1650,7 @@ if AltD then
 		    ACTIVE = true
 			repeat
 			RootPart.CFrame = SafeADefault
-			task.wait(1)
+			task.wait(0.3)
 			until Humanoid.Died
 		end
 	else
@@ -1759,15 +1730,16 @@ end)()
 ----------------------------------------
 -----------------Anti-----------------
 
-coroutine.wrap(function()
+spawn(function()
 while task.wait() do
 
 local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
-local RootPart = character:FindFirstChild("HumanoidRootPart")
-local Humanoid = character:FindFirstChild("Humanoid")
-local Torso = character:FindFirstChild("Torso")
-local Head = character:FindFirstChild("Head")
-local IsInArena = character:FindFirstChild("isInArena")
+local RootPart = character:WaitForChild("HumanoidRootPart")
+local Humanoid = character:WaitForChild("Humanoid")
+local Torso = character:WaitForChild("Torso")
+local Head = character:WaitForChild("Head")
+local IsInArena = character:WaitForChild("isInArena")
+
 
 if Antizaa then
 	for i,v in pairs(game.Workspace:GetChildren()) do
@@ -1843,7 +1815,7 @@ if Bubblee then
 end
 
 end
-end)()
+end)
 
 -------------------------------
 ---------Other-------------
@@ -1852,11 +1824,11 @@ spawn(function()
 while task.wait() do
 
 local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
-local RootPart = character:FindFirstChild("HumanoidRootPart")
-local Humanoid = character:FindFirstChild("Humanoid")
-local Torso = character:FindFirstChild("Torso")
-local Head = character:FindFirstChild("Head")
-local IsInArena = character:FindFirstChild("isInArena")
+local RootPart = character:WaitForChild("HumanoidRootPart")
+local Humanoid = character:WaitForChild("Humanoid")
+local Torso = character:WaitForChild("Torso")
+local Head = character:WaitForChild("Head")
+local IsInArena = character:WaitForChild("isInArena")
 
 ----------Hide Name-------
 
@@ -1896,11 +1868,10 @@ end
 if Astopp and ACTIVE and IsInArena.Value == true and character ~= nil and Humanoid ~= nil then
 	for i,v in pairs(players:GetPlayers()) do
 			if v ~= localPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not table.find(Myself, v.Name) then
-				if (v.Character.HumanoidRootPart.Position - RootPart.Position).Magnitude <= 100 then
-					--localPlayer:Kick("Someone's Nearby")
+				if (v.Character.HumanoidRootPart.Position - RootPart.Position).Magnitude <= 90 then
 					OrionLib:MakeNotification({
 					Name = "Alert!!!",
-					Content = "Nearby Player DETECTED within 100 Distance. Farming Paused for 60 Seconds",
+					Content = "Nearby Player DETECTED within 90 Distance. Farming Paused for 60 Seconds",
 					Image = "rbxassetid://4483345998",
 					Time = 49
 					})
