@@ -116,15 +116,21 @@ local TPService = game:GetService("TeleportService")
 local players = game:GetService("Players")
 local localPlayer = players.LocalPlayer
 
+local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+local RootPart = character:WaitForChild("HumanoidRootPart")
+local Humanoid = character:WaitForChild("Humanoid")
+local Torso = character:WaitForChild("Torso")
+local Head = character:WaitForChild("Head")
+local IsInArena = character:WaitForChild("isInArena")
 
 --Aura
 local MaxDistance = 20
 
 --Alert
-local SoundDelay = 2
+local SoundDelay = 1
 local Sound = Instance.new('Sound', game:GetService'SoundService')
 Sound.SoundId = 'rbxassetid://4590662766'
-Sound.Volume = 1
+Sound.Volume = 5
 
 --Whitelist nearby player
 local Myself = {
@@ -135,7 +141,7 @@ local Myself = {
 
 --Player Counter
 local playernum = 0
-local numtofarm = 9
+local numtofarm = 10
 
 --Save and lock Position
 local Savepos
@@ -151,7 +157,7 @@ local PAUSE = false
 local ACTIVE = false
 local ALIVE = true
 local PUSHER = false
-local SFARMDONE = false
+local TELEPORTING = false
 
 local Ass = false
 local Kaa = false
@@ -178,7 +184,7 @@ local GMODED = "OFF"
 local RJ = "OFF"
 local LOWEST = "OFF"
 
-local Chasee = false
+local Ragdd = false
 local Voidd = false
 local Cubee = false
 local Barr = false
@@ -194,8 +200,6 @@ local Bubblee = false
 
 local Lockk = false
 local Whitee = false
-
-
 
 -------------Random Wait----------
 local randomw = math.random(2, 4)
@@ -310,21 +314,6 @@ shared.gloveHits = {
     
 }
 
-----------Loop--------
-
-local looptable = {}
-
-local function doLoop(name,func)
-	if looptable[name] == nil then
-		looptable[name] = game:GetService("RunService").Stepped:Connect(func)
-	end
-end
-local function endLoop(name)
-	if looptable[name] then
-		looptable[name]:Disconnect()
-		looptable[name] = nil
-	end
-end
 
 ---------Current Glove local Function----------
 
@@ -383,6 +372,18 @@ end)
 
 ------------------///TAB 1///--------------------
 
+local DNUMFARM = Tab:AddDropdown({
+Name = "Player Limit to Farm",
+Default = 10,
+Options = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14},
+Save = true,
+Callback = function(numfarm)
+numtofarm = numfarm
+end    
+})
+
+--------------------------------------------------------
+
 local DAS = Tab1:AddDropdown({
 Name = "Auto Slap (Need Glove Equipped)",
 Default = "OFF",
@@ -406,15 +407,12 @@ elseif As == "OFF" then
 	end
 end
 
-if Ass then
-    doLoop("ass",function()
-		if not PAUSE and localPlayer.Character:FindFirstChild("entered") then
-		    virtualUser:CaptureController()
-		    virtualUser:ClickButton1(Vector2.new(120,120))
-	    end
-    end)
-else
-    endLoop("ass")
+while Ass and task.wait() do
+	if not PAUSE and localPlayer.Character:FindFirstChild("entered") then
+		virtualUser:CaptureController()
+		virtualUser:ClickButton1(Vector2.new(120,120))
+	end
+wait()
 end
 
 end
@@ -445,11 +443,10 @@ elseif Ka == "OFF" then
 	end
 end
 
-if Kaa then
-    doLoop("kaa",function()
-		if not PAUSE and localPlayer.Character:FindFirstChild("entered") and  localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") then
+while Kaa and task.wait() do
+	if not PAUSE and localPlayer.Character:FindFirstChild("entered") and  localPlayer.Character:FindFirstChild("HumanoidRootPart") and localPlayer.Character:FindFirstChild("Humanoid") then
 
-       pcall(function()
+      pcall(function()
             for i, v in next, players:GetPlayers() do
                 if v ~= localPlayer and v.Character and v.Character:FindFirstChild("entered") then
                       if v.Character:FindFirstChild("Head") then
@@ -459,16 +456,14 @@ if Kaa then
                                       if MaxDistance >= Magnitude then
                                         shared.gloveHits[getGlove()]:FireServer(v.Character:WaitForChild("Head"))
                                       end
-                                  end
-                              end
-                         end
-                   end
-             end
-       end)
-	   end
-    end)
-else
-    endLoop("kaa")
+                                 end
+                            end
+                        end
+                  end
+            end
+      end)
+	end
+task.wait()
 end
 
 end
@@ -476,10 +471,11 @@ end
 
 -------------------------------------
 
-local DDist = Tab1:AddDropdown({
+local DDIST = Tab1:AddDropdown({
 Name = "Slap Aura Range",
 Default = 20,
 Options = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 100, 500, 1000},
+Save = true,
 Callback = function(Dist)
 MaxDistance = Dist
 end    
@@ -518,20 +514,20 @@ Flag = "GFARMflag",
 Callback = function(Gfarm)
 
 if Gfarm == "MAIN ARENA" then
-	MainA = true
 	AltA = false
 	MainD = false
 	AltD = false
+	MainA = true
 elseif Gfarm == "ALT ARENA" then
 	MainA = false
-	AltA = true
 	MainD = false
 	AltD = false
+	AltA = true
 elseif Gfarm == "MAIN DEFAULT" then
 	MainA = false
 	AltA = false
-	MainD = true
 	AltD = false
+	MainD = true
 elseif Gfarm == "ALT DEFAULT" then
 	MainA = false
 	AltA = false
@@ -844,44 +840,23 @@ end
 
 ------------------///TAB 4///--------------------
 
-local DCHASE = Tab4:AddDropdown({
-Name = "Anti Chase",
+local DRAGD = Tab4:AddDropdown({
+Name = "Anti Ragdoll",
 Default = "OFF",
 Options = {"OFF", "ON"},
-Flag = "CHASEflag",
-Callback = function(Chase)
+Flag = "RAGDflag",
+Callback = function(Ragd)
 
-if Chase == "ON" then
-    if not Chasee then
-	    Chasee = true
+if Ragd == "ON" then
+    if not Ragdd then
+	    Ragdd = true
 	end
-elseif Chase == "OFF" then
-    if Chasee then
-        Chasee = false
+elseif Ragd == "OFF" then
+    if Ragdd then
+        Ragdd = false
 	end
 end
 
-while Chasee and task.wait() do
-
-local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
-local RootPart = character:WaitForChild("HumanoidRootPart")
-local Humanoid = character:WaitForChild("Humanoid")
-local Torso = character:WaitForChild("Torso")
-local Head = character:WaitForChild("Head")
-
-if localPlayer.Character:WaitForChild("isInArena").Value == true and Humanoid and RootPart then
-    if character:FindFirstChild("CHASED") or character:FindFirstChild("CHASE")  then
-        for _,v in pairs(character:GetChildren()) do
-            if v:IsA("Part") or v:IsA("MeshPart") then
-                v.Anchored = false;
-            elseif v:IsA("BoolValue") and v.Name == "Ragdolled" then
-                v.Value = false;
-            end
-        end
-    end
-end
-
-end
 
 end    
 })
@@ -1219,7 +1194,7 @@ Callback = function(Lock)
 if Lock == "ON" then
     if not Lockk and Savepos ~= nil then
 	    localPlayer.Character.HumanoidRootPart.CFrame = Savepos
-	    wait(.5)
+	    task.wait(.5)
 	    localPlayer.Character.HumanoidRootPart.Anchored = true
 	    Lockk = true
 	else
@@ -1271,11 +1246,11 @@ Button.MouseButton1Click:Connect(function()
 if not PUSHER then
 ReplicatedStorage.PusherWall:FireServer()
 PUSHER = true
-wait(6)
+task.wait(6)
 PUSHER = false
 elseif PUSHER then
 localPlayer.Character.Humanoid.Health = 0
-wait(4)
+task.wait(4)
 PUSHER = false
 end
 end)
@@ -1415,7 +1390,7 @@ Callback = function()
     DBOB:Set("OFF")
     DASFARM:Set("OFF")
     DSFARM:Set("OFF")
-    DCHASE:Set("OFF")
+    DRAGD:Set("OFF")
     DVOID:Set("OFF")
     DCUBE:Set("OFF")
     DBAR:Set("OFF")
@@ -1469,44 +1444,41 @@ Flag = "LOWESTflag",
 Callback = function(LOWEST)
 
 if LOWEST == "ON" then
-    OrionLib:MakeNotification({
-	Name = "Please Wait.....",
-	Content = "Finding Low Player Server",
-	Image = "rbxassetid://4483345998",
-	Time = 20
-	})
 
-local pageLimit = math.huge -- Set to math.huge to explore all pages
+OrionLib:MakeNotification({
+Name = "Please Wait.....",
+Content = "Finding Low Player Server",
+Image = "rbxassetid://4483345998",
+Time = 20
+})
 
-local HttpService = game:GetService('HttpService');
-
-local nextCursor, serverId;
-local minimum = math.huge;
-
-local Page = 0;
+local pageLimit = math.huge
+local HttpService = game:GetService('HttpService')
+local nextCursor, serverId
+local minimum = math.huge
+local Page = 0
 repeat
-    local Url = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100";
-    if (nextCursor) then Url = Url .. "&cursor=" .. nextCursor end;
-
-    local Servers = HttpService:JSONDecode(game:HttpGet(Url));
+    local Url = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
+    if (nextCursor) then Url = Url .. "&cursor=" .. nextCursor end
+    local Servers = HttpService:JSONDecode(game:HttpGet(Url))
     if (Servers) then
-        nextCursor = Servers.nextPageCursor or nil;
-        Page = Page + 1;
+        nextCursor = Servers.nextPageCursor or nil
+        Page = Page + 1
         for _,v in pairs(Servers.data) do
-            v.playing = v.playing or math.huge;
-            v.id = v.id or '';
+            v.playing = v.playing or math.huge
+            v.id = v.id or ''
 
             if v.id ~= game.JobId and v.playing <= minimum then
-                minimum = v.playing;
-                serverId = v.id;
+                minimum = v.playing
+                serverId = v.id
             end
         end
     end
-until (not nextCursor) or (Page >= pageLimit);
+until (not nextCursor) or (Page >= pageLimit)
 
 if (serverId) then
-    warn("Teleporting to: " .. tostring(serverId) .. ", Player Count: " .. minimum);
-    TPService:TeleportToPlaceInstance(PlaceID, serverId);
+    warn("Teleporting to: " .. tostring(serverId) .. ", Player Count: " .. minimum)
+    TPService:TeleportToPlaceInstance(PlaceID, serverId)
 end
 
 end
@@ -1532,16 +1504,16 @@ coroutine.wrap(function()
 while task.wait() do
 
 local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
-local RootPart = character:WaitForChild("HumanoidRootPart")
-local Humanoid = character:WaitForChild("Humanoid")
-local Torso = character:WaitForChild("Torso")
-local Head = character:WaitForChild("Head")
-local IsInArena = character:WaitForChild("isInArena")
+local RootPart = character:FindFirstChild("HumanoidRootPart")
+local Humanoid = character:FindFirstChild("Humanoid")
+local Torso = character:FindFirstChild("Torso")
+local Head = character:FindFirstChild("Head")
+local IsInArena = character:FindFirstChild("isInArena")
 
 --------------------------
 
 if Pfarmm then
-if playernum >= numtofarm then
+    if not PAUSE then
       if character ~= nil and Humanoid ~= nil and IsInArena.Value == true and Torso.Transparency == 0 then
             Humanoid.Health = 0
       elseif character ~= nil and Humanoid ~= nil and IsInArena.Value == false then
@@ -1568,15 +1540,15 @@ if playernum >= numtofarm then
                                   RootPart.CFrame = v.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
                                   task.wait()
                                   Humanoid.PlatformStand = true
-                                  wait(.20)
+                                  task.wait(.20)
                                   shared.gloveHits[getGlove()]:FireServer(v.Character:FindFirstChild("Torso"))
-                                   wait(.20)
+                                   task.wait(.20)
                                   RootPart.CFrame = SafeMArena
-                                  wait(randomw)
+                                  task.wait(randomw)
                           end
                   end
        end
-end
+    end
 end
 
 -------------------------------
@@ -1735,7 +1707,7 @@ end
 ---------------------------------
 
 if ASfarmm then
-if not SFARMDONE and IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
+if IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
     task.wait(3)
 	local gloveClickk = localPlayer.leaderstats.Glove.Value
 	fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
@@ -1748,19 +1720,18 @@ if not SFARMDONE and IsInArena.Value == false and character ~= nil and Humanoid 
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 	until IsInArena.Value == true
 	Humanoid:UnequipTools()
-elseif not SFARMDONE and IsInArena.Value == true and character ~= nil and Humanoid ~= nil then
     RootPart.CFrame = SafeMArena
     task.wait(1)
-    for _,v in pairs(workspace.Arena:GetDescendants()) do
-         if string.find(v.Name, "Slapple") and v:FindFirstChild("Glove") and v.Glove:FindFirstChildOfClass("TouchTransmitter") then
-            firetouchinterest(Head, v.Glove, 0)
-			firetouchinterest(Head, v.Glove, 1)
-            wait(0.05)
-            elseif v:FindFirstChild("Glove") and v.Glove:FindFirstChildOfClass("TouchTransmitter") == nil then
-            SFARMDONE = true
-            task.wait(1)
-            Teleportslapple()
-        end
+    for i,v in next, workspace.Arena.island5.Slapples:GetDescendants() do
+		if v.ClassName == "TouchTransmitter" then
+            firetouchinterest(Head, v.Parent, 0)
+			firetouchinterest(Head, v.Parent, 1)
+            task.wait(0.05)
+            if not TELEPORTING then
+                Teleportslapple()
+                TELEPORTING = true
+            end
+         end
      end
 end
 end
@@ -1769,14 +1740,14 @@ end
 
 if Sfarmm then
 	if IsInArena.Value == true then
-		for Index, Instance in next, workspace.Arena.island5.Slapples:GetDescendants() do
-			if Instance.ClassName == "TouchTransmitter" then
-			firetouchinterest(Head, Instance.Parent, 0)
-			firetouchinterest(Head, Instance.Parent, 1)
+		for i,v in next, workspace.Arena.island5.Slapples:GetDescendants() do
+		    if v.ClassName == "TouchTransmitter" then
+			firetouchinterest(Head, v.Parent, 0)
+			firetouchinterest(Head, v.Parent, 1)
+			task.wait(0.05)
 			end
 		end
 	end
-wait()
 end
 
 end
@@ -1791,6 +1762,13 @@ end)()
 coroutine.wrap(function()
 while task.wait() do
 
+local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+local RootPart = character:FindFirstChild("HumanoidRootPart")
+local Humanoid = character:FindFirstChild("Humanoid")
+local Torso = character:FindFirstChild("Torso")
+local Head = character:FindFirstChild("Head")
+local IsInArena = character:FindFirstChild("isInArena")
+
 if Antizaa then
 	for i,v in pairs(game.Workspace:GetChildren()) do
 		if v.ClassName == "Part" and v.Name == "Part" then
@@ -1802,9 +1780,9 @@ end
 if Buss then
 	for _,p in pairs(game:GetService("Workspace"):GetChildren()) do
 		if p.Name == "BusModel" then
-			p.CanCollide = false;
-			p.CanTouch = false;
-			p.Transparency = 0.8;
+			p.CanCollide = false
+			p.CanTouch = false
+			p.Transparency = 0.8
 		end
 	end
 end
@@ -1812,9 +1790,9 @@ end
 if Walll then
 	for _,p in pairs(game:GetService("Workspace"):GetChildren()) do
 		if p.Name == "wall" then
-			p.CanCollide = false;
-			p.CanTouch = false;
-			p.Transparency = 0.8;
+			p.CanCollide = false
+			p.CanTouch = false
+			p.Transparency = 0.8
 		end
 	end
 end
@@ -1831,11 +1809,11 @@ end
 if Maill then
     for _,v in pairs(localPlayer.PlayerGui:GetChildren()) do
 	    if v.Name == "VineThudImageScreenGUI" or v.Name == "MailPopup" or v.Name == "MittenBlind" or v.Name == "SquidInk" then 
-			v:Destroy();
+			v:Destroy()
 		end
 	end
 	if game:GetService("Lighting"):FindFirstChildOfClass("ColorCorrectionEffect") then
-	game:GetService("Lighting"):FindFirstChildOfClass("ColorCorrectionEffect"):Destroy();
+	game:GetService("Lighting"):FindFirstChildOfClass("ColorCorrectionEffect"):Destroy()
 	end
 end
 
@@ -1870,15 +1848,15 @@ end)()
 -------------------------------
 ---------Other-------------
 
-coroutine.wrap(function()
+spawn(function()
 while task.wait() do
 
 local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
-local RootPart = character:WaitForChild("HumanoidRootPart")
-local Humanoid = character:WaitForChild("Humanoid")
-local Torso = character:WaitForChild("Torso")
-local Head = character:WaitForChild("Head")
-local IsInArena = character:WaitForChild("isInArena")
+local RootPart = character:FindFirstChild("HumanoidRootPart")
+local Humanoid = character:FindFirstChild("Humanoid")
+local Torso = character:FindFirstChild("Torso")
+local Head = character:FindFirstChild("Head")
+local IsInArena = character:FindFirstChild("isInArena")
 
 ----------Hide Name-------
 
@@ -1909,7 +1887,7 @@ end
 
 -------------Auto Reset------------
 
-if ALIVE and PAUSE and character ~= nil and Humanoid ~= nil and IsInArena.Value == true and Humanoid.Health > 0 then
+if ALIVE and PAUSE and character ~= nil and Humanoid ~= nil and IsInArena.Value == true then
 		Humanoid.Health = 0
 end
 
@@ -1927,7 +1905,7 @@ if Astopp and ACTIVE and IsInArena.Value == true and character ~= nil and Humano
 					Time = 49
 					})
 					PAUSE = true
-					wait(50)
+					task.wait(50)
 					OrionLib:MakeNotification({
 					Name = "Alert!!!",
 					Content = "Resuming in 10 Seconds",
@@ -1941,8 +1919,18 @@ if Astopp and ACTIVE and IsInArena.Value == true and character ~= nil and Humano
 	end
 end
 
+---------Number of Players to Start-----------
+
+if Pfarmm then
+    if playernum < numtofarm then
+        PAUSE = true
+    else
+        PAUSE = false
+    end
 end
-end)()
+
+end
+end)
 
 
 -------------------------------
@@ -1978,7 +1966,7 @@ function TPReturner()
         foundAnything = Site.nextPageCursor
     end
     
-    local num = 0;
+    local num = 0
     
     for i,v in pairs(Site.data) do
         local Possible = true
@@ -2002,13 +1990,13 @@ function TPReturner()
             end
             if Possible == true then
                 table.insert(AllIDs, ID)
-                wait()
+                task.wait()
                 pcall(function()
                     writefile("SBServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))      
-              wait()
+              task.wait()
                     TPService:TeleportToPlaceInstance(PlaceID, ID, localPlayer)
                 end)
-                wait(3)
+                task.wait(3)
             end
         end
     end
