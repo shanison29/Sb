@@ -1721,6 +1721,7 @@ if Sfarmm then
 	end
 end
 
+wait()
 end
 end)()
 
@@ -1734,12 +1735,14 @@ spawn(function()
 while task.wait() do
 
 local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
-local RootPart = character:WaitForChild("HumanoidRootPart")
-local Humanoid = character:WaitForChild("Humanoid")
-local Torso = character:WaitForChild("Torso")
-local Head = character:WaitForChild("Head")
-local IsInArena = character:WaitForChild("isInArena")
+local Humanoid = character:FindFirstChild("Humanoid")
+local RootPart = character:FindFirstChild("HumanoidRootPart")
+local Torso = character:FindFirstChild("Torso")
+local Head = character:FindFirstChild("Head")
+local IsInArena = character:FindFirstChild("isInArena")
 
+
+if IsInArena.Value == true and character ~= nil and Humanoid ~= nil then
 
 if Antizaa then
 	for i,v in pairs(game.Workspace:GetChildren()) do
@@ -1770,9 +1773,9 @@ if Walll then
 end
 
 if Reaperr then
-for i,v in pairs(localPlayer.Character:GetChildren()) do
+for i,v in pairs(character:GetChildren()) do
 		if v.Name == "DeathMark" then
-			game:GetService("ReplicatedStorage").ReaperGone:FireServer(localPlayer.Character.DeathMark)
+			ReplicatedStorage.ReaperGone:FireServer(character.DeathMark)
 			game:GetService("Lighting"):WaitForChild("DeathMarkColorCorrection"):Destroy() 
 		end 
 	end
@@ -1790,8 +1793,8 @@ if Maill then
 end
 
 if Stunn then
-    if localPlayer.Character:FindFirstChild("Humanoid") and  game.Workspace:FindFirstChild("Shockwave") then
-		localPlayer.Character.Humanoid.PlatformStand = false
+    if game.Workspace:FindFirstChild("Shockwave") then
+		Humanoid.PlatformStand = false
 	end
 end
 
@@ -1815,6 +1818,9 @@ if Bubblee then
 end
 
 end
+
+wait()
+end
 end)
 
 -------------------------------
@@ -1824,11 +1830,11 @@ spawn(function()
 while task.wait() do
 
 local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
-local RootPart = character:WaitForChild("HumanoidRootPart")
-local Humanoid = character:WaitForChild("Humanoid")
-local Torso = character:WaitForChild("Torso")
-local Head = character:WaitForChild("Head")
-local IsInArena = character:WaitForChild("isInArena")
+local Humanoid = character:FindFirstChild("Humanoid")
+local RootPart = character:FindFirstChild("HumanoidRootPart")
+local Torso = character:FindFirstChild("Torso")
+local Head = character:FindFirstChild("Head")
+local IsInArena = character:FindFirstChild("isInArena")
 
 ----------Hide Name-------
 
@@ -1900,6 +1906,7 @@ if Pfarmm then
     end
 end
 
+wait()
 end
 end)
 
