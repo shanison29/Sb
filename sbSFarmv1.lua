@@ -73,10 +73,10 @@ local localPlayer = players.LocalPlayer
 
 
 --Alert
-local SoundDelay = 2
+local SoundDelay = 1
 local Sound = Instance.new('Sound', game:GetService'SoundService')
 Sound.SoundId = 'rbxassetid://4590662766'
-Sound.Volume = 1
+Sound.Volume = 5
 
 --Whitelist nearby player
 local Myself = {
@@ -95,7 +95,8 @@ local SafeMArena = CFrame.new(-1504, 133, -1506)
 local SafeAArena = CFrame.new(-1504, 133, -1510)
 
 local PAUSE = false
-local SFARMDONE = false
+local TELEPORTING = false
+local ALIVE = true
 
 
 local ASfarmm = false
@@ -267,11 +268,30 @@ players.PlayerRemoving:Connect(function()
 	countdisplay:Set("-- Player Count:  "..tostring(playernum).."  --")
 end)
 
+-----------------Player Respawn and Died------------------
 
+localPlayer.Character.Humanoid.Died:Connect(function()
+ACTIVE = false
+ALIVE = false
+end)
+
+localPlayer.CharacterAdded:Connect(function()
+ALIVE = true
+end)
 
 
 
 ------------------///TAB 1///--------------------
+
+local DNUMFARM = Tab:AddDropdown({
+Name = "Player Limit to Farm",
+Default = 10,
+Options = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14},
+Save = true,
+Callback = function(numfarm)
+numtofarm = numfarm
+end    
+})
 
 
 local DPFARM = Tab:AddDropdown({
@@ -317,19 +337,6 @@ end
 end
 })
 
-
------SOUND ALERT-----
-
-spawn(function()
-while task.wait() do
-	if PAUSE then
-		UserSettings():GetService'UserGameSettings'.MasterVolume = 5
-		Sound:Play()
-		task.wait(SoundDelay)
-	end
-end
-end)
-
 ----------------------------------------------------------
 
 local DADMIN = Tab2:AddDropdown({
@@ -355,22 +362,7 @@ end
 end
 })
 
-spawn(function()
-
-while task.wait() do
-	if Adminn then
-      players.PlayerAdded:Connect(function(Plra)
-         if Plra:GetRankInGroup(9950771) and 2 <= Plra:GetRankInGroup(9950771) then
-            PAUSE = true
-            localPlayer:Kick("Admin/High Rank Player Detected")
-         end
-      end)
-	end
-end
-
-end)
-
------------------------///TAB 7///--------------------------------
+-----------------------///TAB 3///--------------------------------
 
 local DWHITE = Tab3:AddDropdown({
 Name = "WhiteScreen",
@@ -490,28 +482,27 @@ Tab3:AddButton({
 -----------------------------------------------------------------
 ------------------------Farming----------------------------
 
-spawn(function()
+coroutine.wrap(function()
 while task.wait() do
 
 local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
-local RootPart = character:WaitForChild("HumanoidRootPart")
-local Humanoid = character:WaitForChild("Humanoid")
-local Torso = character:WaitForChild("Torso")
-local Head = character:WaitForChild("Head")
-local IsInArena = character:WaitForChild("isInArena")
+local RootPart = character:FindFirstChild("HumanoidRootPart")
+local Humanoid = character:FindFirstChild("Humanoid")
+local Torso = character:FindFirstChild("Torso")
+local Head = character:FindFirstChild("Head")
+local IsInArena = character:FindFirstChild("isInArena")
 
 
 --------------------------
 
 if Pfarmm then
-if playernum >= numtofarm then
-PAUSE = false
-workspace.DEATHBARRIER.CanTouch = false
-workspace.DEATHBARRIER2.CanTouch = false
-workspace.dedBarrier.CanTouch = false
-      if IsInArena.Value == true and Torso.Transparency == 0 then
+    if not PAUSE then
+      if character ~= nil and Humanoid ~= nil and IsInArena.Value == true and Torso.Transparency == 0 then
             Humanoid.Health = 0
-      elseif not PAUSE and IsInArena.Value == false and RootPart and Humanoid then
+      elseif character ~= nil and Humanoid ~= nil and IsInArena.Value == false then
+            workspace.DEATHBARRIER.CanTouch = false
+            workspace.DEATHBARRIER2.CanTouch = false
+            workspace.dedBarrier.CanTouch = false
             task.wait(1)
 			local gloveClickk = localPlayer.leaderstats.Glove.Value
 			task.wait(.3)
@@ -526,33 +517,27 @@ workspace.dedBarrier.CanTouch = false
 	        until IsInArena.Value == true
 			Humanoid:UnequipTools()
 			RootPart.CFrame = SafeMArena
-      elseif not PAUSE and IsInArena.Value == true and RootPart and Humanoid and Torso.Transparency == 1 then
+      elseif IsInArena.Value == true and character ~= nil and Humanoid ~= nil and Torso.Transparency == 1 then
                for i, v in next, players:GetPlayers() do
                       if v ~= localPlayer and v.Character and not v.Character:FindFirstChild("isParticipating") and v.Character:FindFirstChild("Torso") and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("entered") and v.Character.Head:FindFirstChild("UnoReverseCard") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
                                   RootPart.CFrame = v.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
                                   task.wait()
                                   Humanoid.PlatformStand = true
-                                  wait(.20)
+                                  task.wait(.20)
                                   shared.gloveHits[getGlove()]:FireServer(v.Character:FindFirstChild("Torso"))
-                                   wait(.20)
+                                   task.wait(.20)
                                   RootPart.CFrame = SafeMArena
-                                  wait(randomw)
+                                  task.wait(randomw)
                           end
                   end
        end
-elseif playernum < numtofarm then
-PAUSE = true
-workspace.DEATHBARRIER.CanTouch = true
-workspace.DEATHBARRIER2.CanTouch = true
-workspace.dedBarrier.CanTouch = true
-Humanoid.Health = 0
-end
+    end
 end
 
 ---------------------------------
 
 if ASfarmm then
-if not SFARMDONE and IsInArena.Value == false and RootPart and Humanoid then
+if IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
     task.wait(3)
 	local gloveClickk = localPlayer.leaderstats.Glove.Value
 	fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
@@ -560,31 +545,88 @@ if not SFARMDONE and IsInArena.Value == false and RootPart and Humanoid then
 	ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 	task.wait(.3)
 	fireclickdetector(game.Workspace.Lobby[gloveClickk].ClickDetector)
-	repeat task.wait(.5)
+	repeat task.wait()
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 	until IsInArena.Value == true
 	Humanoid:UnequipTools()
-elseif not SFARMDONE and IsInArena.Value == true and RootPart and Humanoid then
     RootPart.CFrame = SafeMArena
     task.wait(1)
-    for _,v in pairs(workspace.Arena:GetDescendants()) do
-         if string.find(v.Name, "Slapple") and v:FindFirstChild("Glove") and v.Glove:FindFirstChildOfClass("TouchTransmitter") then
-            firetouchinterest(Head, v.Glove, 0)
-			firetouchinterest(Head, v.Glove, 1)
-            wait(0.05)
-            elseif v:FindFirstChild("Glove") and v.Glove:FindFirstChildOfClass("TouchTransmitter") == nil then
-            SFARMDONE = true
-            task.wait(1)
-            Teleportslapple()
-        end
+    for i,v in next, workspace.Arena.island5.Slapples:GetDescendants() do
+		if v.ClassName == "TouchTransmitter" then
+            firetouchinterest(Head, v.Parent, 0)
+			firetouchinterest(Head, v.Parent, 1)
+            task.wait(0.05)
+            if not TELEPORTING then
+                Teleportslapple()
+                TELEPORTING = true
+            end
+         end
      end
 end
 end
 
+wait()
+end
+end)()
+
+spawn(function()
+while task.wait() do
+
+local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+local Humanoid = character:FindFirstChild("Humanoid")
+local RootPart = character:FindFirstChild("HumanoidRootPart")
+local Torso = character:FindFirstChild("Torso")
+local Head = character:FindFirstChild("Head")
+local IsInArena = character:FindFirstChild("isInArena")
+
+----------Hide Name-------
+
+if Rnamee and not PAUSE then
+	if Head:FindFirstChild("Nametag") then
+		Head:FindFirstChild("Nametag"):Destroy()
+	end
+end
+
+-----------Admin--------------
+
+if Adminn then
+    players.PlayerAdded:Connect(function(Plra)
+         if Plra:GetRankInGroup(9950771) and 2 <= Plra:GetRankInGroup(9950771) then
+            PAUSE = true
+            localPlayer:Kick("Admin/High Rank Player Detected")
+         end
+    end)
+end
+
+---------Sound Alert------------
+
+if PAUSE then
+	UserSettings():GetService'UserGameSettings'.MasterVolume = 5
+	Sound:Play()
+	task.wait(SoundDelay)
+end
+
+-------------Auto Reset------------
+
+if ALIVE and PAUSE and character ~= nil and Humanoid ~= nil and IsInArena.Value == true then
+		Humanoid.Health = 0
+end
+
+
+---------Number of Players to Start-----------
+
+if Pfarmm then
+    if playernum < numtofarm then
+        PAUSE = true
+    else
+        PAUSE = false
+    end
+end
+
+wait()
 end
 end)
-
 
 --------Teleport----------
 
