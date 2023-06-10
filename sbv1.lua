@@ -739,7 +739,7 @@ if GMODEL == "ON" then
 	ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 	task.wait(.2)
 	fireclickdetector(game.Workspace.Lobby[gloveClickk].ClickDetector)
-	DGMODEL:Set("OFF")
+	OrionLib.Flags["GMODELflag"]:Set("OFF")
     else
 	OrionLib:MakeNotification({
 	Name = "Notice..",
@@ -747,7 +747,7 @@ if GMODEL == "ON" then
 	Image = "rbxassetid://4483345998",
 	Time = 3
 	})
-	DGMODEL:Set("OFF")
+	OrionLib.Flags["GMODELflag"]:Set("OFF")
    end
 end
 
@@ -778,7 +778,7 @@ if GMODEA == "ON" then
 	until localPlayer.Character:WaitForChild("isInArena").Value == true
 	localPlayer.Character.Humanoid:UnequipTools()
 	localPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
-	DGMODEA:Set("OFF")
+	OrionLib.Flags["GMODEAflag"]:Set("OFF")
     else
 	OrionLib:MakeNotification({
 	Name = "Notice..",
@@ -786,7 +786,7 @@ if GMODEA == "ON" then
 	Image = "rbxassetid://4483345998",
 	Time = 3
 	})
-	DGMODEA:Set("OFF")
+	OrionLib.Flags["GMODEAflag"]:Set("OFF")
    end
 end
 
@@ -816,7 +816,7 @@ if GMODED == "ON" then
 	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
 	until localPlayer.Character:WaitForChild("isInArena").Value == true
 	localPlayer.Character.Humanoid:UnequipTools()
-	DGMODED:Set("OFF")
+	OrionLib.Flags["GMODEDflag"]:Set("OFF")
     else
 	OrionLib:MakeNotification({
 	Name = "Notice..",
@@ -824,7 +824,7 @@ if GMODED == "ON" then
 	Image = "rbxassetid://4483345998",
 	Time = 3
 	})
-	DGMODED:Set("OFF")
+	OrionLib.Flags["GMODEDflag"]:Set("OFF")
     end
 end
 
@@ -843,6 +843,7 @@ Callback = function(Void)
 if Void == "ON" then
     if not Voidd then
         jesus.CanCollide = true
+        arenaVoid.CanCollide = true
         jesus.Transparency = .5
         arenaVoid.Transparency = .5
 	    Voidd = true
@@ -850,6 +851,7 @@ if Void == "ON" then
 elseif Void == "OFF" then
     if Voidd then
         jesus.CanCollide = false
+        arenaVoid.CanCollide = false
         jesus.Transparency = 1
         arenaVoid.Transparency = 1
         Voidd = false
@@ -1731,7 +1733,7 @@ end)()
 ----------------------------------------
 -----------------Anti-----------------
 
-spawn(function()
+task.spawn(function()
 while task.wait() do
 
 local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
@@ -1819,14 +1821,14 @@ end
 
 end
 
-wait()
+task.wait()
 end
 end)
 
 -------------------------------
 ---------Other-------------
 
-spawn(function()
+task.spawn(function()
 while task.wait() do
 
 local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
@@ -1906,7 +1908,7 @@ if Pfarmm then
     end
 end
 
-wait()
+task.wait()
 end
 end)
 
