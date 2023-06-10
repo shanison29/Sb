@@ -116,6 +116,14 @@ local TPService = game:GetService("TeleportService")
 local players = game:GetService("Players")
 local localPlayer = players.LocalPlayer
 
+local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+local RootPart = character:FindFirstChild("HumanoidRootPart")
+local Humanoid = character:FindFirstChild("Humanoid")
+local Torso = character:FindFirstChild("Torso")
+local Head = character:FindFirstChild("Head")
+local Entered = character:FindFirstChild("entered")
+
+
 
 --Aura
 local MaxDistance = 20
@@ -1520,9 +1528,9 @@ if Pfarmm then
 			task.wait(.3)
 			fireclickdetector(game.Workspace.Lobby[gloveClickk].ClickDetector)
 			repeat task.wait()
-	        firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-	        firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	        until Entered
+	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+	until localPlayer.Character:FindFirstChild("entered")
 			Humanoid:UnequipTools()
 			RootPart.CFrame = SafeMArena
       elseif Entered and character ~= nil and Humanoid ~= nil and Torso.Transparency == 1 then
@@ -1558,9 +1566,9 @@ if MainA then
 			task.wait(.3)
 			fireclickdetector(game.Workspace.Lobby[gloveClickk].ClickDetector)
 			repeat task.wait()
-	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	until Entered
+	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+	until localPlayer.Character:FindFirstChild("entered")
 			Humanoid:UnequipTools()
 		    RootPart.CFrame = SafeMArena
 			ACTIVE = true
@@ -1592,9 +1600,9 @@ if AltA then
 			task.wait(.3)
 			fireclickdetector(game.Workspace.Lobby[gloveClickk].ClickDetector)
 			repeat task.wait()
-	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	until Entered
+	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+	until localPlayer.Character:FindFirstChild("entered")
 			Humanoid:UnequipTools()
 		    RootPart.CFrame = SafeAArena
 			ACTIVE = true
@@ -1626,9 +1634,9 @@ if MainD then
 			task.wait(.3)
 			fireclickdetector(game.Workspace.Lobby[gloveClickk].ClickDetector)
 			repeat task.wait()
-	firetouchinterest(Head, workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
-	firetouchinterest(Head, workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
-	until Entered
+	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
+	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
+	until localPlayer.Character:FindFirstChild("entered")
 			Humanoid:UnequipTools()
 		    RootPart.CFrame = SafeMDefault
 			ACTIVE = true
@@ -1660,9 +1668,9 @@ if AltD then
 			task.wait(.3)
 			fireclickdetector(game.Workspace.Lobby[gloveClickk].ClickDetector)
 			repeat task.wait()
-	firetouchinterest(Head, workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
-	firetouchinterest(Head, workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
-	until Entered
+	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
+	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
+	until localPlayer.Character:FindFirstChild("entered")
 			Humanoid:UnequipTools()
 		    RootPart.CFrame = SafeADefault
 			ACTIVE = true
@@ -1686,7 +1694,7 @@ local TargetPart = nil
 	if not Entered and character ~= nil and Humanoid ~= nil then
 	repeat task.wait(2)
 			Humanoid:MoveTo(TargetPosition, TargetPart)
-	until Entered
+	until localPlayer.Character:FindFirstChild("entered")
 			vim:SendKeyEvent(true, "E", false, game)
 			task.wait()
 			vim:SendKeyEvent(false, "E", false, game)
@@ -1707,9 +1715,9 @@ if not Entered and character ~= nil and Humanoid ~= nil then
 	task.wait(.3)
 	fireclickdetector(game.Workspace.Lobby[gloveClickk].ClickDetector)
 	repeat task.wait()
-	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	until Entered
+	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+	until localPlayer.Character:FindFirstChild("entered")
 	Humanoid:UnequipTools()
     RootPart.CFrame = SafeMArena
     task.wait(1)
