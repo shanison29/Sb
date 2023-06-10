@@ -166,7 +166,6 @@ local Kaa = false
 
 local Bobb = false
 local Sfarmm = false
-local ASfarmm = false
 local Pfarmm = false
 
 local MainA = false
@@ -374,7 +373,7 @@ end)
 ------------------///TAB 1///--------------------
 
 local DNUMFARM = Tab:AddDropdown({
-Name = "Player Limit to Farm",
+Name = "Player Limit to Pause Ghost Farm",
 Default = 10,
 Options = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14},
 Save = true,
@@ -1363,7 +1362,6 @@ Callback = function()
 	DPFARM:Set("OFF")
     DGFARM:Set("OFF")
     DBOB:Set("OFF")
-    DASFARM:Set("OFF")
     DSFARM:Set("OFF")
     DVOID:Set("OFF")
     DCUBE:Set("OFF")
