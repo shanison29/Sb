@@ -331,13 +331,29 @@ Flag = "ASFARMflag",
 Callback = function(ASfarm)
 
 if ASfarm == "ON" then
-	ASfarmm = true
-	OrionLib:MakeNotification({
+    OrionLib:MakeNotification({
 	Name = "Notice..",
-	Content = "Auto Slapple Farm Enabled..",
+	Content = "You only have 5 secs to cancel Auto Slapple Farm",
 	Image = "rbxassetid://4483345998",
-	Time = 10
+	Time = 6
 	})
+	task.wait(6)
+	    if ASfarm == "ON" then
+	        ASfarmm = true
+	        OrionLib:MakeNotification({
+	        Name = "Notice..",
+	        Content = "Auto Slapple Farm Enabled..",
+	        Image = "rbxassetid://4483345998",
+	        Time = 10
+	        })
+	    elseif ASfarm == "OFF" then
+	        OrionLib:MakeNotification({
+	        Name = "Notice..",
+	        Content = "Auto Slapple Farm was Cancelled..",
+	        Image = "rbxassetid://4483345998",
+	        Time = 5
+	        })
+	    end
 elseif ASfarm == "OFF" then
 	ASfarmm = false
 end
@@ -477,6 +493,16 @@ end
 })
 
 -------------------------------------
+
+
+Tab7:AddButton({
+	Name = "Switch to Main SB Script",
+	Callback = function()
+    OrionLib:Destroy()
+    task.wait(1.5)
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/shanison29/Sb/main/load'))()
+  	end    
+})
 
 Tab3:AddButton({
 	Name = "EXIT GUI",
@@ -628,9 +654,13 @@ end
 
 if Pfarmm then
     if playernum < numtofarm then
-        PAUSE = true
-    else
-        PAUSE = false
+    if not PAUSE then
+    PAUSE = true
+        if not TELEPORTING then
+                TELEPORTING = true
+                Teleport()
+           end
+    end
     end
 end
 
@@ -730,6 +760,25 @@ OrionLib:MakeNotification({
         end)
     end
 end
+
+function TeleportPfarm()
+OrionLib:MakeNotification({
+	Name = "Few Players Detected",
+	Content = "Teleporting. Please Wait....",
+	Image = "rbxassetid://4483345998",
+	Time = 10
+	})
+	task.wait(3)
+    while task.wait() do
+        pcall(function()
+            TPReturner()
+            if foundAnything ~= "" then
+                TPReturner()
+            end
+        end)
+    end
+end
+
 
 function Teleport()
 OrionLib:MakeNotification({
