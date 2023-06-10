@@ -1715,9 +1715,11 @@ if not Entered and character ~= nil and Humanoid ~= nil then
     task.wait(1)
     for i,v in next, workspace.Arena.island5.Slapples:GetDescendants() do
 		if v.ClassName == "TouchTransmitter" then
+		pcall(function()
             firetouchinterest(Head, v.Parent, 0)
 			firetouchinterest(Head, v.Parent, 1)
             task.wait(0.05)
+        end)
             if not TELEPORTING then
                 Teleportslapple()
                 TELEPORTING = true
@@ -1733,9 +1735,11 @@ if Sfarmm then
 	if Entered then
 		for i,v in next, workspace.Arena.island5.Slapples:GetDescendants() do
 		    if v.ClassName == "TouchTransmitter" then
+		    pcall(function()
 			firetouchinterest(Head, v.Parent, 0)
 			firetouchinterest(Head, v.Parent, 1)
 			task.wait(0.05)
+			end)
 			end
 		end
 	end
