@@ -490,16 +490,16 @@ local RootPart = character:FindFirstChild("HumanoidRootPart")
 local Humanoid = character:FindFirstChild("Humanoid")
 local Torso = character:FindFirstChild("Torso")
 local Head = character:FindFirstChild("Head")
-local IsInArena = character:FindFirstChild("isInArena")
+local Entered = character:FindFirstChild("entered")
 
 
 --------------------------
 
 if Pfarmm then
     if not PAUSE then
-      if character ~= nil and Humanoid ~= nil and IsInArena.Value == true and Torso.Transparency == 0 then
+      if character ~= nil and Humanoid ~= nil and Entered and Torso.Transparency == 0 then
             Humanoid.Health = 0
-      elseif character ~= nil and Humanoid ~= nil and IsInArena.Value == false then
+      elseif character ~= nil and Humanoid ~= nil and not Entered then
             workspace.DEATHBARRIER.CanTouch = false
             workspace.DEATHBARRIER2.CanTouch = false
             workspace.dedBarrier.CanTouch = false
@@ -514,10 +514,10 @@ if Pfarmm then
 			repeat task.wait()
 	        firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 	        firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	        until IsInArena.Value == true
+	        until Entered
 			Humanoid:UnequipTools()
 			RootPart.CFrame = SafeMArena
-      elseif IsInArena.Value == true and character ~= nil and Humanoid ~= nil and Torso.Transparency == 1 then
+      elseif Entered and character ~= nil and Humanoid ~= nil and Torso.Transparency == 1 then
                for i, v in next, players:GetPlayers() do
                       if v ~= localPlayer and v.Character and not v.Character:FindFirstChild("isParticipating") and v.Character:FindFirstChild("Torso") and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("entered") and v.Character.Head:FindFirstChild("UnoReverseCard") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
                                   RootPart.CFrame = v.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
@@ -537,7 +537,7 @@ end
 ---------------------------------
 
 if ASfarmm then
-if IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
+if not Entered and character ~= nil and Humanoid ~= nil then
     task.wait(3)
 	local gloveClickk = localPlayer.leaderstats.Glove.Value
 	fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
@@ -548,7 +548,7 @@ if IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
 	repeat task.wait()
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	until IsInArena.Value == true
+	until Entered
 	Humanoid:UnequipTools()
     RootPart.CFrame = SafeMArena
     task.wait(1)
@@ -578,7 +578,7 @@ local Humanoid = character:FindFirstChild("Humanoid")
 local RootPart = character:FindFirstChild("HumanoidRootPart")
 local Torso = character:FindFirstChild("Torso")
 local Head = character:FindFirstChild("Head")
-local IsInArena = character:FindFirstChild("isInArena")
+local Entered = character:FindFirstChild("entered")
 
 ----------Hide Name-------
 
@@ -609,7 +609,7 @@ end
 
 -------------Auto Reset------------
 
-if ALIVE and PAUSE and character ~= nil and Humanoid ~= nil and IsInArena.Value == true then
+if ALIVE and PAUSE and character ~= nil and Humanoid ~= nil and Entered then
 		Humanoid.Health = 0
 end
 
