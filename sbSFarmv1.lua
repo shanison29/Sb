@@ -292,7 +292,7 @@ end)
 ------------------///TAB 1///--------------------
 
 local DNUMFARM = Tab:AddDropdown({
-Name = "Player Limit to Farm",
+Name = "Player Limit to Server Hop",
 Default = 10,
 Options = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14},
 Save = true,
@@ -495,7 +495,7 @@ end
 -------------------------------------
 
 
-Tab7:AddButton({
+Tab3:AddButton({
 	Name = "Switch to Main SB Script",
 	Callback = function()
     OrionLib:Destroy()
