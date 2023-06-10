@@ -548,8 +548,12 @@ Callback = function(Bob)
 
 if Bob == "ON" then
     if not Bobb then
+        if localPlayer.Character:FindFirstChild("entered") then
 	    localPlayer.Character.Humanoid.Health = 0
 	    Bobb = true
+	    else
+	    Bobb = true
+	    end
 	end
 elseif Bob == "OFF" then
     if Bobb then
@@ -615,13 +619,17 @@ end
 
 ------------------///TAB 2///--------------------
 
+
+
 Tab2:AddButton({
 Name = "TP to SafeBox (Arena)",
 Callback = function()
 
 if not localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:WaitForChild("HumanoidRootPart") then
+repeat task.wait()
 firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until localPlayer.Character:FindFirstChild("entered")
 task.wait()
 localPlayer.Character.Humanoid:UnequipTools()
 task.wait()
@@ -638,8 +646,10 @@ Name = "TP to SafeBox (Default Arena)",
 Callback = function()
 
 if not localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:WaitForChild("HumanoidRootPart") then
+repeat task.wait()
 firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
 firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
+until localPlayer.Character:FindFirstChild("entered")
 task.wait()
 localPlayer.Character.Humanoid:UnequipTools()
 task.wait()
@@ -656,8 +666,10 @@ Name = "TP to Plate",
 Callback = function()
 
 if not localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:WaitForChild("HumanoidRootPart") then
+repeat task.wait()
 firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until localPlayer.Character:FindFirstChild("entered")
 task.wait()
 game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
 task.wait()	
@@ -674,8 +686,10 @@ Name = "TP to Rock (Arena)",
 Callback = function()
 
 if not localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:WaitForChild("HumanoidRootPart") then
+repeat task.wait()
 firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until localPlayer.Character:FindFirstChild("entered")
 task.wait()
 localPlayer.Character.Humanoid:UnequipTools()
 task.wait()
@@ -692,8 +706,10 @@ Name = "TP to Moai(Tree Top)",
 Callback = function()
 
 if not localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:WaitForChild("HumanoidRootPart") then
+repeat task.wait()
 firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until localPlayer.Character:FindFirstChild("entered")
 task.wait()
 localPlayer.Character.Humanoid:UnequipTools()
 task.wait()
@@ -710,8 +726,10 @@ Name = "TP to Slapple(Tree Top)",
 Callback = function()
 
 if not localPlayer.Character:FindFirstChild("entered") and localPlayer.Character:WaitForChild("HumanoidRootPart") then
+repeat task.wait()
 firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until localPlayer.Character:FindFirstChild("entered")
 task.wait()
 localPlayer.Character.Humanoid:UnequipTools()
 task.wait()
@@ -775,7 +793,7 @@ if GMODEA == "ON" then
 	repeat task.wait()
 	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	until localPlayer.Character:WaitForChild("isInArena").Value == true
+	until localPlayer.Character:FindFirstChild("entered")
 	localPlayer.Character.Humanoid:UnequipTools()
 	localPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
 	OrionLib.Flags["GMODEAflag"]:Set("OFF")
@@ -814,7 +832,7 @@ if GMODED == "ON" then
 	repeat task.wait()
 	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
 	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
-	until localPlayer.Character:WaitForChild("isInArena").Value == true
+	until localPlayer.Character:FindFirstChild("entered")
 	localPlayer.Character.Humanoid:UnequipTools()
 	OrionLib.Flags["GMODEDflag"]:Set("OFF")
     else
@@ -1481,15 +1499,15 @@ local RootPart = character:FindFirstChild("HumanoidRootPart")
 local Humanoid = character:FindFirstChild("Humanoid")
 local Torso = character:FindFirstChild("Torso")
 local Head = character:FindFirstChild("Head")
-local IsInArena = character:FindFirstChild("isInArena")
+local Entered = character:FindFirstChild("entered")
 
 --------------------------
 
 if Pfarmm then
     if not PAUSE then
-      if character ~= nil and Humanoid ~= nil and IsInArena.Value == true and Torso.Transparency == 0 then
+      if character ~= nil and Humanoid ~= nil and Entered and Torso.Transparency == 0 then
             Humanoid.Health = 0
-      elseif character ~= nil and Humanoid ~= nil and IsInArena.Value == false then
+      elseif character ~= nil and Humanoid ~= nil and not Entered then
             workspace.DEATHBARRIER.CanTouch = false
             workspace.DEATHBARRIER2.CanTouch = false
             workspace.dedBarrier.CanTouch = false
@@ -1504,10 +1522,10 @@ if Pfarmm then
 			repeat task.wait()
 	        firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 	        firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	        until IsInArena.Value == true
+	        until Entered
 			Humanoid:UnequipTools()
 			RootPart.CFrame = SafeMArena
-      elseif IsInArena.Value == true and character ~= nil and Humanoid ~= nil and Torso.Transparency == 1 then
+      elseif Entered and character ~= nil and Humanoid ~= nil and Torso.Transparency == 1 then
                for i, v in next, players:GetPlayers() do
                       if v ~= localPlayer and v.Character and not v.Character:FindFirstChild("isParticipating") and v.Character:FindFirstChild("Torso") and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("entered") and v.Character.Head:FindFirstChild("UnoReverseCard") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
                                   RootPart.CFrame = v.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
@@ -1528,9 +1546,9 @@ end
 
 if MainA then
 	if not PAUSE then
-		if not ACTIVE and IsInArena.Value == true and character ~= nil and Humanoid ~= nil and Torso.Transparency == 0 then
+		if not ACTIVE and Entered and character ~= nil and Humanoid ~= nil and Torso.Transparency == 0 then
 			Humanoid.Health = 0
-		elseif IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
+		elseif not Entered and character ~= nil and Humanoid ~= nil then
             task.wait(1)
 			local gloveClickk = localPlayer.leaderstats.Glove.Value
 			task.wait(.3)
@@ -1542,11 +1560,11 @@ if MainA then
 			repeat task.wait()
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	until IsInArena.Value == true
+	until Entered
 			Humanoid:UnequipTools()
 		    RootPart.CFrame = SafeMArena
 			ACTIVE = true
-		elseif IsInArena.Value == true and Torso.Transparency == 1 and character ~= nil and Humanoid ~= nil then
+		elseif Entered and Torso.Transparency == 1 and character ~= nil and Humanoid ~= nil then
 		    ACTIVE = true
 			repeat
 			RootPart.CFrame = SafeMArena
@@ -1562,9 +1580,9 @@ end
 
 if AltA then
 	if not PAUSE then
-		if not ACTIVE and IsInArena.Value == true and character ~= nil and Humanoid ~= nil and Torso.Transparency == 0 then
+		if not ACTIVE and Entered and character ~= nil and Humanoid ~= nil and Torso.Transparency == 0 then
 			Humanoid.Health = 0
-		elseif IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
+		elseif not Entered and character ~= nil and Humanoid ~= nil then
             task.wait(1)
 			local gloveClickk = localPlayer.leaderstats.Glove.Value
 			task.wait(.3)
@@ -1576,11 +1594,11 @@ if AltA then
 			repeat task.wait()
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	until IsInArena.Value == true
+	until Entered
 			Humanoid:UnequipTools()
 		    RootPart.CFrame = SafeAArena
 			ACTIVE = true
-		elseif IsInArena.Value == true and Torso.Transparency == 1 and character ~= nil and Humanoid ~= nil then
+		elseif Entered and Torso.Transparency == 1 and character ~= nil and Humanoid ~= nil then
 		    ACTIVE = true
 			repeat
 			RootPart.CFrame = SafeAArena
@@ -1596,9 +1614,9 @@ end
 
 if MainD then
 	if not PAUSE then
-		if not ACTIVE and IsInArena.Value == true and character ~= nil and Humanoid ~= nil and Torso.Transparency == 0 then
+		if not ACTIVE and Entered and character ~= nil and Humanoid ~= nil and Torso.Transparency == 0 then
 			Humanoid.Health = 0
-		elseif IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
+		elseif not Entered and character ~= nil and Humanoid ~= nil then
             task.wait(1)
 			local gloveClickk = localPlayer.leaderstats.Glove.Value
 			task.wait(.3)
@@ -1610,11 +1628,11 @@ if MainD then
 			repeat task.wait()
 	firetouchinterest(Head, workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
 	firetouchinterest(Head, workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
-	until IsInArena.Value == true
+	until Entered
 			Humanoid:UnequipTools()
 		    RootPart.CFrame = SafeMDefault
 			ACTIVE = true
-		elseif IsInArena.Value == true and Torso.Transparency == 1 and character ~= nil and Humanoid ~= nil then
+		elseif Entered and Torso.Transparency == 1 and character ~= nil and Humanoid ~= nil then
 		    ACTIVE = true
 			repeat
 			RootPart.CFrame = SafeMDefault
@@ -1630,9 +1648,9 @@ end
 
 if AltD then
 	if not PAUSE then
-		if not ACTIVE and IsInArena.Value == true and character ~= nil and Humanoid ~= nil and Torso.Transparency == 0 then
+		if not ACTIVE and Entered and character ~= nil and Humanoid ~= nil and Torso.Transparency == 0 then
 			Humanoid.Health = 0
-		elseif IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
+		elseif not Entered and character ~= nil and Humanoid ~= nil then
             task.wait(1)
 			local gloveClickk = localPlayer.leaderstats.Glove.Value
 			task.wait(.3)
@@ -1644,11 +1662,11 @@ if AltD then
 			repeat task.wait()
 	firetouchinterest(Head, workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
 	firetouchinterest(Head, workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
-	until IsInArena.Value == true
+	until Entered
 			Humanoid:UnequipTools()
 		    RootPart.CFrame = SafeADefault
 			ACTIVE = true
-		elseif IsInArena.Value == true and Torso.Transparency == 1 and character ~= nil and Humanoid ~= nil then
+		elseif Entered and Torso.Transparency == 1 and character ~= nil and Humanoid ~= nil then
 		    ACTIVE = true
 			repeat
 			RootPart.CFrame = SafeADefault
@@ -1665,10 +1683,10 @@ end
 if Bobb then
 local TargetPosition = Vector3.new(-565, 328, 3)
 local TargetPart = nil
-	if IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
+	if not Entered and character ~= nil and Humanoid ~= nil then
 	repeat task.wait(2)
 			Humanoid:MoveTo(TargetPosition, TargetPart)
-	until IsInArena.Value == true
+	until Entered
 			vim:SendKeyEvent(true, "E", false, game)
 			task.wait()
 			vim:SendKeyEvent(false, "E", false, game)
@@ -1680,7 +1698,7 @@ end
 ---------------------------------
 
 if ASfarmm then
-if IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
+if not Entered and character ~= nil and Humanoid ~= nil then
     task.wait(3)
 	local gloveClickk = localPlayer.leaderstats.Glove.Value
 	fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
@@ -1691,7 +1709,7 @@ if IsInArena.Value == false and character ~= nil and Humanoid ~= nil then
 	repeat task.wait()
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 	firetouchinterest(Head, workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	until IsInArena.Value == true
+	until Entered
 	Humanoid:UnequipTools()
     RootPart.CFrame = SafeMArena
     task.wait(1)
@@ -1712,7 +1730,7 @@ end
 ----------------------------------
 
 if Sfarmm then
-	if IsInArena.Value == true then
+	if Entered then
 		for i,v in next, workspace.Arena.island5.Slapples:GetDescendants() do
 		    if v.ClassName == "TouchTransmitter" then
 			firetouchinterest(Head, v.Parent, 0)
@@ -1741,10 +1759,10 @@ local Humanoid = character:FindFirstChild("Humanoid")
 local RootPart = character:FindFirstChild("HumanoidRootPart")
 local Torso = character:FindFirstChild("Torso")
 local Head = character:FindFirstChild("Head")
-local IsInArena = character:FindFirstChild("isInArena")
+local Entered = character:FindFirstChild("entered")
 
 
-if IsInArena.Value == true and character ~= nil and Humanoid ~= nil then
+if Entered and character ~= nil and Humanoid ~= nil then
 
 if Antizaa then
 	for i,v in pairs(game.Workspace:GetChildren()) do
@@ -1836,7 +1854,7 @@ local Humanoid = character:FindFirstChild("Humanoid")
 local RootPart = character:FindFirstChild("HumanoidRootPart")
 local Torso = character:FindFirstChild("Torso")
 local Head = character:FindFirstChild("Head")
-local IsInArena = character:FindFirstChild("isInArena")
+local Entered = character:FindFirstChild("entered")
 
 ----------Hide Name-------
 
@@ -1867,13 +1885,13 @@ end
 
 -------------Auto Reset------------
 
-if ALIVE and PAUSE and character ~= nil and Humanoid ~= nil and IsInArena.Value == true then
+if ALIVE and PAUSE and character ~= nil and Humanoid ~= nil and Entered then
 		Humanoid.Health = 0
 end
 
 -------------Auto Pause------------
 
-if Astopp and ACTIVE and IsInArena.Value == true and character ~= nil and Humanoid ~= nil then
+if Astopp and ACTIVE and Entered and character ~= nil and Humanoid ~= nil then
 	for i,v in pairs(players:GetPlayers()) do
 			if v ~= localPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not table.find(Myself, v.Name) then
 				if (v.Character.HumanoidRootPart.Position - RootPart.Position).Magnitude <= 90 then
