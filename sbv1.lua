@@ -597,32 +597,7 @@ end
 
 --------------------------------------
 
-local DASFARM = Tab:AddDropdown({
-Name = "Auto Slapple Farm / Hopper",
-Default = "OFF",
-Save = true,
-Options = {"OFF", "ON"},
-Flag = "ASFARMflag",
-Callback = function(ASfarm)
 
-if ASfarm == "ON" then
-    if not ASfarmm then
-	    OrionLib:MakeNotification({
-	    Name = "Notice..",
-	    Content = "Auto Slapple Farm Enabled..",
-	    Image = "rbxassetid://4483345998",
-	    Time = 10
-	    })
-	    ASfarmm = true
-	end
-elseif ASfarm == "OFF" then
-    if ASfarmm then
-	    ASfarmm = false
-	end
-end
-
-end
-})
 
 
 ------------------///TAB 2///--------------------
@@ -1488,6 +1463,16 @@ end
 -------------------------------------
 
 Tab7:AddButton({
+	Name = "Switch to Auto Server Hop Farm",
+	Callback = function()
+    OrionLib:Destroy()
+    task.wait(1.5)
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/shanison29/Sb/main/sbSFarmv1.lua'))()
+  	end    
+})
+
+
+Tab7:AddButton({
 	Name = "EXIT GUI",
 	Callback = function()
     OrionLib:Destroy()
@@ -1703,39 +1688,6 @@ local TargetPart = nil
 	end
 end
 
----------------------------------
-
-if ASfarmm then
-if not Entered and character ~= nil and Humanoid ~= nil then
-    task.wait(3)
-	local gloveClickk = localPlayer.leaderstats.Glove.Value
-	fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
-	task.wait(.3)
-	ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-	task.wait(.3)
-	fireclickdetector(game.Workspace.Lobby[gloveClickk].ClickDetector)
-	repeat task.wait()
-	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-	firetouchinterest(localPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-	until localPlayer.Character:FindFirstChild("entered")
-	Humanoid:UnequipTools()
-    RootPart.CFrame = SafeMArena
-    task.wait(1)
-    for i,v in next, workspace.Arena.island5.Slapples:GetDescendants() do
-		if v.ClassName == "TouchTransmitter" then
-		pcall(function()
-            firetouchinterest(Head, v.Parent, 0)
-			firetouchinterest(Head, v.Parent, 1)
-            task.wait(0.05)
-        end)
-            if not TELEPORTING then
-                Teleportslapple()
-                TELEPORTING = true
-            end
-         end
-     end
-end
-end
 
 ----------------------------------
 
@@ -1932,9 +1884,13 @@ end
 
 if Pfarmm then
     if playernum < numtofarm then
-        PAUSE = true
+        if not PAUSE then
+            PAUSE = true
+        end
     else
-        PAUSE = false
+        if PAUSE then
+            PAUSE = false
+        end
     end
 end
 
