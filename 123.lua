@@ -9,4 +9,5 @@ if game.PlaceId == 14500026273 or game.PlaceId == 12616541908 then
     print ("King Of Sea")
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Omgshit/Scripts/main/Protected_6492555543911696.lua.txt"))()
 else
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Omgshit/Scripts/main/Protected_6492555543911696.lua.txt"))()
 end
