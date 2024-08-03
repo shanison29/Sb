@@ -257,24 +257,7 @@ end
 
 ---------------Player Count on GUI-------------
 
-local countdisplay = Tab:AddLabel("-- Player Count:  "..tostring(playernum + 1).."  --")
 
-for i,v in pairs(players:GetChildren())do 
-    if v ~= localPlayer then 
-        playernum = playernum + 1
-		countdisplay:Set("-- Player Count:  "..tostring(playernum).."  --")
-    end
-end
-
-players.PlayerAdded:Connect(function()
-   playernum = playernum + 1
-   countdisplay:Set("-- Player Count:  "..tostring(playernum).."  --")
-end)
-
-players.PlayerRemoving:Connect(function()
-    playernum = playernum - 1
-	countdisplay:Set("-- Player Count:  "..tostring(playernum).."  --")
-end)
 
 -----------------Player Respawn and Died------------------
 
